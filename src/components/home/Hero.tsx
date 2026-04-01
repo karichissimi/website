@@ -66,16 +66,16 @@ export default function HomeHero() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <a
-              href="#come-funziona"
+              href="/funding"
               className="group relative bg-green-primary text-bg-dark font-bold px-8 py-4 rounded-lg uppercase tracking-wider text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
             >
-              <span className="relative z-10">Scopri come funziona</span>
+              <span className="relative z-10">Investi in Karica →</span>
             </a>
             <a
-              href="/funding"
-              className="border border-card-border text-text-secondary font-semibold px-8 py-4 rounded-lg text-base hover:border-green-primary/50 hover:text-green-primary transition-all hover:shadow-[0_0_20px_rgba(57,255,20,0.1)]"
+              href="#come-funziona"
+              className="border border-cyan-accent/40 text-cyan-accent font-semibold px-8 py-4 rounded-lg text-base hover:border-cyan-accent hover:bg-cyan-accent/5 transition-all"
             >
-              Sei un investitore?
+              Scopri come funziona
             </a>
           </motion.div>
         </motion.div>
