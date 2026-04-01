@@ -26,6 +26,15 @@ export const metadata: Metadata = {
   },
   description:
     "Karica ti mostra quanto sprechi, cosa fare per risparmiare e ti guida passo passo. Diagnosi, interventi, finanziamenti e Comunità Energetiche in un unico ecosistema.",
+  icons: {
+    icon: [
+      { url: "/graphics/favicon/favicon.ico", sizes: "any" },
+      { url: "/graphics/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/graphics/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: "/graphics/favicon/apple-touch-icon.png",
+  },
+  manifest: "/graphics/favicon/site.webmanifest",
   openGraph: {
     title: "Karica — L'energia di casa tua, finalmente chiara",
     description:
