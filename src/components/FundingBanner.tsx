@@ -18,18 +18,10 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
         href="/funding"
         className="block bg-bg-darker border-b border-pink-accent/20 hover:bg-bg-darker transition-all"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center gap-3 text-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-accent opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-accent" />
-          </span>
-          <span className="text-text-secondary">
-            <span className="text-pink-accent font-bold">€150.000 già raccolti</span>
-            {" "}— restano €350.000
-          </span>
-          <span className="text-pink-accent font-semibold hidden sm:inline">
-            Investi ora →
-          </span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex items-center justify-center gap-2 text-xs">
+          <span className="relative flex h-1.5 w-1.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-accent opacity-75" /><span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-pink-accent" /></span>
+          <span className="text-text-secondary"><span className="text-pink-accent font-bold">€150k raccolti</span> — restano €350k</span>
+          <span className="text-pink-accent font-semibold hidden sm:inline">→</span>
         </div>
       </a>
     );
