@@ -116,7 +116,7 @@ body {
 /* ── Float animation ── */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(10px); }
 }
 
 .animate-float {
@@ -187,4 +187,45 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #39FF14;
+}
+
+/* ── Legal pages typography ── */
+.prose-legal h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+.prose-legal h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #C8D0E0;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p {
+  color: #C8D0E0;
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+.prose-legal ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  color: #C8D0E0;
+  margin-bottom: 0.75rem;
+}
+.prose-legal ul li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+.prose-legal strong {
+  color: #FFFFFF;
+}
+.legal-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #2A3357;
+}
+.legal-section:last-child {
+  border-bottom: none;
 }

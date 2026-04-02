@@ -46,6 +46,19 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
         </div>
 
         <div className="border-t border-card-border pt-6 space-y-2 text-center">
+          <div className="flex items-center justify-center gap-4 text-[11px] text-text-muted mb-2">
+            <Link href="/privacy-policy" className="hover:text-text-secondary transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-text-disabled">|</span>
+            <Link href="/cookie-policy" className="hover:text-text-secondary transition-colors">
+              Cookie Policy
+            </Link>
+            <span className="text-text-disabled">|</span>
+            <Link href="/note-legali" className="hover:text-text-secondary transition-colors">
+              Note Legali
+            </Link>
+          </div>
           <p className="text-text-disabled text-xs">
             &copy; {new Date().getFullYear()} Karica S.r.l. — Via Vallarsa 11, Milano — P.IVA 14470800963 — Startup Innovativa
           </p>
