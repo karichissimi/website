@@ -12,61 +12,38 @@ function confirmationEmail(name: string) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"></head>
-<body style="margin: 0; padding: 0; background-color: #0F1320; font-family: 'Avant Garde', 'Avenir', 'Helvetica Neue', sans-serif;">
-  <div style="max-width: 520px; margin: 0 auto; padding: 40px 24px;">
+<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+  <div style="max-width: 480px; margin: 0 auto; padding: 40px 20px;">
+    <div style="background-color: #ffffff; border-radius: 8px; padding: 40px 32px;">
 
-    <!-- Logo -->
-    <div style="text-align: center; margin-bottom: 32px;">
-      <img src="https://karica.it/graphics/Karica_Logo_Felice.png" alt="Karica" width="48" height="48" style="display: inline-block;" />
-    </div>
+      <img src="https://karica.it/graphics/Karica_Scritta_BLU.png" alt="Karica" height="28" style="display: block; margin-bottom: 32px;" />
 
-    <!-- Main card -->
-    <div style="background-color: #1E2540; border: 1px solid #2A3357; border-radius: 16px; padding: 32px;">
-
-      <p style="color: #C8D0E0; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
+      <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 16px;">
         ${greeting}
       </p>
 
-      <p style="color: #C8D0E0; font-size: 16px; line-height: 1.6; margin: 0 0 16px;">
-        grazie per il tuo interesse in <strong style="color: #FFFFFF;">Karica</strong>.
-        Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo
-        nelle prossime ore.
+      <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 16px;">
+        grazie per il tuo interesse in Karica. Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo nelle prossime ore.
       </p>
 
-      <p style="color: #C8D0E0; font-size: 16px; line-height: 1.6; margin: 0 0 24px;">
-        Nel frattempo, se hai domande, rispondi direttamente a questa email.
-        Saremo felici di parlarne.
+      <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 32px;">
+        Se hai domande, rispondi direttamente a questa email.
       </p>
 
-      <!-- Divider -->
-      <div style="height: 1px; background: linear-gradient(90deg, #39FF14, #00D4D4, #FF4D6D); opacity: 0.3; margin: 24px 0;"></div>
-
-      <!-- Share -->
-      <p style="color: #8892A4; font-size: 13px; line-height: 1.5; margin: 0 0 12px;">
-        Conosci qualcuno che potrebbe essere interessato?
-      </p>
-
-      <p style="color: #C8D0E0; font-size: 14px; line-height: 1.6; margin: 0 0 20px;">
-        Condividi questa opportunità — il round è aperto e
-        i posti a queste condizioni sono limitati.
-      </p>
-
-      <div style="text-align: center;">
-        <a href="https://karica.it/funding"
-           style="display: inline-block; background-color: #39FF14; color: #161B2E; font-weight: 700; font-size: 13px; text-decoration: none; padding: 12px 28px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
-          Condividi karica.it/funding
+      <div style="border-top: 1px solid #eee; padding-top: 24px; margin-top: 8px;">
+        <p style="color: #888; font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
+          Conosci qualcuno a cui potrebbe interessare? Condividi il link:
+        </p>
+        <a href="https://karica.it/funding" style="color: #1a7a3a; font-size: 13px; font-weight: 600; text-decoration: none;">
+          karica.it/funding &rarr;
         </a>
       </div>
+
     </div>
 
-    <!-- Footer -->
-    <div style="text-align: center; margin-top: 32px;">
-      <p style="color: #4A5270; font-size: 11px; line-height: 1.5; margin: 0;">
-        Karica S.r.l. — Startup Innovativa<br>
-        Via Vallarsa 11, Milano — P.IVA 14470800963
-      </p>
-    </div>
-
+    <p style="color: #aaa; font-size: 11px; line-height: 1.5; margin: 24px 0 0; text-align: center;">
+      Karica S.r.l. — Startup Innovativa — Milano
+    </p>
   </div>
 </body>
 </html>`;
