@@ -50,7 +50,7 @@ export default function DueAtti() {
               <p className="text-sm text-text-secondary leading-relaxed mb-6">
                 Ambiente controllato. Entraco porta 5.000 clienti reali, ENERBee
                 esegue i lavori. Validiamo il modello, dimostriamo che funziona.
-                EBITDA positivo dal primo anno. Zero marketing.
+                EBITDA positivo dal primo anno. Fee al 10-12% — Karica genera lead e consulenza base.
               </p>
               <p className="text-xs text-text-muted italic border-t border-card-border/50 pt-4">
                 Come Airbnb: prima una citt&agrave;, poi il mondo.
@@ -78,8 +78,8 @@ export default function DueAtti() {
               </p>
               <p className="text-sm text-text-secondary leading-relaxed mb-6">
                 Si scala. La Karica Academy costruisce la rete di partner
-                certificati. Le Digital Operations automatizzano il processo. Il
-                performance marketing accende la domanda consumer.
+                certificati. Le Digital Operations automatizzano il processo. La
+                fee sale al 15-20% perch&eacute; Karica gestisce l&apos;intero percorso end-to-end.
               </p>
               <p className="text-xs text-text-muted italic border-t border-card-border/50 pt-4">
                 Si entra nell&apos;Atto 2 solo con le metriche validate.

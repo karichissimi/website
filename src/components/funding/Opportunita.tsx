@@ -50,8 +50,8 @@ export default function Opportunita() {
             },
             {
               icon: TrendingUp,
-              title: "10 fonti di ricavo",
-              text: "3 pillar Core (interventi, switch energia, finanziamenti) + 7 di supporto. Revenue diversificata dal primo anno.",
+              title: "Fee progressiva 10→20%",
+              text: "La fee cresce con il valore che Karica aggiunge: dal 10% (lead generation) al 20% (processo end-to-end). Più facciamo, più tratteniamo. 3 pillar Core + 7 di supporto.",
             },
           ].map((card) => (
             <div
@@ -95,7 +95,7 @@ export default function Opportunita() {
               <p className="text-text-muted text-xs font-semibold uppercase tracking-wide">3 Pillar Core</p>
               <div className="grid sm:grid-cols-3 gap-3">
                 {[
-                  { name: "Interventi", fee: "10% fee su GMV lavori", desc: "Fee su ogni lavoro completato tramite la piattaforma" },
+                  { name: "Interventi", fee: "10-20% progressiva su GMV", desc: "Fee crescente dal 10% al 20% in base al valore aggiunto" },
                   { name: "Switch Energia", fee: "€50 bounty + €5/mese trailing", desc: "Commissione sul cambio fornitore energia" },
                   { name: "Finanziamenti", fee: "3% + 0.3%/anno trailing", desc: "Origination prestiti green tramite partner bancari" },
                 ].map((p) => (

@@ -8,12 +8,11 @@ const piano = [
   { label: "Utenti attivi", y1: "5.000", y2: "17.250", y3: "33.250", y4: "51.750", y5: "72.750" },
   { label: "Clienti White Label", y1: "1", y2: "3", y3: "5", y4: "7", y5: "9" },
   { label: "Lavori chiusi", y1: "100", y2: "345", y3: "665", y4: "1.035", y5: "1.455" },
-  { label: "Partner esecuzione", y1: "2", y2: "4", y3: "8", y4: "14", y5: "22" },
-  { label: "FTE", y1: "5", y2: "9", y3: "17", y4: "22", y5: "27" },
-  { label: "Ricavi", y1: "€242k", y2: "€993k", y3: "€1,77M", y4: "€2,69M", y5: "€3,79M", highlight: true },
-  { label: "EBITDA", y1: "€44k", y2: "€419k", y3: "€405k", y4: "€764k", y5: "€1,19M", highlight: true },
-  { label: "EBITDA %", y1: "18%", y2: "42%", y3: "23%", y4: "28%", y5: "31%" },
-  { label: "Cassa cumulata", y1: "€534k", y2: "€923k", y3: "€2,72M", y4: "€3,38M", y5: "€4,42M" },
+  { label: "Fee Karica su GMV", y1: "10%", y2: "12%", y3: "15%", y4: "18%", y5: "20%", highlight: true },
+  { label: "Ricavi", y1: "€262k", y2: "€1,15M", y3: "€2,36M", y4: "€3,76M", y5: "€5,29M", highlight: true },
+  { label: "EBITDA", y1: "€36k", y2: "€527k", y3: "€740k", y4: "€1,53M", y5: "€2,33M", highlight: true },
+  { label: "EBITDA %", y1: "14%", y2: "46%", y3: "31%", y4: "41%", y5: "44%" },
+  { label: "Cassa cumulata", y1: "€527k", y2: "€897k", y3: "€2,84M", y4: "€3,80M", y5: "€5,38M" },
 ];
 
 export default function Numeri() {
@@ -46,9 +45,9 @@ export default function Numeri() {
           className="grid grid-cols-3 gap-4 mb-10"
         >
           {[
-            { prefix: "€", target: 3.79, suffix: "M", label: "Ricavi 2030", sub: "da €242k nel 2026", decimals: 2 },
-            { prefix: "", target: 31, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
-            { prefix: "€", target: 4.4, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 1 },
+            { prefix: "€", target: 5.29, suffix: "M", label: "Ricavi 2030", sub: "da €262k nel 2026", decimals: 2 },
+            { prefix: "", target: 44, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
+            { prefix: "€", target: 5.4, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 1 },
           ].map((kpi) => (
             <div
               key={kpi.label}

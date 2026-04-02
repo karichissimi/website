@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 
 const scenari = [
-  { label: "Floor garantito", sublabel: "24 mesi, qualsiasi scenario", value: "€583k", multiplo: "1,17x", irr: "8%", highlight: false, pct: 14, barColor: "bg-text-muted/40" },
-  { label: "Stress test", sublabel: "−30% su tutti i driver", value: "€1,34M", multiplo: "2,7x", irr: "~22%", highlight: false, pct: 30, barColor: "bg-cyan-accent/40" },
-  { label: "Conservativo", sublabel: "Exit 3x ricavi", value: "€1,91M", multiplo: "3,8x", irr: "~31%", highlight: false, pct: 45, barColor: "bg-cyan-accent/60" },
-  { label: "Scenario base", sublabel: "Exit 5x ricavi", value: "€3,19M", multiplo: "6,4x", irr: "~45%", highlight: true, pct: 75, barColor: "bg-gradient-to-r from-green-primary to-cyan-accent" },
-  { label: "Ottimistico", sublabel: "Exit 12x EBITDA", value: "€2,40M", multiplo: "4,8x", irr: "~37%", highlight: false, pct: 55, barColor: "bg-gradient-to-r from-green-primary via-cyan-accent to-pink-accent" },
+  { label: "Floor garantito", sublabel: "24 mesi, qualsiasi scenario", value: "€583k", multiplo: "1,17x", irr: "8%", highlight: false, pct: 7, barColor: "bg-text-muted/40" },
+  { label: "Stress test", sublabel: "−30% su tutti i driver", value: "€1,85M", multiplo: "3,7x", irr: "~30%", highlight: false, pct: 22, barColor: "bg-cyan-accent/40" },
+  { label: "Conservativo", sublabel: "Exit 3x ricavi", value: "€2,67M", multiplo: "5,3x", irr: "~40%", highlight: false, pct: 32, barColor: "bg-cyan-accent/60" },
+  { label: "Scenario base", sublabel: "Exit 5x ricavi", value: "€4,45M", multiplo: "8,9x", irr: "~55%", highlight: true, pct: 53, barColor: "bg-gradient-to-r from-green-primary to-cyan-accent" },
+  { label: "Ottimistico", sublabel: "Exit 12x EBITDA", value: "€4,70M", multiplo: "9,4x", irr: "~57%", highlight: false, pct: 56, barColor: "bg-gradient-to-r from-green-primary via-cyan-accent to-pink-accent" },
 ];
 
 export default function Rendimenti() {
@@ -50,7 +50,7 @@ export default function Rendimenti() {
         </div>
 
         <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.5 }} className="text-center text-text-muted text-xs mt-6 max-w-xl mx-auto">
-          Diluzione Series A (16,8%) inclusa. I numeri riflettono il piano 2026-2030 aggiornato.
+          Diluzione Series A (16,8%) inclusa. Piano con fee progressiva 10→20%.
         </motion.p>
       </div>
     </section>
