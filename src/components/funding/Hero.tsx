@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowDown, Shield } from "lucide-react";
 import Counter from "../Counter";
 import KpiModal from "../KpiModal";
+import FundingBanner from "../FundingBanner";
 
 const kpis = [
   {
@@ -133,12 +134,22 @@ export default function Hero() {
             ))}
           </motion.div>
 
+          {/* Funding progress — FOMO */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.65 }}
+            className="mb-8"
+          >
+            <FundingBanner />
+          </motion.div>
+
           {/* Floor guarantee callout */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="inline-flex items-center gap-2 bg-green-primary/10 border border-green-primary/20 rounded-full px-5 py-2.5 mb-10 hover:bg-green-primary/15 transition-colors"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="inline-flex items-center gap-2 bg-green-primary/10 border border-green-primary/20 rounded-full px-5 py-2.5 mb-8 hover:bg-green-primary/15 transition-colors"
           >
             <Shield size={16} className="text-green-primary" />
             <span className="text-sm text-green-primary font-semibold">

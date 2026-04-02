@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 };
 
 const navLinks = [
-  { label: "Opportunita", href: "#opportunita" },
+  { label: "Opportunità", href: "#opportunita" },
   { label: "I numeri", href: "#numeri" },
   { label: "Investimento", href: "#investimento" },
   { label: "Rendimenti", href: "#rendimenti" },
 ];
 
 const footerLinks = [
-  { label: "Opportunita", href: "#opportunita" },
+  { label: "Opportunità", href: "#opportunita" },
   { label: "Numeri", href: "#numeri" },
   { label: "Investimento", href: "#investimento" },
   { label: "Contatti", href: "#cta" },

@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import FundingBanner from "../FundingBanner";
 
 export default function HomeHero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 noise">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[calc(4rem+36px)] noise">
       {/* Animated orbs */}
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
@@ -77,6 +78,16 @@ export default function HomeHero() {
             >
               Scopri come funziona
             </a>
+          </motion.div>
+
+          {/* Funding progress */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="mt-12"
+          >
+            <FundingBanner />
           </motion.div>
         </motion.div>
       </div>

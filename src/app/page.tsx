@@ -27,6 +27,7 @@ export default function Home() {
       <Navbar
         links={navLinks}
         cta={{ label: "Investi ora", href: "/funding" }}
+        showFundingBanner
       />
       <main>
         <HomeHero />
