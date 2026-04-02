@@ -10,9 +10,9 @@ const piano = [
   { label: "Lavori chiusi", y1: "100", y2: "345", y3: "665", y4: "1.035", y5: "1.455" },
   { label: "Fee Karica su GMV", y1: "10%", y2: "12%", y3: "15%", y4: "18%", y5: "20%", highlight: true },
   { label: "Ricavi", y1: "€262k", y2: "€1,15M", y3: "€2,36M", y4: "€3,76M", y5: "€5,29M", highlight: true },
-  { label: "EBITDA", y1: "€36k", y2: "€527k", y3: "€740k", y4: "€1,53M", y5: "€2,33M", highlight: true },
-  { label: "EBITDA %", y1: "14%", y2: "46%", y3: "31%", y4: "41%", y5: "44%" },
-  { label: "Cassa cumulata", y1: "€527k", y2: "€897k", y3: "€2,84M", y4: "€3,80M", y5: "€5,38M" },
+  { label: "EBITDA", y1: "€35k", y2: "€527k", y3: "€310k", y4: "€1,16M", y5: "€1,94M", highlight: true },
+  { label: "EBITDA %", y1: "13%", y2: "46%", y3: "13%", y4: "31%", y5: "37%" },
+  { label: "Cassa cumulata", y1: "€527k", y2: "€897k", y3: "€2,46M", y4: "€3,08M", y5: "€4,33M" },
 ];
 
 export default function Numeri() {
@@ -46,8 +46,8 @@ export default function Numeri() {
         >
           {[
             { prefix: "€", target: 5.29, suffix: "M", label: "Ricavi 2030", sub: "da €262k nel 2026", decimals: 2 },
-            { prefix: "", target: 44, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
-            { prefix: "€", target: 5.4, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 1 },
+            { prefix: "", target: 37, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
+            { prefix: "€", target: 4.3, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 1 },
           ].map((kpi) => (
             <div
               key={kpi.label}

@@ -124,8 +124,8 @@ export default function Investimento() {
             <div className="text-sm space-y-3">
               {[
                 { risk: "Conversione < 2%", mit: "A/B test su 5.000 utenti reali. Piano regge all'1,5%." },
-                { risk: "Meno WL del previsto", mit: "Con 2/anno: ricavi 2030 a €3,6M, comunque profittevole." },
-                { risk: "Fee non accettata al 20%", mit: "Il 20% è giustificato solo se Karica gestisce end-to-end. Se il processo non è completo, la fee resta al 15%." },
+                { risk: "Meno WL del previsto", mit: "Pipeline EnerBee attiva. Se 1/anno: ~€3,8M ricavi 2030, piano regge." },
+                { risk: "Fee non accettata al 20%", mit: "Fee resta al 15%. Piano regge comunque." },
                 { risk: "Dipendenza ENERBee", mit: "Academy dal 2028 per rete indipendente. 25 partner a regime." },
                 { risk: "Cambio normativa", mit: "Driver principale e EPBD europea. 10 pillar diversificati." },
               ].map((item) => (

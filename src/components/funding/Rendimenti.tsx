@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 const scenari = [
   { label: "Floor garantito", sublabel: "24 mesi, qualsiasi scenario", value: "€583k", multiplo: "1,17x", irr: "8%", highlight: false, pct: 7, barColor: "bg-text-muted/40" },
-  { label: "Stress test", sublabel: "−30% su tutti i driver", value: "€1,85M", multiplo: "3,7x", irr: "~30%", highlight: false, pct: 22, barColor: "bg-cyan-accent/40" },
+  { label: "Stress test", sublabel: "−30% su tutti i driver", value: "€1,55M", multiplo: "3,1x", irr: "~25%", highlight: false, pct: 18, barColor: "bg-cyan-accent/40" },
   { label: "Conservativo", sublabel: "Exit 3x ricavi", value: "€2,67M", multiplo: "5,3x", irr: "~40%", highlight: false, pct: 32, barColor: "bg-cyan-accent/60" },
   { label: "Scenario base", sublabel: "Exit 5x ricavi", value: "€4,45M", multiplo: "8,9x", irr: "~55%", highlight: true, pct: 53, barColor: "bg-gradient-to-r from-green-primary to-cyan-accent" },
-  { label: "Ottimistico", sublabel: "Exit 12x EBITDA", value: "€4,70M", multiplo: "9,4x", irr: "~57%", highlight: false, pct: 56, barColor: "bg-gradient-to-r from-green-primary via-cyan-accent to-pink-accent" },
+  { label: "Ottimistico", sublabel: "Exit 12x EBITDA", value: "€3,91M", multiplo: "7,8x", irr: "~51%", highlight: false, pct: 47, barColor: "bg-gradient-to-r from-green-primary via-cyan-accent to-pink-accent" },
 ];
 
 export default function Rendimenti() {
