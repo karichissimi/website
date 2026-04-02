@@ -16,7 +16,7 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
     return (
       <a
         href="/funding"
-        className="block bg-gradient-to-r from-pink-accent/10 via-pink-accent/5 to-transparent border-b border-pink-accent/20 hover:from-pink-accent/15 transition-all"
+        className="block bg-bg-darker border-b border-pink-accent/20 hover:bg-bg-darker transition-all"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-center gap-3 text-sm">
           <span className="relative flex h-2 w-2">
