@@ -5,13 +5,15 @@ import Accordion from "../Accordion";
 import Counter from "../Counter";
 
 const piano = [
-  { label: "Utenti attivi", y1: "5.000", y2: "22.250", y3: "42.000", y4: "64.250", y5: "90.250" },
-  { label: "Clienti White Label", y1: "1", y2: "4", y3: "7", y4: "10", y5: "13" },
-  { label: "Ricavi", y1: "€243k", y2: "€1,36M", y3: "€2,38M", y4: "€3,47M", y5: "€4,73M", highlight: true },
-  { label: "EBITDA", y1: "€45k", y2: "€689k", y3: "€1,18M", y4: "€1,75M", y5: "€2,18M", highlight: true },
-  { label: "EBITDA %", y1: "18%", y2: "51%", y3: "49%", y4: "50%", y5: "46%" },
-  { label: "Utile netto", y1: "€34k", y2: "€518k", y3: "€874k", y4: "€1,29M", y5: "€1,58M" },
-  { label: "Cassa cumulata", y1: "€534k", y2: "€1,02M", y3: "€3,33M", y4: "€4,51M", y5: "€6,01M" },
+  { label: "Utenti attivi", y1: "5.000", y2: "17.250", y3: "33.250", y4: "51.750", y5: "72.750" },
+  { label: "Clienti White Label", y1: "1", y2: "3", y3: "5", y4: "7", y5: "9" },
+  { label: "Lavori chiusi", y1: "100", y2: "345", y3: "665", y4: "1.035", y5: "1.455" },
+  { label: "Partner esecuzione", y1: "2", y2: "4", y3: "8", y4: "14", y5: "22" },
+  { label: "FTE", y1: "5", y2: "9", y3: "17", y4: "22", y5: "27" },
+  { label: "Ricavi", y1: "€242k", y2: "€993k", y3: "€1,77M", y4: "€2,69M", y5: "€3,79M", highlight: true },
+  { label: "EBITDA", y1: "€44k", y2: "€419k", y3: "€405k", y4: "€764k", y5: "€1,19M", highlight: true },
+  { label: "EBITDA %", y1: "18%", y2: "42%", y3: "23%", y4: "28%", y5: "31%" },
+  { label: "Cassa cumulata", y1: "€534k", y2: "€923k", y3: "€2,72M", y4: "€3,38M", y5: "€4,42M" },
 ];
 
 export default function Numeri() {
@@ -44,9 +46,9 @@ export default function Numeri() {
           className="grid grid-cols-3 gap-4 mb-10"
         >
           {[
-            { prefix: "€", target: 4.73, suffix: "M", label: "Ricavi 2030", sub: "da €243k nel 2026", decimals: 2 },
-            { prefix: "", target: 46, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
-            { prefix: "€", target: 6, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 0 },
+            { prefix: "€", target: 3.79, suffix: "M", label: "Ricavi 2030", sub: "da €242k nel 2026", decimals: 2 },
+            { prefix: "", target: 31, suffix: "%", label: "EBITDA margin", sub: "a regime", decimals: 0 },
+            { prefix: "€", target: 4.4, suffix: "M", label: "Cassa cumulata", sub: "al 2030", decimals: 1 },
           ].map((kpi) => (
             <div
               key={kpi.label}
@@ -101,7 +103,7 @@ export default function Numeri() {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-text-muted mt-4">72% degli utenti al 2030 da partner White Label a CAC zero.</p>
+            <p className="text-xs text-text-muted mt-4">62% degli utenti al 2030 da partner White Label a CAC zero.</p>
           </Accordion>
 
           <Accordion title="Come vengono usati i fondi?">

@@ -47,11 +47,11 @@ export default function Ecosistema() {
           className="text-center mb-14"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary mb-4">
-            Non siamo <span className="text-gradient">soli</span>
+            Un <span className="text-gradient">marketplace</span>, non un&apos;app
           </h2>
           <p className="text-lg text-text-secondary max-w-xl mx-auto">
-            Karica è il braccio digitale di un ecosistema che già lavora
-            nell&apos;energia e nelle costruzioni.
+            Karica connette domanda e offerta della transizione energetica
+            attraverso un ecosistema di partner già operativi.
           </p>
         </motion.div>
 

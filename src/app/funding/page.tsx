@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/funding/Hero";
 import Opportunita from "@/components/funding/Opportunita";
+import DueAtti from "@/components/funding/DueAtti";
+import Metriche from "@/components/funding/Metriche";
 import Numeri from "@/components/funding/Numeri";
 import Investimento from "@/components/funding/Investimento";
 import Rendimenti from "@/components/funding/Rendimenti";
@@ -17,15 +19,15 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { label: "Opportunità", href: "#opportunita" },
+  { label: "Strategia", href: "#strategia" },
   { label: "I numeri", href: "#numeri" },
   { label: "Investimento", href: "#investimento" },
-  { label: "Rendimenti", href: "#rendimenti" },
 ];
 
 const footerLinks = [
   { label: "Opportunità", href: "#opportunita" },
+  { label: "Strategia", href: "#strategia" },
   { label: "Numeri", href: "#numeri" },
-  { label: "Investimento", href: "#investimento" },
   { label: "Contatti", href: "#cta" },
 ];
 
@@ -39,6 +41,8 @@ export default function FundingPage() {
       <main>
         <Hero />
         <Opportunita />
+        <DueAtti />
+        <Metriche />
         <Numeri />
         <Investimento />
         <Rendimenti />

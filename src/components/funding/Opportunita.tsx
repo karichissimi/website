@@ -19,8 +19,8 @@ export default function Opportunita() {
             Cosa fa <span className="text-green-primary">Karica</span>
           </h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Karica è una piattaforma digitale che aiuta le aziende dell&apos;energia
-            a guidare i propri clienti verso il risparmio energetico — e a guadagnarci sopra.
+            Karica è il marketplace verticale della transizione energetica residenziale.
+            Connette chi vuole risparmiare con chi esegue i lavori, attraverso un processo digitale end-to-end.
           </p>
         </motion.div>
 
@@ -36,22 +36,22 @@ export default function Opportunita() {
             {
               icon: Users,
               title: "Vende alle utility",
-              text: "Karica si vende a fornitori di energia (come Entraco) che portano i loro clienti sulla piattaforma. Costo di acquisizione: zero.",
+              text: "Ogni utility partner porta i propri clienti sulla piattaforma. Costo di acquisizione utenti: zero. Nel 2030, il 62% degli utenti arriva dai partner a CAC zero.",
             },
             {
               icon: Zap,
-              title: "Diagnosi automatica",
-              text: "Con i dati reali di consumo, l'app mostra subito quanto si spreca e cosa fare. Nessun dato da inserire a mano.",
+              title: "Il laboratorio controllato",
+              text: "Si parte da Entraco (5.000 clienti reali) per validare il modello in un ambiente controllato. Come Airbnb: prima una città, poi il mondo.",
             },
             {
               icon: HardHat,
-              title: "Lavori garantiti",
-              text: "I lavori li esegue ENERBee, il General Contractor del gruppo. Karica guadagna una commissione su ogni intervento.",
+              title: "Esecuzione garantita",
+              text: "I lavori li esegue la rete di partner certificati. Nella fase 1 è ENERBee. Dalla fase 2 si apre con la Karica Academy.",
             },
             {
               icon: TrendingUp,
-              title: "4 fonti di ricavo",
-              text: "Commissioni su lavori, fee CER, finanziamenti green, abbonamenti premium. Revenue diversificata, non dipendente da un solo canale.",
+              title: "10 fonti di ricavo",
+              text: "3 pillar Core (interventi, switch energia, finanziamenti) + 7 di supporto. Revenue diversificata dal primo anno.",
             },
           ].map((card) => (
             <div
@@ -92,12 +92,12 @@ export default function Opportunita() {
 
           <Accordion title="Come guadagna Karica?">
             <div className="space-y-4 text-sm">
-              <div className="grid sm:grid-cols-2 gap-3">
+              <p className="text-text-muted text-xs font-semibold uppercase tracking-wide">3 Pillar Core</p>
+              <div className="grid sm:grid-cols-3 gap-3">
                 {[
-                  { name: "Interventi", fee: "~8% sul valore dei lavori", desc: "Commissione su ogni lavoro eseguito dai partner" },
-                  { name: "CER", fee: "~20% incentivo GSE", desc: "Fee su attivazione e gestione Comunità Energetiche" },
-                  { name: "Finanziamenti", fee: "~1.5% sul finanziato", desc: "Commissione su prestiti green tramite partner bancari" },
-                  { name: "Premium", fee: "Ricorrente", desc: "Abbonamenti PRO e marketplace B2B" },
+                  { name: "Interventi", fee: "10% fee su GMV lavori", desc: "Fee su ogni lavoro completato tramite la piattaforma" },
+                  { name: "Switch Energia", fee: "€50 bounty + €5/mese trailing", desc: "Commissione sul cambio fornitore energia" },
+                  { name: "Finanziamenti", fee: "3% + 0.3%/anno trailing", desc: "Origination prestiti green tramite partner bancari" },
                 ].map((p) => (
                   <div key={p.name} className="bg-bg-dark rounded-lg p-4 border border-card-border">
                     <div className="flex items-center justify-between mb-1">
@@ -108,6 +108,9 @@ export default function Opportunita() {
                   </div>
                 ))}
               </div>
+              <p className="text-text-muted text-xs mt-2">
+                Più 7 pillar di supporto: canoni White Label, Academy, Subscription Pro, Marketplace prodotti, O&amp;M post-vendita, CER, Data Products.
+              </p>
             </div>
           </Accordion>
 
@@ -119,11 +122,11 @@ export default function Opportunita() {
                 l&apos;utente apre l&apos;app e trova la sua diagnosi energetica pronta.
               </p>
               <p>
-                <strong className="text-text-primary">ENERBee Group</strong> è il General Contractor
-                del gruppo — i lavori si eseguono senza cercare fornitori esterni.
+                <strong className="text-text-primary">ENERBee Group</strong> garantisce l&apos;esecuzione nella fase 1.
+                Dalla fase 2, la Karica Academy costruisce una rete di partner certificati indipendente — il vero moat competitivo.
               </p>
               <p>
-                Il 72% degli utenti al 2030 arriverà dai partner White Label.
+                Il 62% degli utenti al 2030 arriverà dai partner White Label.
                 <strong className="text-text-primary"> Costo di acquisizione: zero.</strong>
               </p>
             </div>
