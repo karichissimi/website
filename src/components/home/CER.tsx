@@ -61,7 +61,7 @@ export default function CER() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight">
             Condividi energia con i tuoi vicini.
             <br />
-            <span className="text-gradient">Risparmi tutti, guadagni tu.</span>
+            <span className="text-gradient">Tutti risparmiano e tu guadagni.</span>
           </h2>
         </motion.div>
 
