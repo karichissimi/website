@@ -22,15 +22,14 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
   const [open, setOpen] = useState(false);
 
   return (
-    <>
-      {showFundingBanner && (
-        <div className="fixed top-0 left-0 right-0 z-[51]">
-          <FundingBanner compact />
-        </div>
-      )}
-      <nav className={`fixed left-0 right-0 z-50 bg-bg-darker/80 backdrop-blur-md border-b border-card-border ${showFundingBanner ? "top-[36px]" : "top-0"}`}>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Funding banner */}
+      {showFundingBanner && <FundingBanner compact />}
+
+      {/* Main navbar */}
+      <nav className="bg-bg-darker/80 backdrop-blur-md border-b border-card-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             <Link href={logoHref} className="flex items-center gap-2">
               <Image
                 src="/graphics/Karica_Logo_Felice.png"
@@ -76,8 +75,9 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
           </div>
         </div>
 
+        {/* Mobile menu */}
         {open && (
-          <div className="md:hidden bg-bg-darker border-b border-card-border">
+          <div className="md:hidden bg-bg-darker border-t border-card-border">
             <div className="px-4 py-4 space-y-3">
               {links.map((link) => (
                 <a
@@ -100,6 +100,6 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
           </div>
         )}
       </nav>
-    </>
+    </header>
   );
 }
