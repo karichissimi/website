@@ -79,16 +79,10 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
           </motion.div>
         </div>
 
-        {/* Urgency text */}
-        <div className="flex items-center gap-2 mt-2.5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-accent opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-accent" />
-          </span>
-          <p className="text-pink-accent text-xs font-semibold">
-            Round in chiusura — posti limitati a queste condizioni
-          </p>
-        </div>
+        {/* Soft urgency */}
+        <p className="text-text-muted text-xs mt-2.5">
+          Primo round pre-seed — queste condizioni non saranno ripetute
+        </p>
       </div>
     </motion.div>
   );

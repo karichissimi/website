@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, Shield } from "lucide-react";
+import { ArrowDown, Shield, ExternalLink } from "lucide-react";
 import Counter from "../Counter";
 import KpiModal from "../KpiModal";
 import FundingBanner from "../FundingBanner";
 
-const kpis = [
+interface Kpi {
+  prefix: string;
+  target: number;
+  suffix: string;
+  label: string;
+  sublabel?: string;
+  explanation?: string;
+  richContent?: ReactNode;
+}
+
+const kpis: Kpi[] = [
   {
     prefix: "€",
     target: 2,
@@ -38,22 +48,86 @@ const kpis = [
     target: 25,
     suffix: "k",
     label: "Ticket minimo",
-    explanation:
-      "Puoi partecipare a questo round con un investimento minimo di €25.000. La raccolta totale è di €500.000, divisa in due tranche da €250.000 ciascuna, legate a risultati concreti.",
+    sublabel: "da €8.750 con detrazione 65%",
   },
 ];
+
+function TicketModalContent() {
+  return (
+    <div className="text-sm space-y-4">
+      <p className="text-text-secondary leading-relaxed">
+        Puoi investire a partire da <strong className="text-text-primary">€25.000</strong>.
+        Come Startup Innovativa, Karica dà accesso alla{" "}
+        <strong className="text-green-primary">detrazione IRPEF del 65%</strong> sull&apos;importo investito.
+      </p>
+
+      {/* Calculation box */}
+      <div className="bg-bg-darker rounded-xl p-4 border border-green-primary/20 space-y-2">
+        <div className="flex justify-between">
+          <span className="text-text-muted">Investimento</span>
+          <span className="text-text-primary font-mono font-bold">€25.000</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-text-muted">Detrazione IRPEF (65%)</span>
+          <span className="text-green-primary font-mono font-bold">−€16.250</span>
+        </div>
+        <div className="border-t border-card-border pt-2 flex justify-between">
+          <span className="text-text-primary font-semibold">Costo effettivo</span>
+          <span className="text-green-primary font-mono font-black text-lg">€8.750</span>
+        </div>
+      </div>
+
+      <p className="text-text-muted text-xs leading-relaxed">
+        La detrazione del 65% (regime de minimis) è prevista dall&apos;art. 29-bis D.L. 179/2012,
+        modificato dalla L. 193/2024. Si applica a investimenti fino a €100.000/anno
+        in Startup Innovative. Richiede il mantenimento dell&apos;investimento per almeno 3 anni
+        e capienza IRPEF sufficiente. Se la detrazione supera l&apos;imposta lorda,
+        l&apos;eccedenza diventa credito d&apos;imposta (Ris. AE 30/E del 28/04/2025).
+      </p>
+
+      {/* Sources */}
+      <div className="space-y-1.5">
+        <p className="text-text-muted text-[10px] uppercase tracking-wider font-semibold">
+          Fonti ufficiali
+        </p>
+        {[
+          {
+            label: "MIMIT — Incentivi de minimis startup innovative",
+            url: "https://www.mimit.gov.it/it/impresa/competitivita-e-nuove-imprese/start-up-innovative/incentivi-de-minimis",
+          },
+          {
+            label: "Agenzia delle Entrate — Startup innovative",
+            url: "https://www.agenziaentrate.gov.it/portale/Schede/Agevolazioni/Scheda+Start+up+innovative/InfoGen+start-up+innovative/",
+          },
+          {
+            label: "Normattiva — D.L. 179/2012",
+            url: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legge:2012-10-18;179",
+          },
+        ].map((source) => (
+          <a
+            key={source.url}
+            href={source.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-cyan-accent text-xs hover:text-cyan-accent/80 transition-colors"
+          >
+            <ExternalLink size={10} className="flex-shrink-0" />
+            <span className="underline underline-offset-2">{source.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   const [modal, setModal] = useState<number | null>(null);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 noise">
-      {/* Animated orbs */}
       <div className="glow-orb absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.07] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
       <div className="glow-orb absolute top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.03] blur-[80px]" />
-
-      {/* Dot grid */}
       <div className="absolute inset-0 dot-grid opacity-20" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
@@ -103,7 +177,7 @@ export default function Hero() {
             </span>
           </motion.p>
 
-          {/* Key investment numbers — clickable */}
+          {/* Key investment numbers */}
           <motion.div
             className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mb-10"
             initial={{ opacity: 0, y: 30 }}
@@ -129,12 +203,17 @@ export default function Hero() {
                       &rarr;
                     </span>
                   </p>
+                  {kpi.sublabel && (
+                    <p className="text-[10px] text-cyan-accent font-semibold mt-1">
+                      {kpi.sublabel}
+                    </p>
+                  )}
                 </div>
               </button>
             ))}
           </motion.div>
 
-          {/* Funding progress — FOMO */}
+          {/* Funding progress */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -144,7 +223,7 @@ export default function Hero() {
             <FundingBanner />
           </motion.div>
 
-          {/* Floor guarantee callout */}
+          {/* Floor guarantee */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -161,7 +240,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.85 }}
           >
             <a
               href="#cta"
@@ -179,7 +258,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg-darker to-transparent" />
 
       <motion.a
@@ -192,15 +270,25 @@ export default function Hero() {
         <ArrowDown size={24} className="animate-bounce" />
       </motion.a>
 
-      {/* KPI Modal */}
-      {modal !== null && (
+      {/* KPI Modals */}
+      {modal !== null && modal < 3 && (
         <KpiModal
-          open={modal !== null}
+          open
           onClose={() => setModal(null)}
           value={`${kpis[modal].prefix}${kpis[modal].target}${kpis[modal].suffix}`}
           label={kpis[modal].label}
           explanation={kpis[modal].explanation}
         />
+      )}
+      {modal === 3 && (
+        <KpiModal
+          open
+          onClose={() => setModal(null)}
+          value="€25k"
+          label="Ticket minimo — detraibile al 65%"
+        >
+          <TicketModalContent />
+        </KpiModal>
       )}
     </section>
   );
