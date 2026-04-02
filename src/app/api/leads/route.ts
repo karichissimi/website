@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     // Send notification email
     try {
       await resend.emails.send({
-        from: "Karica <noreply@karica.it>",
+        from: "Karica <onboarding@resend.dev>",
         to: process.env.NOTIFICATION_EMAIL!,
         subject: `Nuovo lead funding: ${name || "Senza nome"} (${email})`,
         html: `
