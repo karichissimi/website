@@ -11,7 +11,7 @@ const items = [
     subtitle: "Iscrizione automatica, zero burocrazia",
     text: "Ti colleghi alla Comunità Energetica del tuo quartiere o condominio. Karica gestisce tutto: burocrazia, iscrizione, monitoraggio.",
     detail:
-      "Una Comunità Energetica (CER) è un gruppo di persone che condividono energia rinnovabile prodotta localmente. Karica trova la CER più vicina a te, gestisce l'iscrizione e monitora la tua partecipazione. Non devi fare nulla: ci pensiamo noi.",
+      "Una Comunità Energetica Rinnovabile (CER) è un gruppo di persone che condivide energia rinnovabile prodotta localmente. Karica trova la CER più vicina a te, gestisce l'iscrizione e monitora la tua partecipazione. Non devi fare nulla: ci pensiamo noi.",
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
   },
