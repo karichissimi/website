@@ -11,15 +11,29 @@ export default function CTA() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState("");
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email) return;
 
     setLoading(true);
-    // TODO: Connect to Supabase to store leads
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setSubmitted(true);
-    setLoading(false);
+    setError("");
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setError("Qualcosa è andato storto. Riprova o scrivici a info@karica.it");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -110,6 +124,10 @@ export default function CTA() {
                     className="w-full bg-bg-darker border border-card-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none focus:border-green-primary/60 focus:shadow-[0_0_12px_rgba(57,255,20,0.1)] transition-all"
                   />
                 </div>
+
+                {error && (
+                  <p className="text-pink-accent text-xs text-center">{error}</p>
+                )}
 
                 <button
                   type="submit"
