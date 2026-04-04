@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
+import ChiediAKarica from "./ChiediAKarica";
 
 interface NewsItem {
   title: string;
@@ -207,6 +208,8 @@ export default function EnergiaPillole() {
             </motion.div>
           )}
         </AnimatePresence>
+        {/* AI Chatbot */}
+        <ChiediAKarica />
       </div>
     </section>
   );
