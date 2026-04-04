@@ -53,7 +53,7 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-primary opacity-75" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-primary" />
                 </span>
-                <span className="text-green-primary font-bold whitespace-nowrap">€150k raccolti su 500k</span>
+                <span className="text-green-primary font-bold whitespace-nowrap">€150.000 raccolti su €500.000</span>
               </a>
             )}
 

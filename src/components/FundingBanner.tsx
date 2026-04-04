@@ -43,12 +43,12 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
             </p>
             <div className="flex items-baseline gap-1">
               <Counter
-                target={150}
+                target={150000}
                 prefix="€"
-                suffix="k"
+                suffix=""
                 className="text-2xl font-black text-green-primary font-mono"
               />
-              <span className="text-text-muted text-sm">/ €500k</span>
+              <span className="text-text-muted text-sm">/ €500.000</span>
             </div>
           </div>
           <div className="text-right">

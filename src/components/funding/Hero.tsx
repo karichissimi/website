@@ -21,8 +21,8 @@ interface Kpi {
 const kpis: Kpi[] = [
   {
     prefix: "€",
-    target: 2,
-    suffix: "M",
+    target: 2000000,
+    suffix: "",
     label: "Valutazione pre-money",
     explanation:
       "Abbiamo stabilito che Karica vale €2 milioni prima di ricevere l'investimento. Questo prezzo è stato calcolato con 3 metodi diversi e confrontato con altre startup italiane simili. È volutamente conservativo, per premiare chi entra adesso.",
@@ -45,8 +45,8 @@ const kpis: Kpi[] = [
   },
   {
     prefix: "€",
-    target: 25,
-    suffix: "k",
+    target: 25000,
+    suffix: "",
     label: "Ticket minimo",
     sublabel: "da €8.750 con detrazione 65%",
   },
@@ -284,7 +284,7 @@ export default function Hero() {
         <KpiModal
           open
           onClose={() => setModal(null)}
-          value="€25k"
+          value="€25.000"
           label="Ticket minimo — detraibile al 65%"
         >
           <TicketModalContent />
