@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Send, Loader2 } from "lucide-react";
+import Image from "next/image";
+import { Send, Loader2 } from "lucide-react";
 
 const suggestions = [
   "Quanto costa un impianto fotovoltaico?",
@@ -56,16 +57,24 @@ export default function ChiediAKarica() {
       transition={{ duration: 0.6 }}
       className="mt-16 pt-10 border-t border-card-border/30"
     >
-      <div className="flex items-center gap-2 mb-4">
-        <MessageCircle className="text-green-primary" size={18} />
-        <h3 className="text-lg font-bold text-text-primary">
-          Chiedi a Karica
-        </h3>
+      {/* Header with cacatua */}
+      <div className="flex items-center gap-3 mb-5">
+        <Image
+          src="/graphics/Karica_Logo_Felice.png"
+          alt="Karica"
+          width={32}
+          height={32}
+          className="h-8 w-auto"
+        />
+        <div>
+          <h3 className="text-lg font-bold text-text-primary">
+            Chiedi a Karica
+          </h3>
+          <p className="text-text-muted text-xs">
+            Domande su energia, incentivi o risparmio? Chiedi qui.
+          </p>
+        </div>
       </div>
-
-      <p className="text-text-muted text-sm mb-5">
-        Hai una domanda su energia, incentivi o risparmio? Chiedi qui.
-      </p>
 
       {/* Suggestion pills */}
       {!answer && !loading && (
@@ -101,27 +110,67 @@ export default function ChiediAKarica() {
         </button>
       </form>
 
-      {/* Answer */}
+      {/* Loading state with cacatua */}
+      {loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex items-start gap-3 p-4"
+        >
+          <Image
+            src="/graphics/Karica_Logo_Felice.png"
+            alt="Karica"
+            width={28}
+            height={28}
+            className="h-7 w-auto animate-float mt-0.5"
+          />
+          <div className="flex gap-1.5 pt-2">
+            <span className="w-2 h-2 rounded-full bg-green-primary/60 animate-bounce" style={{ animationDelay: "0ms" }} />
+            <span className="w-2 h-2 rounded-full bg-green-primary/60 animate-bounce" style={{ animationDelay: "150ms" }} />
+            <span className="w-2 h-2 rounded-full bg-green-primary/60 animate-bounce" style={{ animationDelay: "300ms" }} />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Answer with cacatua avatar */}
       {answer && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl bg-green-primary/5 border border-green-primary/20 p-4"
+          className="flex items-start gap-3"
         >
-          <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-line">
-            {answer}
-          </p>
-          <button
-            onClick={() => { setAnswer(""); setQuestion(""); }}
-            className="mt-3 text-xs text-green-primary hover:text-green-dark transition-colors"
-          >
-            Fai un&apos;altra domanda →
-          </button>
+          <Image
+            src="/graphics/Karica_Logo_Felice.png"
+            alt="Karica"
+            width={28}
+            height={28}
+            className="h-7 w-auto flex-shrink-0 mt-1"
+          />
+          <div className="flex-1 rounded-xl bg-green-primary/5 border border-green-primary/20 p-4">
+            <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-line">
+              {answer}
+            </p>
+            <button
+              onClick={() => { setAnswer(""); setQuestion(""); }}
+              className="mt-3 text-xs text-green-primary hover:text-green-dark transition-colors"
+            >
+              Fai un&apos;altra domanda &rarr;
+            </button>
+          </div>
         </motion.div>
       )}
 
       {error && (
-        <p className="text-pink-accent text-xs mt-2">{error}</p>
+        <div className="flex items-start gap-3 mt-2">
+          <Image
+            src="/graphics/Karica_Logo_Felice.png"
+            alt="Karica"
+            width={28}
+            height={28}
+            className="h-7 w-auto flex-shrink-0 mt-0.5"
+          />
+          <p className="text-pink-accent text-xs pt-2">{error}</p>
+        </div>
       )}
     </motion.div>
   );
