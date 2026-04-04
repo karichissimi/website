@@ -9,6 +9,7 @@ const partners = [
     detail: "Esegue i lavori di riqualificazione",
     color: "border-green-primary/30 hover:border-green-primary/60",
     textColor: "text-green-primary",
+    url: "https://enerbe.it",
   },
   {
     name: "Entraco",
@@ -16,6 +17,7 @@ const partners = [
     detail: "5.000 clienti reali con dati consumi",
     color: "border-cyan-accent/30 hover:border-cyan-accent/60",
     textColor: "text-cyan-accent",
+    url: "https://entraco.it",
   },
   {
     name: "EC Hub",
@@ -23,6 +25,7 @@ const partners = [
     detail: "Comunità Energetiche su scala nazionale",
     color: "border-pink-accent/30 hover:border-pink-accent/60",
     textColor: "text-pink-accent",
+    url: "https://echub.it",
   },
   {
     name: "Partner Bancari",
@@ -30,6 +33,7 @@ const partners = [
     detail: "Prestiti green integrati nell'app",
     color: "border-green-primary/30 hover:border-green-primary/60",
     textColor: "text-green-primary",
+    url: null,
   },
 ];
 
@@ -83,13 +87,29 @@ export default function Ecosistema() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                  className={`bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color} hover:shadow-lg`}
                 >
-                  <p className={`font-bold text-sm ${partner.textColor}`}>
-                    {partner.name}
-                  </p>
-                  <p className="text-text-muted text-xs mt-0.5">{partner.role}</p>
-                  <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
+                  {partner.url ? (
+                    <a
+                      href={partner.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color} hover:shadow-lg cursor-pointer`}
+                    >
+                      <p className={`font-bold text-sm ${partner.textColor}`}>
+                        {partner.name} ↗
+                      </p>
+                      <p className="text-text-muted text-xs mt-0.5">{partner.role}</p>
+                      <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
+                    </a>
+                  ) : (
+                    <div className={`bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color}`}>
+                      <p className={`font-bold text-sm ${partner.textColor}`}>
+                        {partner.name}
+                      </p>
+                      <p className="text-text-muted text-xs mt-0.5">{partner.role}</p>
+                      <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </div>
