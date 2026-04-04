@@ -4,124 +4,92 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
 
-type Category = "tutti" | "incentivi" | "normativa" | "mercato" | "tech";
-
 interface NewsItem {
   title: string;
   tag: string;
-  category: Category;
-  summary: string;
   detail: string;
   source: string;
   sourceLabel: string;
   accentColor: string;
 }
 
-const categories: { key: Category; label: string }[] = [
-  { key: "tutti", label: "Tutti" },
-  { key: "incentivi", label: "Incentivi" },
-  { key: "normativa", label: "Normativa" },
-  { key: "mercato", label: "Mercato" },
-  { key: "tech", label: "Tecnologie" },
-];
-
 const news: NewsItem[] = [
   {
-    title: "Bonus Casa 2026: detrazione al 50% confermata",
+    title: "Bonus Casa 2026: confermato il 50%",
     tag: "50%",
-    category: "incentivi",
-    summary: "La detrazione per ristrutturazione e efficientamento resta al 50% per la prima casa. Tetto a €96.000.",
-    detail: "Nel 2026 sono confermati Bonus Ristrutturazioni ed Ecobonus con le stesse aliquote del 2025. Per la prima casa si detrae il 50%, per le seconde il 36%. Tetto massimo €96.000 per unità immobiliare, in 10 rate annuali.",
+    detail: "La detrazione per ristrutturazione ed efficientamento resta al 50% per la prima casa (36% per le seconde). Tetto massimo €96.000 per unità immobiliare, in 10 rate annuali. Confermati Ecobonus, Sismabonus e Bonus Mobili.",
     source: "https://www.fiscoetasse.com/new-rassegna-stampa/2812-bonus-casa-2026-cosa-ci-aspetta.html",
     sourceLabel: "FISCOeTASSE",
     accentColor: "#39FF14",
   },
   {
-    title: "Case Green: l'Italia deve recepire la direttiva entro maggio",
+    title: "Case Green: recepimento entro maggio",
     tag: "EPBD",
-    category: "normativa",
-    summary: "Riduzione del 16% delle emissioni residenziali entro il 2030. Oltre il 60% degli edifici italiani è in classe F o G.",
-    detail: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Cambiano le classi energetiche: via le sottoclassi A1-A4, restano dalla A (emissioni zero) alla G. Per i nuovi edifici pubblici sopra i 250 mq, obbligo di pannelli solari dal 31 dicembre 2026.",
+    detail: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Obiettivo: -16% emissioni residenziali entro il 2030. Cambiano le classi energetiche. Oltre il 60% degli edifici italiani è in classe F o G — il gap più ampio d'Europa.",
     source: "https://www.altroconsumo.it/casa-energia/casa-condominio/news/nuovo-regolamento-ue-classi-energetiche-edifici",
     sourceLabel: "Altroconsumo",
     accentColor: "#FF4D6D",
   },
   {
-    title: "Comunità Energetiche: 795 milioni di fondi PNRR",
+    title: "CER: 795 milioni dal PNRR",
     tag: "CER",
-    category: "incentivi",
-    summary: "Tornano i contributi a fondo perduto. Il GSE paga una tariffa incentivante per 20 anni su ogni kWh condiviso.",
-    detail: "Il CdM ha approvato il decreto PNRR con 795,5 milioni per le CER. Tariffa GSE di circa 110 €/MWh per impianti fino a 600 kW, con maggiorazioni per comuni sotto i 5.000 abitanti. Lavori da completare entro il 30 giugno 2026.",
+    detail: "Il CdM ha approvato 795,5 milioni per le Comunità Energetiche Rinnovabili. Tariffa GSE di circa 110 €/MWh per 20 anni. Contributi a fondo perduto per comuni sotto 50.000 abitanti. Lavori da completare entro giugno 2026.",
     source: "https://www.mrkilowatt.it/news/aggiornamento-incentivi/incentivi-fotovoltaico-2026-torna-il-fondo-perduto-per-cer-e-autoconsumo/",
     sourceLabel: "Mr. Kilowatt",
     accentColor: "#00D4D4",
   },
   {
-    title: "Bollette 2026: risparmio di €212 per famiglia",
+    title: "Bollette: -9% nel 2026",
     tag: "-9%",
-    category: "mercato",
-    summary: "Prezzi in calo. Gas -12%, elettricità -2%. Ma nel secondo trimestre aumento dell'8% per tensioni geopolitiche.",
-    detail: "Spesa annuale per famiglia tipo: €2.236 (da €2.450 nel 2025). Il PUN cala del 4%, il PSV (gas) del 25%. Attenzione: nel Q2 2026 aumento dell'8,1% nel mercato tutelato. Un'offerta a prezzo fisso nel mercato libero può proteggere dalle oscillazioni.",
+    detail: "Risparmio stimato di €212/famiglia. Gas -12%, elettricità -2%. Attenzione: nel secondo trimestre 2026 aumento dell'8,1% per tensioni geopolitiche. Un'offerta a prezzo fisso può proteggere dalle oscillazioni.",
     source: "https://tg24.sky.it/economia/2025/12/22/bollette-luce-gas-prezzi-2026-dati",
     sourceLabel: "Sky TG24",
     accentColor: "#39FF14",
   },
   {
-    title: "Fotovoltaico: da €7.000 per un impianto da 6 kW",
+    title: "Fotovoltaico: da €7.000 chiavi in mano",
     tag: "FV",
-    category: "tech",
-    summary: "Con la detrazione al 50% il costo effettivo si dimezza. IVA agevolata al 10% su materiali e installazione.",
-    detail: "Un impianto da 6 kW (il più diffuso) costa da €6.599 senza accumulo a €12.599 con batteria. La detrazione del 50% si applica fino a 20 kW anche senza ristrutturazione. Non cumulabile con Conto Termico 3.0 per i privati, salvo installazione con pompa di calore.",
+    detail: "Un impianto da 6 kW costa da €6.599 senza accumulo a €12.599 con batteria. Detrazione al 50% fino a 20 kW anche senza ristrutturazione. IVA ridotta al 10%.",
     source: "https://www.enpal.com/it/fotovoltaico/guida-ai-costi-di-impianto-fotovoltaico",
     sourceLabel: "Enpal",
     accentColor: "#00D4D4",
   },
   {
-    title: "Conto Termico 3.0: incentivi fino al 65%",
+    title: "Conto Termico 3.0: fino al 65%",
     tag: "65%",
-    category: "incentivi",
-    summary: "Copre fino al 65% delle spese. Il portale GSE ha registrato un'affluenza senza precedenti e ha sospeso le domande.",
-    detail: "Il Conto Termico 3.0 incentiva efficienza energetica e produzione termica da rinnovabili. Dal 2 febbraio 2026 è attivo il PortalTermico 3.0, sospeso dal 3 marzo per affluenza record. I privati non possono usarlo per il solo fotovoltaico — serve l'abbinamento con pompa di calore.",
+    detail: "Incentivi fino al 65% per efficienza energetica e produzione termica da rinnovabili. Portale GSE sospeso temporaneamente per affluenza record. Privati: solo se abbinato a pompa di calore.",
     source: "https://www.abcontact.it/conto-termico-3-0-2026/",
     sourceLabel: "AB Contact",
     accentColor: "#FF4D6D",
   },
   {
-    title: "Pompe di calore: -40% in bolletta rispetto al gas",
+    title: "Pompe di calore: -40% in bolletta",
     tag: "PDC",
-    category: "tech",
-    summary: "Riscaldano, raffreddano e producono acqua calda con un unico apparecchio. Incentivabili con Ecobonus e Conto Termico.",
-    detail: "La pompa di calore è la tecnologia chiave: un unico apparecchio per riscaldamento, raffrescamento e acqua calda, alimentato da elettricità (idealmente da fotovoltaico). Risparmio fino al 40% vs caldaia a gas. Incentivabile con Ecobonus al 50% o Conto Termico 3.0 fino al 65%.",
+    detail: "Riscaldamento, raffrescamento e acqua calda con un unico apparecchio. Risparmio fino al 40% vs caldaia a gas. Incentivabile con Ecobonus al 50% o Conto Termico 3.0 al 65%.",
     source: "https://www.sienergyconsulting.it/bonus-caldaia-fotovoltaico-2026-novita/",
     sourceLabel: "Sienergy",
     accentColor: "#39FF14",
   },
   {
-    title: "Classe energetica: quanto vale la tua casa?",
+    title: "Classe energetica: +30% sul valore casa",
     tag: "+30%",
-    category: "normativa",
-    summary: "Un immobile in classe A vale fino al 30% in più. Con la direttiva Case Green, le classi basse perderanno valore.",
-    detail: "L'APE è già obbligatorio per vendere o affittare. Con la direttiva EPBD le classi vengono semplificate (da A a G). Gli edifici in classe F e G — oltre il 60% del patrimonio italiano — dovranno essere riqualificati. Chi interviene ora protegge il valore dell'immobile.",
+    detail: "Un immobile in classe A vale fino al 30% in più di uno in classe G. Con la direttiva EPBD, gli edifici in classe F e G dovranno essere riqualificati. Chi interviene ora protegge il valore.",
     source: "https://www.giornaletecnologico.net/direttiva-case-green-italia-2026/",
     sourceLabel: "Giornale Tecnologico",
     accentColor: "#00D4D4",
   },
   {
-    title: "Superbonus 110%: chiuso definitivamente",
+    title: "Superbonus 110%: chiuso",
     tag: "STOP",
-    category: "normativa",
-    summary: "Non più disponibile per l'efficientamento. Resta solo per ricostruzione post-sisma. Le alternative: Ecobonus e Conto Termico.",
-    detail: "Il Superbonus 110% è concluso per l'efficientamento energetico. Resta disponibile solo per ricostruzione in aree colpite da terremoti. Le alternative attuali: Ecobonus al 50% (prima casa) o 36% (seconda casa), Conto Termico 3.0 (fino al 65% per interventi specifici).",
+    detail: "Non più disponibile per l'efficientamento energetico. Resta solo per ricostruzione post-sisma. Alternative: Ecobonus al 50% (prima casa) o Conto Termico 3.0 (fino al 65%).",
     source: "https://aenergy.it/bonus-edilizi-2026/",
     sourceLabel: "AEnergy",
     accentColor: "#FF4D6D",
   },
   {
-    title: "Investire in startup innovative: detrazione 65%",
+    title: "Startup innovative: detrazione 65%",
     tag: "INVEST",
-    category: "incentivi",
-    summary: "Chi investe in una startup come Karica detrae fino al 65% dall'IRPEF. Su €25.000 il costo effettivo è €8.750.",
-    detail: "Detrazione IRPEF del 65% (regime de minimis, art. 29-bis D.L. 179/2012) per investimenti fino a €100.000/anno in startup innovative. Mantenimento minimo 3 anni. L'eccedenza diventa credito d'imposta. Karica è iscritta come Startup Innovativa.",
+    detail: "Chi investe in una startup come Karica detrae fino al 65% dall'IRPEF. Su €25.000 investiti, il costo effettivo è €8.750. Mantenimento minimo 3 anni.",
     source: "https://www.mimit.gov.it/it/impresa/competitivita-e-nuove-imprese/start-up-innovative/incentivi-de-minimis",
     sourceLabel: "MIMIT",
     accentColor: "#39FF14",
@@ -129,20 +97,14 @@ const news: NewsItem[] = [
 ];
 
 export default function EnergiaPillole() {
-  const [activeCategory, setActiveCategory] = useState<Category>("tutti");
   const [openCard, setOpenCard] = useState<number | null>(null);
-
-  const filtered = activeCategory === "tutti"
-    ? news
-    : news.filter((n) => n.category === activeCategory);
 
   return (
     <section id="energia" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-bg-darker" />
       <div className="glow-orb absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />
-      <div className="glow-orb-slow absolute top-1/4 right-0 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.03] blur-[80px]" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -159,133 +121,92 @@ export default function EnergiaPillole() {
           </h2>
         </motion.div>
 
-        {/* Category filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-none"
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => { setActiveCategory(cat.key); setOpenCard(null); }}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                activeCategory === cat.key
-                  ? "bg-green-primary text-bg-dark"
-                  : "bg-card-bg border border-card-border text-text-muted hover:text-text-secondary hover:border-card-border/80"
-              }`}
+        {/* Compact pill grid */}
+        <div className="flex flex-wrap gap-2">
+          {news.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
             >
-              {cat.label}
-            </button>
-          ))}
-        </motion.div>
-
-        {/* Cards grid */}
-        <div className="grid sm:grid-cols-2 gap-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((item, i) => {
-              const globalIndex = news.indexOf(item);
-              const isOpen = openCard === globalIndex;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3, delay: i * 0.03 }}
-                  className={isOpen ? "sm:col-span-2" : ""}
+              <button
+                onClick={() => setOpenCard(openCard === i ? null : i)}
+                className={`group flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  openCard === i
+                    ? "ring-1 scale-105"
+                    : "hover:scale-105"
+                }`}
+                style={{
+                  backgroundColor: openCard === i ? item.accentColor + "20" : "#1E254060",
+                  color: openCard === i ? item.accentColor : "#C8D0E0",
+                  ["--tw-ring-color" as string]: item.accentColor + "50",
+                } as React.CSSProperties}
+              >
+                <span
+                  className="text-[10px] font-black uppercase px-1.5 py-0.5 rounded"
+                  style={{
+                    backgroundColor: item.accentColor + "20",
+                    color: item.accentColor,
+                  }}
                 >
-                  <button
-                    onClick={() => setOpenCard(isOpen ? null : globalIndex)}
-                    className="w-full text-left group"
-                  >
-                    <div
-                      className={`relative rounded-xl p-4 transition-all duration-300 overflow-hidden ${
-                        isOpen
-                          ? "bg-card-bg ring-1"
-                          : "bg-card-bg/40 hover:bg-card-bg ring-0 hover:ring-1"
-                      }`}
-                      style={
-                        { "--tw-ring-color": item.accentColor + "30" } as React.CSSProperties
-                      }
-                    >
-                      <div
-                        className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${
-                          isOpen ? "opacity-100" : "group-hover:opacity-60"
-                        }`}
-                        style={{
-                          background: `linear-gradient(135deg, ${item.accentColor}12 0%, transparent 50%)`,
-                        }}
-                      />
-
-                      <div className="relative z-10">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <span
-                                className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded"
-                                style={{
-                                  color: item.accentColor,
-                                  backgroundColor: item.accentColor + "15",
-                                }}
-                              >
-                                {item.tag}
-                              </span>
-                            </div>
-                            <h3 className="text-sm font-bold text-text-primary leading-snug">
-                              {item.title}
-                            </h3>
-                            <p className="text-xs text-text-muted mt-1 leading-relaxed">
-                              {item.summary}
-                            </p>
-                          </div>
-                          {isOpen && (
-                            <X size={16} className="text-text-muted flex-shrink-0 mt-1" />
-                          )}
-                        </div>
-
-                        {/* Expanded detail */}
-                        <AnimatePresence>
-                          {isOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="mt-4 pt-3 border-t border-card-border/50">
-                                <p className="text-text-secondary text-sm leading-relaxed mb-3">
-                                  {item.detail}
-                                </p>
-                                <a
-                                  href={item.source}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="inline-flex items-center gap-1 text-xs text-cyan-accent hover:text-cyan-accent/80 transition-colors"
-                                >
-                                  <ExternalLink size={10} />
-                                  <span className="underline underline-offset-2">
-                                    Fonte: {item.sourceLabel}
-                                  </span>
-                                </a>
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                  </button>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                  {item.tag}
+                </span>
+                <span className="whitespace-nowrap">{item.title}</span>
+              </button>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Expanded card */}
+        <AnimatePresence>
+          {openCard !== null && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: -10 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <div
+                className="mt-5 rounded-2xl p-5 sm:p-6 border"
+                style={{
+                  backgroundColor: "#1E2540",
+                  borderColor: news[openCard].accentColor + "30",
+                  background: `linear-gradient(135deg, ${news[openCard].accentColor}08 0%, #1E2540 40%)`,
+                }}
+              >
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h3 className="text-base font-bold text-text-primary">
+                    {news[openCard].title}
+                  </h3>
+                  <button
+                    onClick={() => setOpenCard(null)}
+                    className="text-text-muted hover:text-text-primary transition-colors flex-shrink-0"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+                <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                  {news[openCard].detail}
+                </p>
+                <a
+                  href={news[openCard].source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors"
+                  style={{ color: news[openCard].accentColor }}
+                >
+                  <ExternalLink size={11} />
+                  <span className="underline underline-offset-2">
+                    {news[openCard].sourceLabel}
+                  </span>
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
