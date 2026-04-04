@@ -9,7 +9,7 @@ const partners = [
     detail: "Esegue i lavori di riqualificazione",
     color: "border-green-primary/30 hover:border-green-primary/60",
     textColor: "text-green-primary",
-    url: "https://enerbe.it",
+    url: null,
   },
   {
     name: "Entraco",
@@ -17,7 +17,7 @@ const partners = [
     detail: "5.000 clienti reali con dati consumi",
     color: "border-cyan-accent/30 hover:border-cyan-accent/60",
     textColor: "text-cyan-accent",
-    url: "https://entraco.it",
+    url: "https://www.entraco.it",
   },
   {
     name: "EC Hub",
