@@ -43,7 +43,7 @@ const partners = [
 
 export default function Ecosistema() {
   return (
-    <section id="ecosistema" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
+    <section id="ecosistema" aria-label="Ecosistema di partner Karica" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
       <div className="absolute inset-0 dot-grid opacity-[0.12]" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">

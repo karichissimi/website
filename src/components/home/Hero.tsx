@@ -27,7 +27,7 @@ export default function HomeHero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 noise">
+    <section aria-label="Introduzione a Karica" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 noise">
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
       <div className="glow-orb absolute top-2/3 left-1/2 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.04] blur-[80px]" />
@@ -47,7 +47,8 @@ export default function HomeHero() {
           >
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={72}
               height={72}
               className="h-18 w-auto animate-float"
@@ -90,7 +91,7 @@ export default function HomeHero() {
               className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 rounded-2xl sm:rounded-full bg-card-bg/60 border border-card-border hover:border-card-border/80 transition-colors cursor-pointer group max-w-full"
             >
               <span className="text-text-muted text-[10px] sm:text-xs font-semibold uppercase tracking-wider flex-shrink-0">
-                Sapevi che
+                💡 Lo sapevi?
               </span>
               <span className="w-px h-3 bg-card-border flex-shrink-0" />
               <div className="relative overflow-hidden min-w-0">

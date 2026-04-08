@@ -78,7 +78,7 @@ export default function CTA() {
   }
 
   return (
-    <section id="cta" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
+    <section id="cta" aria-label="Richiedi il pitch deck" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
       <div className="glow-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute top-1/4 right-0 w-[300px] h-[300px] rounded-full bg-cyan-accent/[0.05] blur-[80px]" />
 
@@ -93,7 +93,8 @@ export default function CTA() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={44}
               height={44}
               className="h-11 w-auto animate-float-slow"

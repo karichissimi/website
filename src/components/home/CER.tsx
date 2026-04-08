@@ -41,7 +41,7 @@ export default function CER() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="cer" className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="cer" aria-label="Comunità Energetiche" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-bg-dark via-bg-darker to-bg-dark" />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">

@@ -101,7 +101,7 @@ export default function EnergiaPillole() {
   const [openCard, setOpenCard] = useState<number | null>(null);
 
   return (
-    <section id="energia" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
+    <section id="energia" aria-label="Energia in pillole — novità e incentivi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

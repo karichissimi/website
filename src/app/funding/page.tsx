@@ -29,7 +29,7 @@ export default function FundingPage() {
         links={navLinks}
         cta={{ label: "Investi ora", href: "#cta" }}
       />
-      <main>
+      <main id="main">
         <Hero />
         <Teaser />
         <CTA />

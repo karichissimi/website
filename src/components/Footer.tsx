@@ -19,7 +19,8 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={24}
               height={24}
               className="h-6 w-auto"

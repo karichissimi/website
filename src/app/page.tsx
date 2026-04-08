@@ -30,7 +30,7 @@ export default function Home() {
         cta={{ label: "Investi ora", href: "/funding" }}
         showFundingBanner
       />
-      <main>
+      <main id="main">
         <HomeHero />
         <ComeFunziona />
         <PerChi />

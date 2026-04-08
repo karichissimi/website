@@ -17,7 +17,8 @@ export default function CookiePolicyPage() {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={28}
               height={28}
               className="h-7 w-auto"
@@ -33,7 +34,7 @@ export default function CookiePolicyPage() {
         </div>
       </nav>
 
-      <main className="pt-28 pb-20 px-4 sm:px-6">
+      <main id="main" className="pt-28 pb-20 px-4 sm:px-6">
         <article className="max-w-3xl mx-auto prose-legal">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
             Cookie Policy

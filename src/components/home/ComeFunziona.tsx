@@ -47,7 +47,7 @@ export default function ComeFunziona() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="come-funziona" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
+    <section id="come-funziona" aria-label="Come funziona Karica" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

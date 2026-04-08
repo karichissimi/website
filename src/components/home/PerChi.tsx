@@ -47,7 +47,7 @@ export default function PerChi() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="per-chi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark">
+    <section id="per-chi" aria-label="Per chi è pensato Karica" className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

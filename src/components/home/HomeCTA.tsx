@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function HomeCTA() {
   return (
-    <section className="relative py-24 sm:py-32 bg-bg-darker overflow-hidden">
+    <section aria-label="Opportunità investimento" className="relative py-24 sm:py-32 bg-bg-darker overflow-hidden">
       <div className="glow-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-green-primary/[0.05] blur-[120px]" />
       <div className="glow-orb-slow absolute top-1/3 right-0 w-[300px] h-[300px] rounded-full bg-cyan-accent/[0.04] blur-[80px]" />
 
@@ -21,7 +21,8 @@ export default function HomeCTA() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={48}
               height={48}
               className="h-12 w-auto animate-float-slow"

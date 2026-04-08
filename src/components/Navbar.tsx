@@ -56,7 +56,8 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
             >
               <Image
                 src="/graphics/Karica_Logo_Felice.png"
-                alt="Karica"
+                alt=""
+                aria-hidden
                 width={28}
                 height={28}
                 className="h-7 w-auto"

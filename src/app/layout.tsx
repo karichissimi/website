@@ -50,7 +50,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it" className={`${avantGarde.variable} antialiased`}>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[999] focus:bg-green-primary focus:text-bg-dark focus:px-4 focus:py-2.5 focus:rounded-lg focus:font-bold focus:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
+        >
+          Vai al contenuto
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

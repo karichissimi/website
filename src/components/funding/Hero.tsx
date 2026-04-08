@@ -124,7 +124,7 @@ export default function Hero() {
   const [modal, setModal] = useState<number | null>(null);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28 noise">
+    <section aria-label="Introduzione investimento Karica" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28 noise">
       <div className="glow-orb absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.07] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
       <div className="glow-orb absolute top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.03] blur-[80px]" />
@@ -144,7 +144,8 @@ export default function Hero() {
           >
             <Image
               src="/graphics/Karica_Logo_Felice.png"
-              alt="Karica"
+              alt=""
+              aria-hidden
               width={64}
               height={64}
               className="h-16 w-auto animate-float"
