@@ -194,6 +194,53 @@ body {
   background: #39FF14;
 }
 
+/* ── Speech bubble (cacatua) ── */
+.bubble {
+  position: relative;
+  background: #1E2540;
+  border: 1.5px solid rgba(57, 255, 20, 0.28);
+  border-radius: 22px;
+  padding: 14px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(57, 255, 20, 0.05);
+}
+.bubble::before,
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+/* Outer (border) triangle */
+.bubble::before {
+  left: -14px;
+  border-width: 9px 14px 9px 0;
+  border-color: transparent rgba(57, 255, 20, 0.28) transparent transparent;
+}
+/* Inner (fill) triangle */
+.bubble::after {
+  left: -11px;
+  border-width: 8px 12px 8px 0;
+  border-color: transparent #1E2540 transparent transparent;
+}
+.bubble-error {
+  border-color: rgba(255, 77, 109, 0.35);
+}
+.bubble-error::before {
+  border-color: transparent rgba(255, 77, 109, 0.35) transparent transparent;
+}
+
+@keyframes bubblePop {
+  0% { transform: scale(0.92) translateY(6px); opacity: 0; }
+  60% { transform: scale(1.02) translateY(0); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.bubble-pop {
+  animation: bubblePop 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+}
+
 /* ── Legal pages typography ── */
 .prose-legal h2 {
   font-size: 1.25rem;

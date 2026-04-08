@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Counter from "./Counter";
 
 interface FundingBannerProps {
   compact?: boolean;
@@ -10,6 +9,8 @@ interface FundingBannerProps {
 const RAISED = 150000;
 const GOAL = 500000;
 const PCT = Math.round((RAISED / GOAL) * 100);
+const RAISED_FMT = `€${RAISED.toLocaleString("it-IT")}`;
+const GOAL_FMT = `€${GOAL.toLocaleString("it-IT")}`;
 
 export default function FundingBanner({ compact = false }: FundingBannerProps) {
   if (compact) {
@@ -42,13 +43,10 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
               Già raccolti
             </p>
             <div className="flex items-baseline gap-1">
-              <Counter
-                target={150000}
-                prefix="€"
-                suffix=""
-                className="text-2xl font-black text-green-primary font-mono"
-              />
-              <span className="text-text-muted text-sm">/ €500.000</span>
+              <span className="text-2xl font-black text-green-primary font-mono">
+                {RAISED_FMT}
+              </span>
+              <span className="text-text-muted text-sm">/ {GOAL_FMT}</span>
             </div>
           </div>
           <div className="text-right">

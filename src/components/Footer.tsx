@@ -42,6 +42,12 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
                 {link.label}
               </a>
             ))}
+            <Link
+              href="/contatti"
+              className="hover:text-text-secondary transition-colors"
+            >
+              Contatti
+            </Link>
           </div>
         </div>
 

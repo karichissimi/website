@@ -83,32 +83,39 @@ export default function HomeHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-10"
+            className="mb-10 flex justify-center px-2"
           >
             <a
               href="#energia"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-card-bg/60 border border-card-border hover:border-card-border/80 transition-colors cursor-pointer group"
+              className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 rounded-2xl sm:rounded-full bg-card-bg/60 border border-card-border hover:border-card-border/80 transition-colors cursor-pointer group max-w-full"
             >
-              <span className="text-text-muted text-xs font-semibold uppercase tracking-wider">
+              <span className="text-text-muted text-[10px] sm:text-xs font-semibold uppercase tracking-wider flex-shrink-0">
                 Sapevi che
               </span>
-              <span className="w-px h-3 bg-card-border" />
-              <div className="relative h-5 overflow-hidden min-w-[200px] sm:min-w-[340px]">
-                <AnimatePresence mode="wait">
+              <span className="w-px h-3 bg-card-border flex-shrink-0" />
+              <div className="relative overflow-hidden min-w-0">
+                {/* Invisible sizer: the div matches the current fact's dimensions */}
+                <span
+                  aria-hidden
+                  className="invisible block text-[11px] sm:text-sm font-medium leading-[1.3] sm:leading-normal"
+                >
+                  {facts[factIndex].text}
+                </span>
+                <AnimatePresence mode="wait" initial={false}>
                   <motion.span
                     key={factIndex}
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -20, opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0 text-xs sm:text-sm font-medium text-left"
+                    exit={{ y: -15, opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="absolute inset-0 text-[11px] sm:text-sm font-medium text-left leading-[1.3] sm:leading-normal"
                     style={{ color: facts[factIndex].color }}
                   >
                     {facts[factIndex].text}
                   </motion.span>
                 </AnimatePresence>
               </div>
-              <span className="text-text-muted text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+              <span className="hidden sm:inline text-text-muted text-xs opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
                 &darr;
               </span>
             </a>
@@ -130,7 +137,7 @@ export default function HomeHero() {
               href="#energia"
               className="border border-cyan-accent/40 text-cyan-accent font-semibold px-8 py-4 rounded-lg text-base hover:border-cyan-accent hover:bg-cyan-accent/5 transition-all"
             >
-              Scopri le novità energia
+              Scopri le novità sull&apos;energia
             </a>
           </motion.div>
 

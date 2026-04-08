@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 interface NavLink {
@@ -19,6 +20,28 @@ interface NavbarProps {
 
 export default function Navbar({ links, cta, logoHref = "/", showFundingBanner = false }: NavbarProps) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Reset scroll position on page load/reload instead of restoring previous position
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
+  function handleLogoClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (pathname === logoHref) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      e.preventDefault();
+      router.push(logoHref);
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -26,7 +49,11 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo */}
-            <Link href={logoHref} className="flex items-center gap-2 flex-shrink-0">
+            <Link
+              href={logoHref}
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 flex-shrink-0"
+            >
               <Image
                 src="/graphics/Karica_Logo_Felice.png"
                 alt="Karica"
