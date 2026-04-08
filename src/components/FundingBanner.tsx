@@ -37,27 +37,27 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
     >
       <div className="relative">
         {/* Labels */}
-        <div className="flex items-end justify-between mb-2">
+        <div className="flex items-end justify-between mb-1.5 sm:mb-2">
           <div>
-            <p className="text-text-muted text-xs uppercase tracking-wider mb-0.5">
+            <p className="text-text-muted text-[10px] sm:text-xs uppercase tracking-wider mb-0 sm:mb-0.5">
               Già raccolti
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-green-primary font-mono">
+              <span className="text-lg sm:text-2xl font-black text-green-primary font-mono">
                 {RAISED_FMT}
               </span>
-              <span className="text-text-muted text-sm">/ {GOAL_FMT}</span>
+              <span className="text-text-muted text-xs sm:text-sm">/ {GOAL_FMT}</span>
             </div>
           </div>
           <div className="text-right">
-            <span className="text-pink-accent text-xs font-bold uppercase tracking-wider">
+            <span className="text-pink-accent text-[10px] sm:text-xs font-bold uppercase tracking-wider">
               {PCT}% completato
             </span>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full h-3 bg-card-border/30 rounded-full overflow-hidden">
+        <div className="w-full h-2 sm:h-3 bg-card-border/30 rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full bg-gradient-to-r from-green-primary to-cyan-accent relative"
             initial={{ width: 0 }}
@@ -65,12 +65,12 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
             transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Pulse at end */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-green-primary shadow-[0_0_12px_rgba(57,255,20,0.6)]" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-primary shadow-[0_0_12px_rgba(57,255,20,0.6)]" />
           </motion.div>
         </div>
 
         {/* Soft urgency */}
-        <p className="text-text-muted text-xs mt-2.5">
+        <p className="text-text-muted text-[10px] sm:text-xs mt-1.5 sm:mt-2.5">
           Primo round pre-seed — queste condizioni non saranno ripetute
         </p>
       </div>

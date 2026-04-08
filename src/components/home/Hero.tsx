@@ -40,7 +40,7 @@ export default function HomeHero() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.div
-            className="flex items-center justify-center gap-4 mb-10"
+            className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-10"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -51,18 +51,18 @@ export default function HomeHero() {
               aria-hidden
               width={72}
               height={72}
-              className="h-18 w-auto animate-float"
+              className="h-12 sm:h-18 w-auto animate-float"
             />
             <Image
               src="/graphics/Karica_Scritta_WHITE.png"
               alt="Karica"
               width={200}
               height={56}
-              className="h-12 sm:h-14 w-auto"
+              className="h-9 sm:h-14 w-auto"
             />
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-text-primary leading-[1.1] mb-6">
+          <h1 className="text-[28px] sm:text-5xl md:text-7xl font-black text-text-primary leading-[1.05] sm:leading-[1.1] mb-3 sm:mb-6">
             L&apos;<span className="text-gradient">energia</span> di casa tua,
             <br />
             finalmente{" "}
@@ -70,7 +70,7 @@ export default function HomeHero() {
           </h1>
 
           <motion.p
-            className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto mb-8"
+            className="text-sm sm:text-xl text-text-secondary max-w-xl mx-auto mb-4 sm:mb-8 leading-snug sm:leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -84,7 +84,7 @@ export default function HomeHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-10 flex justify-center px-2"
+            className="mb-4 sm:mb-10 flex justify-center px-2"
           >
             <a
               href="#energia"
@@ -123,20 +123,20 @@ export default function HomeHero() {
           </motion.div>
 
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             <a
               href="/funding"
-              className="group relative bg-green-primary text-bg-dark font-bold px-8 py-4 rounded-lg uppercase tracking-wider text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+              className="group relative bg-green-primary text-bg-dark font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
             >
               <span className="relative z-10">Investi in Karica →</span>
             </a>
             <a
               href="#energia"
-              className="border border-cyan-accent/40 text-cyan-accent font-semibold px-8 py-4 rounded-lg text-base hover:border-cyan-accent hover:bg-cyan-accent/5 transition-all"
+              className="border border-cyan-accent/40 text-cyan-accent font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base hover:border-cyan-accent hover:bg-cyan-accent/5 transition-all"
             >
               Scopri le novità sull&apos;energia
             </a>
@@ -146,7 +146,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-12"
+            className="mt-4 sm:mt-12"
           >
             <FundingBanner />
           </motion.div>
