@@ -36,9 +36,11 @@ export default function HomeHero() {
       <div className="glow-orb absolute top-2/3 left-1/2 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.04] blur-[80px]" />
       <div className="absolute inset-0 dot-grid opacity-[0.12]" />
 
-      {/* Flex-1 inner stage fills available vertical space; gap-* sets uniform
-          rhythm between elements so content breathes and fills the viewport */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-6 sm:gap-9 max-w-4xl mx-auto w-full px-4 sm:px-6 text-center">
+      {/* Flex-1 inner stage fills available vertical space. On mobile uses
+          justify-between so the 6 elements spread to fill the viewport
+          (extra space distributed equally between them). Desktop keeps the
+          centered layout with a fixed gap. */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-between sm:justify-center gap-5 sm:gap-9 max-w-4xl mx-auto w-full px-4 sm:px-6 text-center">
         {/* Logo */}
         <motion.div
           className="flex items-center justify-center gap-3 sm:gap-4"
