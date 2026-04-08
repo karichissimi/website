@@ -87,21 +87,40 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-8">
-              {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm text-text-secondary hover:text-green-primary transition-colors"
+              {links.map((link) =>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-text-secondary hover:text-green-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-text-secondary hover:text-green-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
+              {cta.href.startsWith("/") ? (
+                <Link
+                  href={cta.href}
+                  className="bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
                 >
-                  {link.label}
+                  {cta.label}
+                </Link>
+              ) : (
+                <a
+                  href={cta.href}
+                  className="bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
+                >
+                  {cta.label}
                 </a>
-              ))}
-              <a
-                href={cta.href}
-                className="bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
-              >
-                {cta.label}
-              </a>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -118,23 +137,44 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
         {open && (
           <div className="md:hidden bg-bg-darker border-t border-card-border">
             <div className="px-4 py-4 space-y-3">
-              {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+              {links.map((link) =>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-text-secondary hover:text-green-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-text-secondary hover:text-green-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
+              {cta.href.startsWith("/") ? (
+                <Link
+                  href={cta.href}
                   onClick={() => setOpen(false)}
-                  className="block text-text-secondary hover:text-green-primary transition-colors"
+                  className="block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
                 >
-                  {link.label}
+                  {cta.label}
+                </Link>
+              ) : (
+                <a
+                  href={cta.href}
+                  onClick={() => setOpen(false)}
+                  className="block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
+                >
+                  {cta.label}
                 </a>
-              ))}
-              <a
-                href={cta.href}
-                onClick={() => setOpen(false)}
-                className="block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
-              >
-                {cta.label}
-              </a>
+              )}
             </div>
           </div>
         )}

@@ -13,12 +13,11 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { label: "Opportunità", href: "#opportunita" },
-  { label: "Contatti", href: "#cta" },
+  { label: "Contatti", href: "/contatti" },
 ];
 
 const footerLinks = [
   { label: "Opportunità", href: "#opportunita" },
-  { label: "Contatti", href: "#cta" },
   { label: "Home", href: "/" },
 ];
 
