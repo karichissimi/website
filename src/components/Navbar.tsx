@@ -74,7 +74,7 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
             {showFundingBanner && (
               <a
                 href="/funding"
-                className="flex items-center gap-1.5 text-[11px] sm:text-xs px-2.5 py-1 rounded-full border border-green-primary/20 hover:border-green-primary/40 transition-colors"
+                className="flex items-center gap-1.5 text-[11px] sm:text-xs px-3 py-2 min-h-[36px] rounded-full border border-green-primary/20 hover:border-green-primary/40 transition-colors"
               >
                 <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-primary opacity-75" />

@@ -131,7 +131,7 @@ export default function EnergiaPillole() {
             >
               <button
                 onClick={() => setOpenCard(openCard === i ? null : i)}
-                className={`group flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`group flex items-center gap-2 px-4 py-2.5 min-h-[40px] rounded-full text-sm font-semibold transition-all duration-300 ${
                   openCard === i
                     ? "ring-1 scale-105"
                     : "hover:scale-105"

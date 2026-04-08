@@ -207,7 +207,7 @@ export default function ChiediAKarica() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 + i * 0.05 }}
               onClick={() => handleAsk(s)}
-              className="text-[11px] sm:text-xs px-3 py-1.5 rounded-full bg-card-bg border border-card-border text-text-secondary hover:border-green-primary/50 hover:text-green-primary hover:bg-green-primary/5 transition-all hover:-translate-y-0.5"
+              className="text-[11px] sm:text-xs px-4 py-2.5 min-h-[40px] rounded-full bg-card-bg border border-card-border text-text-secondary hover:border-green-primary/50 hover:text-green-primary hover:bg-green-primary/5 transition-all hover:-translate-y-0.5"
             >
               {s}
             </motion.button>

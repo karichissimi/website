@@ -23,6 +23,15 @@ export default function KpiModal({ open, onClose, value, label, explanation, chi
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [open, onClose]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -47,7 +56,7 @@ export default function KpiModal({ open, onClose, value, label, explanation, chi
               <div className="relative z-10">
                 <button
                   onClick={onClose}
-                  className="absolute top-0 right-0 text-text-muted hover:text-text-primary transition-colors"
+                  className="absolute -top-2 -right-2 p-2.5 text-text-muted hover:text-text-primary hover:bg-card-bg/60 rounded-full transition-colors"
                   aria-label="Chiudi"
                 >
                   <X size={20} />

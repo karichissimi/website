@@ -127,7 +127,7 @@ export default function PerChi() {
                         <h3 className="text-lg sm:text-xl font-bold text-text-primary">
                           {t.title}
                         </h3>
-                        <p className="text-sm text-text-muted mt-0.5 hidden sm:block">
+                        <p className="text-[11px] sm:text-sm text-text-muted mt-0.5 leading-snug">
                           {t.subtitle}
                         </p>
                       </div>
