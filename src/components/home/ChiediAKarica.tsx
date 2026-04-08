@@ -241,8 +241,18 @@ export default function ChiediAKarica() {
       >
         <input
           type="text"
-          value={mode === "idle" || mode === "error" ? question : ""}
-          onChange={(e) => setQuestion(e.target.value)}
+          value={question}
+          onChange={(e) => {
+            setQuestion(e.target.value);
+            // If an answer/error is still showing, typing resets to idle so
+            // the user can immediately ask a new question without first
+            // hitting "Un'altra domanda"
+            if (mode === "answer" || mode === "error") {
+              setAnswer("");
+              setError("");
+              setMode("idle");
+            }
+          }}
           placeholder="Scrivi la tua domanda..."
           disabled={mode === "loading"}
           className="flex-1 min-w-0 bg-card-bg border border-card-border rounded-full px-4 py-2.5 text-sm text-text-primary placeholder:text-text-disabled focus:outline-none focus:border-green-primary/60 focus:shadow-[0_0_0_3px_rgba(57,255,20,0.08)] transition-all disabled:opacity-50"
