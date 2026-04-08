@@ -40,9 +40,9 @@ const partners = [
 export default function Ecosistema() {
   return (
     <section id="ecosistema" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
-      <div className="absolute inset-0 dot-grid opacity-20" />
+      <div className="absolute inset-0 dot-grid opacity-[0.12]" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export default function Ecosistema() {
             {/* Central hub */}
             <div className="relative">
               <div className="absolute inset-0 bg-green-primary/20 blur-xl rounded-xl" />
-              <div className="relative bg-bg-darker border border-green-primary/40 rounded-xl px-8 py-4 text-green-primary font-bold text-center text-shimmer text-lg">
+              <div className="relative bg-bg-darker border border-green-primary/40 rounded-xl px-8 py-4 text-green-primary font-bold text-center text-lg">
                 KARICA
               </div>
             </div>

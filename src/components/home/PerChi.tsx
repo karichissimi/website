@@ -37,8 +37,8 @@ const targets = [
       "Monitora i consumi, riqualifica gli immobili e partecipa alle CER. Karica orchestra fornitori, finanziamenti e pratiche.",
     detail:
       "Per le PMI e i Comuni, Karica diventa il cruscotto energetico. Monitoraggio consumi su più sedi, gestione delle pratiche di riqualificazione, accesso a incentivi e finanziamenti green. ENERBee esegue i lavori, Karica orchestra tutto il processo digitale.",
-    accentColor: "#FF4D6D",
-    iconBg: "bg-pink-accent/10",
+    accentColor: "#39FF14",
+    iconBg: "bg-green-primary/10",
     tag: "B2G",
   },
 ];
@@ -47,12 +47,7 @@ export default function PerChi() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="per-chi" className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Background with gradient mesh */}
-      <div className="absolute inset-0 bg-bg-dark" />
-      <div className="glow-orb absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.04] blur-[120px]" />
-      <div className="glow-orb-slow absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-pink-accent/[0.04] blur-[100px]" />
-
+    <section id="per-chi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +56,7 @@ export default function PerChi() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <p className="text-cyan-accent font-semibold text-sm uppercase tracking-widest mb-3">
+          <p className="text-green-primary font-semibold text-sm uppercase tracking-widest mb-3">
             Per chi
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight">

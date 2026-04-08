@@ -6,10 +6,7 @@ import Counter from "../Counter";
 
 export default function Teaser() {
   return (
-    <section id="opportunita" className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-bg-darker" />
-      <div className="glow-orb absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-green-primary/[0.04] blur-[120px]" />
-
+    <section id="opportunita" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

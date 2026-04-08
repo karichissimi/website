@@ -30,7 +30,7 @@ export default function ContattiPage() {
         {/* Soft ambient background */}
         <div className="glow-orb absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-green-primary/[0.05] blur-[120px]" />
         <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />
-        <div className="absolute inset-0 dot-grid opacity-20" />
+        <div className="absolute inset-0 dot-grid opacity-[0.12]" />
 
         <div className="relative z-10 max-w-xl mx-auto px-4 sm:px-6 text-center">
           {/* Cacatua */}

@@ -101,10 +101,7 @@ export default function EnergiaPillole() {
   const [openCard, setOpenCard] = useState<number | null>(null);
 
   return (
-    <section id="energia" className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-bg-darker" />
-      <div className="glow-orb absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />
-
+    <section id="energia" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

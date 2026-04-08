@@ -32,8 +32,8 @@ const items = [
     text: "Il GSE riconosce un incentivo per l'energia condivisa. Karica ti mostra quanto guadagni e gestisce la distribuzione.",
     detail:
       "Il Gestore dei Servizi Energetici (GSE) riconosce un incentivo economico per ogni kWh di energia condivisa nella CER. Karica calcola la tua quota, ti mostra quanto guadagni nella dashboard e gestisce la distribuzione. Tu vedi i soldi arrivare, senza pensare a nulla.",
-    accentColor: "#FF4D6D",
-    iconBg: "bg-pink-accent/10",
+    accentColor: "#39FF14",
+    iconBg: "bg-green-primary/10",
   },
 ];
 
@@ -42,10 +42,7 @@ export default function CER() {
 
   return (
     <section id="cer" className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg-dark via-bg-darker to-bg-dark" />
-      <div className="glow-orb absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-cyan-accent/[0.05] blur-[140px]" />
-      <div className="glow-orb-slow absolute bottom-0 right-1/4 w-[300px] h-[300px] rounded-full bg-green-primary/[0.04] blur-[80px]" />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
