@@ -36,12 +36,26 @@ export default function ChiediAKarica() {
         body: JSON.stringify({ question: text }),
       });
 
+      if (!res.ok) {
+        if (res.status === 429) throw new Error("rate");
+        if (res.status >= 500) throw new Error("server");
+        throw new Error("request");
+      }
+
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Qualcosa è andato storto");
       setAnswer(data.answer);
       setMode("answer");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Qualcosa è andato storto");
+      const kind = err instanceof Error ? err.message : "";
+      if (kind === "rate") {
+        setError("Oh! Troppe domande di fila — dammi un attimo e riprova.");
+      } else if (kind === "server") {
+        setError("Il mio cervello ha avuto un hiccup. Riprova tra un minuto.");
+      } else if (kind === "request") {
+        setError("Non ho capito la richiesta — prova a riformularla.");
+      } else {
+        setError("Ho perso la connessione. Controlla la rete e riprova.");
+      }
       setMode("error");
     }
   }
@@ -198,8 +212,12 @@ export default function ChiediAKarica() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="flex flex-wrap gap-2 mb-4 ml-[72px] sm:ml-[96px]"
+          className="mb-4 ml-[72px] sm:ml-[96px]"
         >
+          <p className="text-[11px] text-text-muted mb-2 font-medium">
+            Tocca una domanda 👇
+          </p>
+          <div className="flex flex-wrap gap-2">
           {suggestions.map((s, i) => (
             <motion.button
               key={s}
@@ -212,6 +230,7 @@ export default function ChiediAKarica() {
               {s}
             </motion.button>
           ))}
+          </div>
         </motion.div>
       )}
 

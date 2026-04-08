@@ -9,6 +9,7 @@ const partners = [
     detail: "Esegue i lavori di riqualificazione",
     color: "border-green-primary/30 hover:border-green-primary/60",
     textColor: "text-green-primary",
+    dotBg: "bg-green-primary",
     url: null,
   },
   {
@@ -17,22 +18,25 @@ const partners = [
     detail: "5.000 clienti reali con dati consumi",
     color: "border-cyan-accent/30 hover:border-cyan-accent/60",
     textColor: "text-cyan-accent",
+    dotBg: "bg-cyan-accent",
     url: "https://www.entraco.it",
   },
   {
     name: "EC Hub",
     role: "Rete CER",
     detail: "Comunità Energetiche su scala nazionale",
-    color: "border-pink-accent/30 hover:border-pink-accent/60",
-    textColor: "text-pink-accent",
+    color: "border-green-primary/30 hover:border-green-primary/60",
+    textColor: "text-green-primary",
+    dotBg: "bg-green-primary",
     url: "https://echub.it",
   },
   {
     name: "Partner Bancari",
     role: "Finanziamenti",
     detail: "Prestiti green integrati nell'app",
-    color: "border-green-primary/30 hover:border-green-primary/60",
-    textColor: "text-green-primary",
+    color: "border-cyan-accent/30 hover:border-cyan-accent/60",
+    textColor: "text-cyan-accent",
+    dotBg: "bg-cyan-accent",
     url: null,
   },
 ];
@@ -93,20 +97,28 @@ export default function Ecosistema() {
                       href={partner.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`block bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color} hover:shadow-lg cursor-pointer`}
+                      className={`group relative block bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color} hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3)] cursor-pointer`}
                     >
-                      <p className={`font-bold text-sm ${partner.textColor}`}>
-                        {partner.name} ↗
-                      </p>
-                      <p className="text-text-muted text-xs mt-0.5">{partner.role}</p>
-                      <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
-                    </a>
-                  ) : (
-                    <div className={`bg-bg-darker border rounded-xl p-4 text-center transition-all duration-300 ${partner.color}`}>
-                      <p className={`font-bold text-sm ${partner.textColor}`}>
+                      {/* Live indicator */}
+                      <span className="absolute top-2 right-2 flex h-1.5 w-1.5">
+                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${partner.dotBg}`} />
+                        <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${partner.dotBg}`} />
+                      </span>
+                      <p className={`font-bold text-sm ${partner.textColor} group-hover:underline underline-offset-4 decoration-2`}>
                         {partner.name}
                       </p>
                       <p className="text-text-muted text-xs mt-0.5">{partner.role}</p>
+                      <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
+                      <p className={`text-[10px] mt-2 font-semibold uppercase tracking-wider ${partner.textColor} opacity-60 group-hover:opacity-100 transition-opacity`}>
+                        Visita il sito &rarr;
+                      </p>
+                    </a>
+                  ) : (
+                    <div className="bg-bg-darker/60 border border-card-border/50 rounded-xl p-4 text-center cursor-default">
+                      <p className={`font-bold text-sm ${partner.textColor} opacity-70`}>
+                        {partner.name}
+                      </p>
+                      <p className="text-text-muted text-xs mt-0.5 opacity-70">{partner.role}</p>
                       <p className="text-text-disabled text-[11px] mt-2">{partner.detail}</p>
                     </div>
                   )}

@@ -2,8 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Send, Calendar, CheckCircle, Loader2 } from "lucide-react";
+import { Send, Calendar, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import Image from "next/image";
+
+// Simple but solid email check — not exhaustive, just catches common mistakes
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function CTA() {
   const [email, setEmail] = useState("");
@@ -11,14 +14,38 @@ export default function CTA() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  function validateEmail(value: string): string {
+    const trimmed = value.trim();
+    if (!trimmed) return "Serve una mail per spedirti il pitch deck.";
+    if (!EMAIL_RE.test(trimmed)) return "Formato mail non valido — controlla il punto e la @.";
+    return "";
+  }
+
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    // Re-validate as user types, but only if they've already blurred once
+    if (emailTouched) setEmailError(validateEmail(value));
+  }
+
+  function handleEmailBlur() {
+    setEmailTouched(true);
+    setEmailError(validateEmail(email));
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!email) return;
+
+    const emailErr = validateEmail(email);
+    setEmailTouched(true);
+    setEmailError(emailErr);
+    if (emailErr) return;
 
     setLoading(true);
-    setError("");
+    setSubmitError("");
 
     try {
       const res = await fetch("/api/leads", {
@@ -27,10 +54,24 @@ export default function CTA() {
         body: JSON.stringify({ name, email }),
       });
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        // Distinguish server-side validation from generic server failure
+        if (res.status >= 400 && res.status < 500) {
+          throw new Error("validation");
+        }
+        throw new Error("server");
+      }
       setSubmitted(true);
-    } catch {
-      setError("Qualcosa è andato storto. Riprova o scrivici a info@karica.it");
+    } catch (err) {
+      const kind = err instanceof Error ? err.message : "";
+      if (kind === "validation") {
+        setSubmitError("La mail non ci piace — prova un altro indirizzo.");
+      } else if (kind === "server") {
+        setSubmitError("Il nostro server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.");
+      } else {
+        // Network failure — fetch rejected, not an HTTP response
+        setSubmitError("Connessione persa. Controlla la rete e riprova.");
+      }
     } finally {
       setLoading(false);
     }
@@ -119,14 +160,33 @@ export default function CTA() {
                     type="email"
                     required
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => handleEmailChange(e.target.value)}
+                    onBlur={handleEmailBlur}
                     placeholder="mario@email.com"
-                    className="w-full bg-bg-darker border border-card-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none focus:border-green-primary/60 focus:shadow-[0_0_12px_rgba(57,255,20,0.1)] transition-all"
+                    aria-invalid={!!emailError}
+                    aria-describedby={emailError ? "email-error" : undefined}
+                    className={`w-full bg-bg-darker border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none transition-all ${
+                      emailError
+                        ? "border-pink-accent/60 focus:border-pink-accent focus:shadow-[0_0_12px_rgba(255,77,109,0.15)]"
+                        : "border-card-border focus:border-green-primary/60 focus:shadow-[0_0_12px_rgba(57,255,20,0.1)]"
+                    }`}
                   />
+                  {emailError && (
+                    <p
+                      id="email-error"
+                      className="mt-1.5 flex items-center gap-1.5 text-pink-accent text-xs"
+                    >
+                      <AlertCircle size={12} className="flex-shrink-0" />
+                      {emailError}
+                    </p>
+                  )}
                 </div>
 
-                {error && (
-                  <p className="text-pink-accent text-xs text-center">{error}</p>
+                {submitError && (
+                  <div className="flex items-start gap-2 rounded-lg bg-pink-accent/5 border border-pink-accent/20 px-3 py-2.5">
+                    <AlertCircle size={14} className="flex-shrink-0 text-pink-accent mt-0.5" />
+                    <p className="text-pink-accent text-xs leading-relaxed">{submitError}</p>
+                  </div>
                 )}
 
                 <button
