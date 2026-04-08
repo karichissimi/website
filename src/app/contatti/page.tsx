@@ -87,15 +87,9 @@ export default function ContattiPage() {
           </a>
 
           {/* Soft personal touch */}
-          <div className="text-text-muted text-sm leading-relaxed space-y-1">
-            <p>
-              Dall&apos;altra parte della mail, tra gli altri, trovi{" "}
-              <span className="text-text-secondary font-semibold">Alessandro Zanin</span>.
-            </p>
-            <p className="text-xs text-text-disabled">
-              Niente centralini, niente bot — solo persone.
-            </p>
-          </div>
+          <p className="text-text-muted text-xs">
+            Niente centralini, niente bot — solo persone.
+          </p>
 
           {/* Subtle divider + alt link */}
           <div className="mt-12 pt-8 border-t border-card-border/40">
