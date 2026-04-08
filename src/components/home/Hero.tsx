@@ -29,17 +29,19 @@ export default function HomeHero() {
   return (
     <section
       aria-label="Introduzione a Karica"
-      className="relative sm:min-h-screen flex flex-col sm:items-center sm:justify-center overflow-hidden pt-20 sm:pt-24 pb-8 sm:pb-16 noise"
+      className="relative min-h-[100svh] sm:min-h-screen flex flex-col overflow-hidden pt-20 sm:pt-24 pb-10 sm:pb-16 noise"
     >
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
       <div className="glow-orb absolute top-2/3 left-1/2 w-[300px] h-[300px] rounded-full bg-pink-accent/[0.04] blur-[80px]" />
       <div className="absolute inset-0 dot-grid opacity-[0.12]" />
 
-      <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto w-full px-4 sm:px-6 text-center">
+      {/* Flex-1 inner stage fills available vertical space; gap-* sets uniform
+          rhythm between elements so content breathes and fills the viewport */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-6 sm:gap-9 max-w-4xl mx-auto w-full px-4 sm:px-6 text-center">
         {/* Logo */}
         <motion.div
-          className="flex items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-10"
+          className="flex items-center justify-center gap-3 sm:gap-4"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -63,7 +65,7 @@ export default function HomeHero() {
 
         {/* Headline */}
         <motion.h1
-          className="text-[34px] sm:text-5xl md:text-7xl font-black text-text-primary leading-[1.05] sm:leading-[1.1] mb-4 sm:mb-6"
+          className="text-[34px] sm:text-5xl md:text-7xl font-black text-text-primary leading-[1.05] sm:leading-[1.1]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -76,7 +78,7 @@ export default function HomeHero() {
 
         {/* Paragraph */}
         <motion.p
-          className="text-base sm:text-xl text-text-secondary max-w-xl mx-auto mb-5 sm:mb-8 leading-snug sm:leading-relaxed"
+          className="text-base sm:text-xl text-text-secondary max-w-xl mx-auto leading-snug sm:leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -90,7 +92,7 @@ export default function HomeHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-5 sm:mb-10 flex justify-center px-2 w-full"
+          className="flex justify-center px-2 w-full"
         >
           <a
             href="#energia"
@@ -130,7 +132,7 @@ export default function HomeHero() {
 
         {/* CTAs */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 mb-5 sm:mb-12"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
