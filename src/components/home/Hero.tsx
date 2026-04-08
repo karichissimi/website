@@ -29,7 +29,7 @@ export default function HomeHero() {
   return (
     <section
       aria-label="Introduzione a Karica"
-      className="relative min-h-[100svh] sm:min-h-screen flex flex-col overflow-hidden pt-20 sm:pt-24 pb-10 sm:pb-16 noise"
+      className="relative min-h-[100svh] sm:min-h-screen flex flex-col overflow-hidden pt-20 sm:pt-24 pb-3 sm:pb-16 noise"
     >
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
