@@ -35,7 +35,7 @@ const steps = [
     title: "Risparmia davvero",
     subtitle: "Professionisti certificati, risultati misurabili",
     detail:
-      "Se decidi di procedere, i lavori li eseguono professionisti certificati della rete ENERBee. Finanziamento incluso se serve. Dopo l'intervento, Karica continua a monitorare i tuoi consumi: vedi il risparmio reale mese dopo mese. Puoi anche unirti a una Comunità Energetica per condividere energia e ricevere incentivi.",
+      "Se decidi di procedere, i lavori li eseguono professionisti certificati della rete GTI. Finanziamento incluso se serve. Dopo l'intervento, Karica continua a monitorare i tuoi consumi: vedi il risparmio reale mese dopo mese. Puoi anche unirti a una Comunità Energetica per condividere energia e ricevere incentivi.",
     gradient: "from-green-primary/20 via-green-primary/5 to-transparent",
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",

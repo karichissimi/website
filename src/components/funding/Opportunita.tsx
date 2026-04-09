@@ -46,7 +46,7 @@ export default function Opportunita() {
             {
               icon: HardHat,
               title: "Esecuzione garantita",
-              text: "I lavori li esegue la rete di partner certificati. Nella fase 1 è ENERBee. Dalla fase 2 si apre con la Karica Academy.",
+              text: "I lavori li esegue la rete di partner certificati. Nella fase 1 è GTI. Dalla fase 2 si apre con la Karica Academy.",
             },
             {
               icon: TrendingUp,
@@ -122,8 +122,8 @@ export default function Opportunita() {
                 l&apos;utente apre l&apos;app e trova la sua diagnosi energetica pronta.
               </p>
               <p>
-                <strong className="text-text-primary">ENERBee Group</strong> garantisce l&apos;esecuzione nella fase 1.
-                Dalla fase 2, la Karica Academy costruisce una rete di partner certificati indipendente — il vero moat competitivo.
+                <strong className="text-text-primary">GTI (Green Tech Italia)</strong> garantisce l&apos;esecuzione nella fase 1 —
+                bilancio, 10 dipendenti, operativa. Dalla fase 2, la Karica Academy costruisce una rete di partner certificati indipendente — il vero moat competitivo.
               </p>
               <p>
                 Il 62% degli utenti al 2030 arriverà dai partner White Label.

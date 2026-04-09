@@ -48,7 +48,7 @@ export default function DueAtti() {
                 Pre-seed €500k
               </p>
               <p className="text-sm text-text-secondary leading-relaxed mb-6">
-                Ambiente controllato. Entraco porta 5.000 clienti reali, ENERBee
+                Ambiente controllato. Entraco porta 5.000 clienti reali, GTI
                 esegue i lavori. Validiamo il modello, dimostriamo che funziona.
                 EBITDA positivo dal primo anno. Fee al 10-12% — Karica genera lead e consulenza base.
               </p>

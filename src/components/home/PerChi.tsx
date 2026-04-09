@@ -36,7 +36,7 @@ const targets = [
     description:
       "Monitora i consumi, riqualifica gli immobili e partecipa alle CER. Karica orchestra fornitori, finanziamenti e pratiche.",
     detail:
-      "Per le PMI e i Comuni, Karica diventa il cruscotto energetico. Monitoraggio consumi su più sedi, gestione delle pratiche di riqualificazione, accesso a incentivi e finanziamenti green. ENERBee esegue i lavori, Karica orchestra tutto il processo digitale.",
+      "Per le PMI e i Comuni, Karica diventa il cruscotto energetico. Monitoraggio consumi su più sedi, gestione delle pratiche di riqualificazione, accesso a incentivi e finanziamenti green. GTI esegue i lavori, Karica orchestra tutto il processo digitale.",
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
     tag: "B2G",

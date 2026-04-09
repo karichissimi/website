@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 
 const partners = [
   {
-    name: "ENERBee",
+    name: "GTI",
     role: "General Contractor",
-    detail: "Esegue i lavori di riqualificazione",
+    detail: "10 dipendenti, esegue i lavori di riqualificazione",
     color: "border-green-primary/30 hover:border-green-primary/60",
     textColor: "text-green-primary",
     dotBg: "bg-green-primary",
-    url: null,
+    url: "https://www.greentechitalia.com/",
   },
   {
     name: "Entraco",
