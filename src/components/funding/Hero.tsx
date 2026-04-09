@@ -15,6 +15,7 @@ interface Kpi {
   label: string;
   sublabel?: string;
   explanation?: string;
+  decimals?: number;
   richContent?: ReactNode;
 }
 
@@ -33,15 +34,16 @@ const kpis: Kpi[] = [
     suffix: "%",
     label: "Equity per l'investitore",
     explanation:
-      "Chi investe €500.000 ottiene il 20% della società. Significa diventare socio e partecipare alla crescita di Karica. Se la società cresce di valore, cresce anche il valore della tua quota.",
+      "Chi investe €500.000 ottiene il 20% della società (post-money €2,5M). Significa diventare socio e partecipare alla crescita di Karica. Ogni €25.000 investiti = 1% della società. Diritti patrimoniali pieni (dividendi, liquidazione, exit).",
   },
   {
-    prefix: "",
-    target: 8,
-    suffix: "%",
-    label: "Rendimento garantito annuo",
+    prefix: "€",
+    target: 6.62,
+    suffix: "M",
+    decimals: 2,
+    label: "Ricavi previsti 2030",
     explanation:
-      "Indipendentemente da come va, il tuo investimento matura un rendimento dell'8% all'anno per 2 anni. Automatico, senza toccare la cassa dell'azienda. Dopo 24 mesi hai diritto ad almeno €583.200 su €500k investiti.",
+      "Il piano quinquennale stima ricavi per €6,62 milioni al 2030, partendo da €231k nel 2026. Crescita guidata dalla fee progressiva 10%→20% sul GMV e dall'espansione dei partner White Label (11 partner cumulati al 2030). EBITDA positivo dal primo anno.",
   },
   {
     prefix: "€",
@@ -196,6 +198,7 @@ export default function Hero() {
                     target={kpi.target}
                     prefix={kpi.prefix}
                     suffix={kpi.suffix}
+                    decimals={kpi.decimals}
                     className="text-2xl sm:text-3xl font-black text-green-primary font-mono"
                   />
                   <p className="text-xs text-text-muted mt-1">
@@ -224,7 +227,7 @@ export default function Hero() {
             <FundingBanner />
           </motion.div>
 
-          {/* Floor guarantee */}
+          {/* EBITDA positive badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -233,7 +236,7 @@ export default function Hero() {
           >
             <Shield size={16} className="text-green-primary" />
             <span className="text-sm text-green-primary font-semibold">
-              Floor garantito: ricevi almeno €583.200 su €500k investiti
+              EBITDA positivo dal primo anno — il capitale non copre perdite
             </span>
           </motion.div>
 

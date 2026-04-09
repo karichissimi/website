@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TrendingDown, Shield, Timer, Lock } from "lucide-react";
+import { TrendingDown, Shield, Timer, Percent } from "lucide-react";
 
 const reasons = [
-  { icon: TrendingDown, title: "Il prezzo più basso", description: "La Series A nel 2028 sarà a multipli molto superiori. Chi entra oggi compra a €2M una società che varrà €6-10M.", color: "text-green-primary", glow: "group-hover:shadow-[0_0_30px_rgba(57,255,20,0.12)]" },
-  { icon: Shield, title: "Rischio ridotto", description: "Entraco firmato, 5.000 utenti reali, supply chain operativa. EBITDA positivo dal primo anno.", color: "text-cyan-accent", glow: "group-hover:shadow-[0_0_30px_rgba(0,212,212,0.12)]" },
-  { icon: Lock, title: "Protezione al ribasso", description: "Floor €583.200. Cassa 2026 di €534k > capitale investito. Piano regge con -30% su tutti i driver.", color: "text-pink-accent", glow: "group-hover:shadow-[0_0_30px_rgba(255,77,109,0.12)]" },
-  { icon: Timer, title: "Finestra limitata", description: "Unico round pre-seed. Quote B con PIK 8% e floor non saranno più disponibili.", color: "text-green-primary", glow: "group-hover:shadow-[0_0_30px_rgba(57,255,20,0.12)]" },
+  { icon: TrendingDown, title: "Il prezzo più basso", description: "La Series A nel 2028 sarà a multipli molto superiori. Chi entra oggi compra a €2M una società che a base plan vale €6,62M di ricavi 2030.", color: "text-green-primary", glow: "group-hover:shadow-[0_0_30px_rgba(57,255,20,0.12)]" },
+  { icon: Shield, title: "Rischio ridotto", description: "Entraco firmato, 5.000 utenti reali, supply chain operativa via GTI. EBITDA positivo dal primo anno (€7k nel 2026, €510k nel 2027).", color: "text-cyan-accent", glow: "group-hover:shadow-[0_0_30px_rgba(0,212,212,0.12)]" },
+  { icon: Percent, title: "Detrazione 65%", description: "Karica è startup innovativa: detrazione IRPEF del 65% sull'importo investito. Costo effettivo €8.750 su €25.000 ticket minimo.", color: "text-green-primary", glow: "group-hover:shadow-[0_0_30px_rgba(57,255,20,0.12)]" },
+  { icon: Timer, title: "Finestra limitata", description: "Unico round pre-seed. Valutazione pre-money €2M concepita come sconto strutturale: a 3x i ricavi 2027 (€1,13M) il fair value implicito è già €3,4M.", color: "text-cyan-accent", glow: "group-hover:shadow-[0_0_30px_rgba(0,212,212,0.12)]" },
 ];
 
 export default function Perche() {

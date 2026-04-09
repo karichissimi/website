@@ -47,9 +47,9 @@ export default function Teaser() {
           className="grid grid-cols-3 gap-4 mb-14"
         >
           {[
-            { icon: TrendingUp, prefix: "€", target: 6.5, suffix: " milioni", label: "Ricavi previsti 2030", decimals: 1, color: "text-green-primary" },
+            { icon: TrendingUp, prefix: "€", target: 6.62, suffix: "M", label: "Ricavi previsti 2030", decimals: 2, color: "text-green-primary" },
             { icon: Users, prefix: "", target: 94750, suffix: "", label: "Utenti a regime", decimals: 0, color: "text-cyan-accent" },
-            { icon: Shield, prefix: "", target: 8, suffix: "%", label: "Rendimento garantito", decimals: 0, color: "text-pink-accent" },
+            { icon: Shield, prefix: "", target: 46, suffix: "%", label: "EBITDA 2030", decimals: 0, color: "text-cyan-accent" },
           ].map((kpi) => (
             <div key={kpi.label} className="text-center">
               <kpi.icon className={`mx-auto mb-2 ${kpi.color}`} size={20} />

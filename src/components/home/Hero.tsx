@@ -6,7 +6,7 @@ import Image from "next/image";
 import FundingBanner from "../FundingBanner";
 
 const facts = [
-  { text: "Il 60% delle case italiane è in classe energetica F o G", color: "#FF4D6D" },
+  { text: "Il 54% delle case italiane è in classe energetica F o G", color: "#FF4D6D" },
   { text: "Con la direttiva Case Green, riqualificare non sarà più opzionale", color: "#00D4D4" },
   { text: "Un impianto fotovoltaico da 6 kW costa da €7.000 chiavi in mano", color: "#39FF14" },
   { text: "Le bollette 2026 calano del 9%, ma il mercato resta volatile", color: "#FF4D6D" },

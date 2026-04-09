@@ -26,7 +26,7 @@ const news: NewsItem[] = [
   {
     title: "Case Green: recepimento entro maggio",
     tag: "EPBD",
-    detail: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Obiettivo: -16% emissioni residenziali entro il 2030. Cambiano le classi energetiche. Oltre il 60% degli edifici italiani è in classe F o G — il gap più ampio d'Europa.",
+    detail: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Obiettivo: -16% emissioni residenziali entro il 2030. Cambiano le classi energetiche. Il 54% degli edifici italiani è in classe F o G — il gap più ampio d'Europa.",
     source: "https://www.altroconsumo.it/casa-energia/casa-condominio/news/nuovo-regolamento-ue-classi-energetiche-edifici",
     sourceLabel: "Altroconsumo",
     accentColor: "#FF4D6D",

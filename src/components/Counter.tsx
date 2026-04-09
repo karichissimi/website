@@ -45,7 +45,10 @@ export default function Counter({
     requestAnimationFrame(step);
   }, [isInView, target, duration]);
 
-  const formatted = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toLocaleString("it-IT");
+  const formatted = value.toLocaleString("it-IT", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
 
   return (
     <span ref={ref} className={className}>

@@ -36,7 +36,7 @@ export default function Opportunita() {
             {
               icon: Users,
               title: "Vende alle utility",
-              text: "Ogni utility partner porta i propri clienti sulla piattaforma. Costo di acquisizione utenti: zero. Nel 2030, il 62% degli utenti arriva dai partner a CAC zero.",
+              text: "Ogni utility partner porta i propri clienti sulla piattaforma. Costo di acquisizione utenti: zero. Nel 2030, il 58% degli utenti arriva dai partner a CAC zero (55.000 su 94.750 totali).",
             },
             {
               icon: Zap,
@@ -126,7 +126,7 @@ export default function Opportunita() {
                 bilancio, 10 dipendenti, operativa. Dalla fase 2, la Karica Academy costruisce una rete di partner certificati indipendente — il vero moat competitivo.
               </p>
               <p>
-                Il 62% degli utenti al 2030 arriverà dai partner White Label.
+                Il 58% degli utenti al 2030 arriverà dai partner White Label — 55.000 su 94.750 totali.
                 <strong className="text-text-primary"> Costo di acquisizione: zero.</strong>
               </p>
             </div>

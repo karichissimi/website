@@ -213,7 +213,9 @@ export default function CTA() {
                 </div>
 
                 <a
-                  href="mailto:info@karica.it?subject=Prenotazione%20call%20Karica&body=Ciao%20team%20Karica%2C%0A%0Avorrei%20prenotare%20una%20call%20per%20parlare%20dell%27opportunit%C3%A0%20di%20investimento.%0A%0AMi%20chiamo%3A%0ARuolo%2Fazienda%3A%0ADisponibilit%C3%A0%3A%0A%0AGrazie."
+                  href="https://calendly.com/alessandro-zanin-karica/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 border border-card-border text-text-secondary font-semibold py-3.5 rounded-lg text-sm hover:border-cyan-accent/50 hover:text-cyan-accent transition-all hover:shadow-[0_0_20px_rgba(0,212,212,0.1)]"
                 >
                   <Calendar size={16} />
