@@ -13,8 +13,6 @@ export const metadata: Metadata = {
 };
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Investitori", href: "/funding" },
   { label: "Contatti", href: "/contatti", highlight: true },
 ];
 

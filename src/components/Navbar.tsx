@@ -112,10 +112,10 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
             )}
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-3">
               {links.map((link) => {
                 const className = link.highlight
-                  ? "text-sm font-semibold text-cyan-accent border border-cyan-accent/40 px-3.5 py-1.5 rounded-full hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all"
+                  ? "btn-press border border-cyan-accent text-cyan-accent font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-cyan-accent/10 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,212,212,0.18)] transition-all"
                   : "text-sm text-text-secondary hover:text-green-primary transition-colors";
                 return link.href.startsWith("/") ? (
                   <Link key={link.href} href={link.href} className={className}>
@@ -165,7 +165,7 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
             <div className="px-4 py-4 space-y-3">
               {links.map((link) => {
                 const className = link.highlight
-                  ? "block text-cyan-accent font-semibold border border-cyan-accent/40 rounded-lg px-4 py-2.5 hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all"
+                  ? "btn-press block border border-cyan-accent text-cyan-accent font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center hover:bg-cyan-accent/10 transition-all"
                   : "block text-text-secondary hover:text-green-primary transition-colors";
                 return link.href.startsWith("/") ? (
                   <Link
