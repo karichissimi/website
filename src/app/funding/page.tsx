@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/funding/Hero";
 import Teaser from "@/components/funding/Teaser";
+import Ecosistema from "@/components/home/Ecosistema";
 import CTA from "@/components/funding/CTA";
 import Footer from "@/components/Footer";
 
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { label: "Opportunità", href: "#opportunita" },
+  { label: "Ecosistema", href: "#ecosistema" },
   { label: "Contatti", href: "/contatti" },
 ];
 
 const footerLinks = [
   { label: "Opportunità", href: "#opportunita" },
+  { label: "Ecosistema", href: "#ecosistema" },
   { label: "Home", href: "/" },
 ];
 
@@ -31,6 +34,7 @@ export default function FundingPage() {
       <main id="main">
         <Hero />
         <Teaser />
+        <Ecosistema />
         <CTA />
       </main>
       <Footer links={footerLinks} showDisclaimer />

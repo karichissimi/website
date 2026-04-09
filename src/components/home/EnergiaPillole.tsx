@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronDown } from "lucide-react";
 import ChiediAKarica from "./ChiediAKarica";
@@ -106,6 +106,28 @@ export default function EnergiaPillole() {
   const visibleNews = showAll ? news : news.slice(0, INITIAL_VISIBLE);
   const hiddenCount = news.length - INITIAL_VISIBLE;
 
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    if (openCard !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [openCard]);
+
+  // ESC closes the modal
+  useEffect(() => {
+    if (openCard === null) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenCard(null);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [openCard]);
+
   function toggleShowAll() {
     const next = !showAll;
     setShowAll(next);
@@ -140,7 +162,7 @@ export default function EnergiaPillole() {
 
         {/* Divider + sub-label introducing the news grid */}
         <div className="mt-14 pt-10 border-t border-card-border/30 mb-5">
-          <p className="text-cyan-accent text-xs uppercase tracking-widest font-semibold">
+          <p className="text-cyan-accent text-sm uppercase tracking-widest font-semibold">
             Le novità del momento
           </p>
         </div>
@@ -157,7 +179,7 @@ export default function EnergiaPillole() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.04 }}
-                className="group relative overflow-hidden rounded-xl p-3 sm:p-3.5 text-left border transition-all duration-300 min-h-[108px] sm:min-h-[120px] flex flex-col justify-between hover:-translate-y-0.5"
+                className="group relative overflow-hidden rounded-xl p-3.5 sm:p-4 text-left border transition-all duration-300 min-h-[120px] sm:min-h-[136px] flex flex-col justify-between hover:-translate-y-0.5"
                 style={{
                   background: `linear-gradient(135deg, ${item.accentColor}14 0%, ${item.accentColor}06 45%, transparent 100%)`,
                   borderColor: isOpen ? item.accentColor : `${item.accentColor}30`,
@@ -172,9 +194,9 @@ export default function EnergiaPillole() {
                   style={{ boxShadow: `inset 0 0 40px ${item.accentColor}18` }}
                 />
 
-                {/* Big tag / number */}
+                {/* Big tag / number — brand sans, not mono */}
                 <span
-                  className="relative z-10 block text-2xl sm:text-3xl font-black font-mono leading-none tracking-tight mb-2"
+                  className="relative z-10 block text-3xl sm:text-4xl font-black leading-none tracking-tight mb-2"
                   style={{ color: item.accentColor }}
                 >
                   {item.tag}
@@ -182,14 +204,14 @@ export default function EnergiaPillole() {
 
                 {/* Title + micro CTA */}
                 <div className="relative z-10">
-                  <p className="text-[11px] sm:text-xs font-bold text-text-primary leading-snug mb-1 line-clamp-2">
+                  <p className="text-xs sm:text-sm font-bold text-text-primary leading-snug mb-1 line-clamp-2">
                     {item.title}
                   </p>
                   <p
-                    className="text-[9px] uppercase tracking-wider font-semibold transition-all"
+                    className="text-[10px] uppercase tracking-wider font-semibold transition-all"
                     style={{ color: item.accentColor, opacity: isOpen ? 1 : 0.55 }}
                   >
-                    {isOpen ? "Chiudi ↑" : "Scopri →"}
+                    Leggi &rarr;
                   </p>
                 </div>
               </motion.button>
@@ -219,64 +241,92 @@ export default function EnergiaPillole() {
           </div>
         )}
 
-        {/* Expanded detail card */}
-        <AnimatePresence>
-          {openCard !== null && (
+      </div>
+
+      {/* News detail modal — opens over the viewport, not inline. User reads
+          without scrolling, closes via X / backdrop / ESC */}
+      <AnimatePresence>
+        {openCard !== null && (
+          <>
             <motion.div
-              initial={{ opacity: 0, height: 0, y: -10 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -10 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpenCard(null)}
+              className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
+              className="fixed z-[101] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-lg max-h-[85vh] overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-label={news[openCard].title}
             >
               <div
-                className="mt-5 rounded-2xl p-5 sm:p-6 border-2 relative"
+                className="relative rounded-2xl p-6 sm:p-8 border-2"
                 style={{
-                  borderColor: news[openCard].accentColor + "50",
-                  background: `linear-gradient(135deg, ${news[openCard].accentColor}14 0%, #1E2540 45%)`,
-                  boxShadow: `0 12px 48px ${news[openCard].accentColor}18`,
+                  borderColor: news[openCard].accentColor + "60",
+                  background: `linear-gradient(155deg, ${news[openCard].accentColor}1a 0%, #161B2E 45%)`,
+                  boxShadow: `0 24px 64px ${news[openCard].accentColor}25, 0 20px 60px rgba(0,0,0,0.55)`,
                 }}
               >
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="flex items-start gap-4 flex-1 min-w-0">
-                    <span
-                      className="flex-shrink-0 text-3xl sm:text-4xl font-black font-mono leading-none"
-                      style={{ color: news[openCard].accentColor }}
-                    >
-                      {news[openCard].tag}
-                    </span>
-                    <h3 className="text-base sm:text-lg font-bold text-text-primary leading-snug pt-1">
-                      {news[openCard].title}
-                    </h3>
-                  </div>
-                  <button
-                    onClick={() => setOpenCard(null)}
-                    aria-label="Chiudi"
-                    className="text-text-muted hover:text-text-primary transition-colors flex-shrink-0 p-1 -mt-1 -mr-1"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-                <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                  {news[openCard].detail}
-                </p>
-                <a
-                  href={news[openCard].source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors"
+                <button
+                  onClick={() => setOpenCard(null)}
+                  aria-label="Chiudi"
+                  className="absolute top-3 right-3 p-2 text-text-muted hover:text-text-primary hover:bg-card-bg/70 rounded-full transition-colors"
+                >
+                  <X size={20} />
+                </button>
+
+                {/* Big tag */}
+                <span
+                  className="block text-5xl sm:text-6xl font-black leading-none tracking-tight mb-5 pr-10"
                   style={{ color: news[openCard].accentColor }}
                 >
-                  <ExternalLink size={11} />
-                  <span className="underline underline-offset-2">
-                    Fonte: {news[openCard].sourceLabel}
-                  </span>
-                </a>
+                  {news[openCard].tag}
+                </span>
+
+                {/* Title */}
+                <h3 className="text-xl sm:text-2xl font-bold text-text-primary leading-tight mb-4">
+                  {news[openCard].title}
+                </h3>
+
+                {/* Detail */}
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed mb-6">
+                  {news[openCard].detail}
+                </p>
+
+                {/* Source + close action */}
+                <div className="flex items-center justify-between gap-4 pt-4 border-t border-card-border/50">
+                  <a
+                    href={news[openCard].source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold transition-colors"
+                    style={{ color: news[openCard].accentColor }}
+                  >
+                    <ExternalLink size={14} />
+                    <span className="underline underline-offset-2">
+                      Fonte: {news[openCard].sourceLabel}
+                    </span>
+                  </a>
+                  <button
+                    onClick={() => setOpenCard(null)}
+                    className="text-xs sm:text-sm font-semibold text-text-muted hover:text-text-primary transition-colors"
+                  >
+                    Chiudi
+                  </button>
+                </div>
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
