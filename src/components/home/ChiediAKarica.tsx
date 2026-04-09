@@ -119,7 +119,7 @@ export default function ChiediAKarica() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="mt-16 pt-10 border-t border-card-border/30"
+      className=""
     >
       {/* Header */}
       <div className="flex items-center justify-between gap-2 mb-5">

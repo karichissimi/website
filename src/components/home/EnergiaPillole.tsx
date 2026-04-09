@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, X } from "lucide-react";
+import { ExternalLink, X, ChevronDown } from "lucide-react";
 import ChiediAKarica from "./ChiediAKarica";
+
+const INITIAL_VISIBLE = 6;
 
 interface NewsItem {
   title: string;
@@ -99,6 +101,19 @@ const news: NewsItem[] = [
 
 export default function EnergiaPillole() {
   const [openCard, setOpenCard] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleNews = showAll ? news : news.slice(0, INITIAL_VISIBLE);
+  const hiddenCount = news.length - INITIAL_VISIBLE;
+
+  function toggleShowAll() {
+    const next = !showAll;
+    setShowAll(next);
+    // If collapsing and the currently-open card is about to be hidden, close it
+    if (!next && openCard !== null && openCard >= INITIAL_VISIBLE) {
+      setOpenCard(null);
+    }
+  }
 
   return (
     <section id="energia" aria-label="Energia in pillole — novità e incentivi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
@@ -108,7 +123,7 @@ export default function EnergiaPillole() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10"
+          className="mb-8"
         >
           <p className="text-green-primary font-semibold text-sm uppercase tracking-widest mb-3">
             Energia in pillole
@@ -119,51 +134,60 @@ export default function EnergiaPillole() {
           </h2>
         </motion.div>
 
-        {/* Bento-style grid: numbers/tags as visual protagonists */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-          {news.map((item, i) => {
+        {/* Cacatua chatbot — first thing in the section so people can ask
+            before scrolling the news */}
+        <ChiediAKarica />
+
+        {/* Divider + sub-label introducing the news grid */}
+        <div className="mt-14 pt-10 border-t border-card-border/30 mb-5">
+          <p className="text-cyan-accent text-xs uppercase tracking-widest font-semibold">
+            Le novità del momento
+          </p>
+        </div>
+
+        {/* Bento-style grid: compact cards, numbers as visual protagonists */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+          {visibleNews.map((item, i) => {
             const isOpen = openCard === i;
             return (
               <motion.button
                 key={item.title}
                 onClick={() => setOpenCard(isOpen ? null : i)}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group relative overflow-hidden rounded-2xl p-4 sm:p-5 text-left border transition-all duration-300 aspect-[4/5] flex flex-col justify-between hover:-translate-y-1"
+                transition={{ duration: 0.35, delay: i * 0.04 }}
+                className="group relative overflow-hidden rounded-xl p-3 sm:p-3.5 text-left border transition-all duration-300 min-h-[108px] sm:min-h-[120px] flex flex-col justify-between hover:-translate-y-0.5"
                 style={{
                   background: `linear-gradient(135deg, ${item.accentColor}14 0%, ${item.accentColor}06 45%, transparent 100%)`,
                   borderColor: isOpen ? item.accentColor : `${item.accentColor}30`,
                   boxShadow: isOpen
-                    ? `0 8px 32px ${item.accentColor}25, inset 0 0 40px ${item.accentColor}12`
+                    ? `0 6px 24px ${item.accentColor}25, inset 0 0 30px ${item.accentColor}12`
                     : undefined,
                 }}
               >
                 {/* Ambient glow (hover only) */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ boxShadow: `inset 0 0 50px ${item.accentColor}18` }}
+                  style={{ boxShadow: `inset 0 0 40px ${item.accentColor}18` }}
                 />
 
-                {/* Top: big tag / number */}
-                <div className="relative z-10">
-                  <span
-                    className="block text-4xl sm:text-5xl font-black font-mono leading-none tracking-tight"
-                    style={{ color: item.accentColor }}
-                  >
-                    {item.tag}
-                  </span>
-                </div>
+                {/* Big tag / number */}
+                <span
+                  className="relative z-10 block text-2xl sm:text-3xl font-black font-mono leading-none tracking-tight mb-2"
+                  style={{ color: item.accentColor }}
+                >
+                  {item.tag}
+                </span>
 
-                {/* Bottom: title + CTA */}
+                {/* Title + micro CTA */}
                 <div className="relative z-10">
-                  <p className="text-xs sm:text-sm font-bold text-text-primary leading-snug mb-2 line-clamp-3">
+                  <p className="text-[11px] sm:text-xs font-bold text-text-primary leading-snug mb-1 line-clamp-2">
                     {item.title}
                   </p>
                   <p
-                    className="text-[10px] uppercase tracking-wider font-semibold transition-all"
-                    style={{ color: item.accentColor, opacity: isOpen ? 1 : 0.6 }}
+                    className="text-[9px] uppercase tracking-wider font-semibold transition-all"
+                    style={{ color: item.accentColor, opacity: isOpen ? 1 : 0.55 }}
                   >
                     {isOpen ? "Chiudi ↑" : "Scopri →"}
                   </p>
@@ -172,6 +196,28 @@ export default function EnergiaPillole() {
             );
           })}
         </div>
+
+        {/* Show more / Show less toggle */}
+        {hiddenCount > 0 && (
+          <div className="mt-5 flex justify-center">
+            <button
+              onClick={toggleShowAll}
+              className="group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors px-4 py-2"
+            >
+              {showAll ? (
+                <>
+                  Mostra meno
+                  <ChevronDown size={14} className="rotate-180 transition-transform" />
+                </>
+              ) : (
+                <>
+                  Scopri di più <span className="text-text-muted font-normal">(+{hiddenCount})</span>
+                  <ChevronDown size={14} className="group-hover:translate-y-0.5 transition-transform" />
+                </>
+              )}
+            </button>
+          </div>
+        )}
 
         {/* Expanded detail card */}
         <AnimatePresence>
@@ -230,8 +276,6 @@ export default function EnergiaPillole() {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* AI Chatbot */}
-        <ChiediAKarica />
       </div>
     </section>
   );
