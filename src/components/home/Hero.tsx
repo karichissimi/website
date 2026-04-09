@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import FundingBanner from "../FundingBanner";
+import { haptic } from "@/lib/haptics";
 
 const facts = [
   { text: "Il 54% delle case italiane è in classe energetica F o G", color: "#FF4D6D" },
@@ -141,13 +142,15 @@ export default function HomeHero() {
         >
           <a
             href="/funding"
-            className="group relative bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+            onClick={() => haptic("medium")}
+            className="btn-press group relative bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
           >
             <span className="relative z-10">Investi in Karica →</span>
           </a>
           <a
             href="#energia"
-            className="text-cyan-accent text-sm sm:text-base font-semibold sm:border sm:border-cyan-accent/40 sm:px-8 sm:py-4 sm:rounded-lg underline underline-offset-4 decoration-cyan-accent/40 sm:no-underline sm:hover:border-cyan-accent sm:hover:bg-cyan-accent/5 transition-all"
+            onClick={() => haptic("light")}
+            className="btn-press-soft text-cyan-accent text-sm sm:text-base font-semibold sm:border sm:border-cyan-accent/40 sm:px-8 sm:py-4 sm:rounded-lg underline underline-offset-4 decoration-cyan-accent/40 sm:no-underline sm:hover:border-cyan-accent sm:hover:bg-cyan-accent/5 transition-all"
           >
             Scopri le novità sull&apos;energia
           </a>

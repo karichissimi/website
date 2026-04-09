@@ -7,6 +7,7 @@ import { ArrowDown, Shield, ExternalLink } from "lucide-react";
 import Counter from "../Counter";
 import KpiModal from "../KpiModal";
 import FundingBanner from "../FundingBanner";
+import { haptic } from "@/lib/haptics";
 
 interface Kpi {
   prefix: string;
@@ -190,8 +191,11 @@ export default function Hero() {
             {kpis.map((kpi, i) => (
               <button
                 key={kpi.label}
-                onClick={() => setModal(i)}
-                className="group card-glow p-4 transition-all duration-500 cursor-pointer text-left hover:shadow-[0_0_25px_rgba(57,255,20,0.12)]"
+                onClick={() => {
+                  haptic("light");
+                  setModal(i);
+                }}
+                className="btn-press-soft group card-glow p-4 transition-all duration-500 cursor-pointer text-left hover:shadow-[0_0_25px_rgba(57,255,20,0.12)]"
               >
                 <div className="relative z-10">
                   <Counter
@@ -248,13 +252,15 @@ export default function Hero() {
           >
             <a
               href="#cta"
-              className="relative bg-green-primary text-bg-dark font-bold px-8 py-4 rounded-lg uppercase tracking-wider text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+              onClick={() => haptic("medium")}
+              className="btn-press relative bg-green-primary text-bg-dark font-bold px-8 py-4 rounded-lg uppercase tracking-wider text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
             >
               Richiedi il pitch deck
             </a>
             <a
               href="#opportunita"
-              className="border border-card-border text-text-secondary font-semibold px-8 py-4 rounded-lg text-base hover:border-green-primary/50 hover:text-green-primary transition-all hover:shadow-[0_0_20px_rgba(57,255,20,0.1)]"
+              onClick={() => haptic("light")}
+              className="btn-press-soft border border-card-border text-text-secondary font-semibold px-8 py-4 rounded-lg text-base hover:border-green-primary/50 hover:text-green-primary transition-all hover:shadow-[0_0_20px_rgba(57,255,20,0.1)]"
             >
               Come funziona
             </a>

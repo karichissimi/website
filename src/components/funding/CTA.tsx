@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Send, Calendar, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import { haptic } from "@/lib/haptics";
 
 // Simple but solid email check — not exhaustive, just catches common mistakes
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -38,11 +39,15 @@ export default function CTA() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    haptic("medium");
 
     const emailErr = validateEmail(email);
     setEmailTouched(true);
     setEmailError(emailErr);
-    if (emailErr) return;
+    if (emailErr) {
+      haptic("heavy");
+      return;
+    }
 
     setLoading(true);
     setSubmitError("");
@@ -62,7 +67,9 @@ export default function CTA() {
         throw new Error("server");
       }
       setSubmitted(true);
+      haptic("success");
     } catch (err) {
+      haptic("heavy");
       const kind = err instanceof Error ? err.message : "";
       if (kind === "validation") {
         setSubmitError("La mail non ci piace — prova un altro indirizzo.");
@@ -193,7 +200,7 @@ export default function CTA() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 bg-green-primary text-bg-dark font-bold py-4 rounded-lg uppercase tracking-wider text-sm hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="btn-press w-full flex items-center justify-center gap-2 bg-green-primary text-bg-dark font-bold py-4 rounded-lg uppercase tracking-wider text-sm hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {loading ? (
                     <Loader2 size={18} className="animate-spin" />
@@ -216,7 +223,8 @@ export default function CTA() {
                   href="https://calendly.com/alessandro-zanin-karica/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 border border-card-border text-text-secondary font-semibold py-3.5 rounded-lg text-sm hover:border-cyan-accent/50 hover:text-cyan-accent transition-all hover:shadow-[0_0_20px_rgba(0,212,212,0.1)]"
+                  onClick={() => haptic("medium")}
+                  className="btn-press w-full flex items-center justify-center gap-2 border border-card-border text-text-secondary font-semibold py-3.5 rounded-lg text-sm hover:border-cyan-accent/50 hover:text-cyan-accent transition-all hover:shadow-[0_0_20px_rgba(0,212,212,0.1)]"
                 >
                   <Calendar size={16} />
                   Prenota una call con il team

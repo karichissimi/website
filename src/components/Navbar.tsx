@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { haptic } from "@/lib/haptics";
 
 interface NavLink {
   label: string;
@@ -109,14 +110,16 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
               {cta.href.startsWith("/") ? (
                 <Link
                   href={cta.href}
-                  className="bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
+                  onClick={() => haptic("medium")}
+                  className="btn-press bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
                 >
                   {cta.label}
                 </Link>
               ) : (
                 <a
                   href={cta.href}
-                  className="bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
+                  onClick={() => haptic("medium")}
+                  className="btn-press bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(57,255,20,0.3)]"
                 >
                   {cta.label}
                 </a>
@@ -125,8 +128,11 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
 
             {/* Mobile menu button */}
             <button
-              onClick={() => setOpen(!open)}
-              className="md:hidden text-text-secondary hover:text-green-primary"
+              onClick={() => {
+                haptic("light");
+                setOpen(!open);
+              }}
+              className="btn-press-soft md:hidden text-text-secondary hover:text-green-primary"
               aria-label="Toggle menu"
             >
               {open ? <X size={24} /> : <Menu size={24} />}
@@ -161,16 +167,22 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
               {cta.href.startsWith("/") ? (
                 <Link
                   href={cta.href}
-                  onClick={() => setOpen(false)}
-                  className="block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
+                  onClick={() => {
+                    haptic("medium");
+                    setOpen(false);
+                  }}
+                  className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
                 >
                   {cta.label}
                 </Link>
               ) : (
                 <a
                   href={cta.href}
-                  onClick={() => setOpen(false)}
-                  className="block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
+                  onClick={() => {
+                    haptic("medium");
+                    setOpen(false);
+                  }}
+                  className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wider text-center"
                 >
                   {cta.label}
                 </a>

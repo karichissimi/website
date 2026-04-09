@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Mail, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PrenotaCallCard from "./PrenotaCallCard";
 
 export const metadata: Metadata = {
   title: "Contatti",
@@ -26,7 +27,7 @@ export default function ContattiPage() {
     <>
       <Navbar links={navLinks} cta={{ label: "Investi ora", href: "/funding" }} />
 
-      <main id="main" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28 pb-20">
+      <main id="main" className="relative min-h-screen overflow-hidden pt-24 sm:pt-28 pb-20">
         {/* Soft ambient background */}
         <div className="glow-orb absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-green-primary/[0.05] blur-[120px]" />
         <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />
@@ -65,7 +66,7 @@ export default function ContattiPage() {
           {/* Email card */}
           <a
             href="mailto:info@karica.it"
-            className="card-glow group block p-6 sm:p-8 mb-8 text-left transition-all hover:shadow-[0_0_40px_rgba(57,255,20,0.12)]"
+            className="btn-press-soft card-glow group block p-6 sm:p-8 mb-8 text-left transition-all hover:shadow-[0_0_40px_rgba(57,255,20,0.12)]"
           >
             <div className="relative z-10 flex items-center gap-4">
               <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-green-primary/10 flex items-center justify-center border border-green-primary/20">
@@ -91,14 +92,29 @@ export default function ContattiPage() {
             Niente centralini, niente bot — solo persone.
           </p>
 
+          {/* "oppure" gradient divider */}
+          <div className="relative my-12" aria-hidden>
+            <div className="absolute inset-0 flex items-center">
+              <div className="section-divider w-full" />
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-bg-darker px-4 text-text-muted text-[11px] uppercase tracking-widest font-semibold">
+                oppure, se preferisci
+              </span>
+            </div>
+          </div>
+
+          {/* Prenota una call — interactive client component */}
+          <PrenotaCallCard />
+
           {/* Subtle divider + alt link */}
-          <div className="mt-12 pt-8 border-t border-card-border/40">
+          <div className="mt-14 pt-8 border-t border-card-border/40">
             <p className="text-text-muted text-xs mb-3">
               Stai valutando un investimento?
             </p>
             <Link
               href="/funding"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors"
+              className="btn-press-soft inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors"
             >
               Scopri l&apos;opportunità &rarr;
             </Link>
