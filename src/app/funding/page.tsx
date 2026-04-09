@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 };
 
 const navLinks = [
-  { label: "Opportunità", href: "#opportunita" },
-  { label: "Ecosistema", href: "#ecosistema" },
-  { label: "Contatti", href: "/contatti" },
+  { label: "Home", href: "/" },
+  { label: "Investitori", href: "/funding" },
+  { label: "Contatti", href: "/contatti", highlight: true },
 ];
 
 const footerLinks = [

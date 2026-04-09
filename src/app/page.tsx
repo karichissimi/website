@@ -8,9 +8,9 @@ import HomeCTA from "@/components/home/HomeCTA";
 import Footer from "@/components/Footer";
 
 const navLinks = [
-  { label: "Come funziona", href: "#come-funziona" },
-  { label: "Per chi", href: "#per-chi" },
-  { label: "Energia", href: "#energia" },
+  { label: "Home", href: "/" },
+  { label: "Investitori", href: "/funding" },
+  { label: "Contatti", href: "/contatti", highlight: true },
 ];
 
 const footerLinks = [

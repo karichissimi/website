@@ -10,6 +10,7 @@ import { haptic } from "@/lib/haptics";
 interface NavLink {
   label: string;
   href: string;
+  highlight?: boolean;
 }
 
 interface NavbarProps {
@@ -112,25 +113,20 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center gap-8">
-              {links.map((link) =>
-                link.href.startsWith("/") ? (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-sm text-text-secondary hover:text-green-primary transition-colors"
-                  >
+              {links.map((link) => {
+                const className = link.highlight
+                  ? "text-sm font-semibold text-cyan-accent border border-cyan-accent/40 px-3.5 py-1.5 rounded-full hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all"
+                  : "text-sm text-text-secondary hover:text-green-primary transition-colors";
+                return link.href.startsWith("/") ? (
+                  <Link key={link.href} href={link.href} className={className}>
                     {link.label}
                   </Link>
                 ) : (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="text-sm text-text-secondary hover:text-green-primary transition-colors"
-                  >
+                  <a key={link.href} href={link.href} className={className}>
                     {link.label}
                   </a>
-                )
-              )}
+                );
+              })}
               {cta.href.startsWith("/") ? (
                 <Link
                   href={cta.href}
@@ -167,13 +163,16 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
         {open && (
           <div className="md:hidden bg-bg-darker border-t border-card-border">
             <div className="px-4 py-4 space-y-3">
-              {links.map((link) =>
-                link.href.startsWith("/") ? (
+              {links.map((link) => {
+                const className = link.highlight
+                  ? "block text-cyan-accent font-semibold border border-cyan-accent/40 rounded-lg px-4 py-2.5 hover:border-cyan-accent hover:bg-cyan-accent/10 transition-all"
+                  : "block text-text-secondary hover:text-green-primary transition-colors";
+                return link.href.startsWith("/") ? (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block text-text-secondary hover:text-green-primary transition-colors"
+                    className={className}
                   >
                     {link.label}
                   </Link>
@@ -182,12 +181,12 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block text-text-secondary hover:text-green-primary transition-colors"
+                    className={className}
                   >
                     {link.label}
                   </a>
-                )
-              )}
+                );
+              })}
               {cta.href.startsWith("/") ? (
                 <Link
                   href={cta.href}
