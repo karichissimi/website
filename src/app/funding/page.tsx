@@ -28,7 +28,6 @@ export default function FundingPage() {
       <Navbar
         links={navLinks}
         cta={{ label: "Investi ora", href: "#cta" }}
-        hideLogo
       />
       <main id="main">
         <Hero />
