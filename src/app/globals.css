@@ -84,6 +84,7 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   transition: all 0.5s ease;
+  pointer-events: none;
 }
 .card-glow:hover::before {
   padding: 1.5px;
