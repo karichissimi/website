@@ -24,7 +24,7 @@ const kpis: Kpi[] = [
   {
     prefix: "€",
     target: 2,
-    suffix: " milioni",
+    suffix: "M",
     label: "Valutazione pre-money",
     explanation:
       "Abbiamo stabilito che Karica vale €2 milioni prima di ricevere l'investimento. Questo prezzo è stato calcolato con 3 metodi diversi e confrontato con altre startup italiane simili. È volutamente conservativo, per premiare chi entra adesso.",

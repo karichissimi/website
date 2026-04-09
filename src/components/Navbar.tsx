@@ -17,10 +17,12 @@ interface NavbarProps {
   cta: { label: string; href: string };
   logoHref?: string;
   showFundingBanner?: boolean;
+  hideLogo?: boolean;
 }
 
-export default function Navbar({ links, cta, logoHref = "/", showFundingBanner = false }: NavbarProps) {
+export default function Navbar({ links, cta, logoHref = "/", showFundingBanner = false, hideLogo = false }: NavbarProps) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -32,6 +34,20 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
     }
     window.scrollTo(0, 0);
   }, []);
+
+  // Track scroll for hideLogo pages: logo stays hidden at the top of the
+  // hero (where the big logo is shown) and reveals once the user scrolls.
+  useEffect(() => {
+    if (!hideLogo) return;
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [hideLogo]);
+
+  // When hideLogo is true, the logo is hidden until the user scrolls past
+  // the threshold. Otherwise it's always visible.
+  const logoVisible = !hideLogo || scrolled;
 
   function handleLogoClick(e: React.MouseEvent<HTMLAnchorElement>) {
     if (pathname === logoHref) {
@@ -49,11 +65,19 @@ export default function Navbar({ links, cta, logoHref = "/", showFundingBanner =
       <nav className="bg-bg-darker border-b border-card-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            {/* Logo */}
+            {/* Logo — always rendered for layout stability, but fades/slides in
+                when hideLogo+scrolled. Pointer events disabled while hidden so
+                it can't be tabbed/clicked. */}
             <Link
               href={logoHref}
               onClick={handleLogoClick}
-              className="flex items-center gap-2 flex-shrink-0"
+              aria-hidden={!logoVisible}
+              tabIndex={logoVisible ? 0 : -1}
+              className={`flex items-center gap-2 flex-shrink-0 transition-all duration-300 ease-out ${
+                logoVisible
+                  ? "opacity-100 translate-x-0 pointer-events-auto"
+                  : "opacity-0 -translate-x-2 pointer-events-none"
+              }`}
             >
               <Image
                 src="/graphics/Karica_Logo_Felice.png"
