@@ -119,45 +119,61 @@ export default function EnergiaPillole() {
           </h2>
         </motion.div>
 
-        {/* Compact pill grid */}
-        <div className="flex flex-wrap gap-2">
-          {news.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.04 }}
-            >
-              <button
-                onClick={() => setOpenCard(openCard === i ? null : i)}
-                className={`group flex items-center gap-2 px-4 py-2.5 min-h-[40px] rounded-full text-sm font-semibold transition-all duration-300 ${
-                  openCard === i
-                    ? "ring-1 scale-105"
-                    : "hover:scale-105"
-                }`}
+        {/* Bento-style grid: numbers/tags as visual protagonists */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          {news.map((item, i) => {
+            const isOpen = openCard === i;
+            return (
+              <motion.button
+                key={item.title}
+                onClick={() => setOpenCard(isOpen ? null : i)}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="group relative overflow-hidden rounded-2xl p-4 sm:p-5 text-left border transition-all duration-300 aspect-[4/5] flex flex-col justify-between hover:-translate-y-1"
                 style={{
-                  backgroundColor: openCard === i ? item.accentColor + "20" : "#1E254060",
-                  color: openCard === i ? item.accentColor : "#C8D0E0",
-                  ["--tw-ring-color" as string]: item.accentColor + "50",
-                } as React.CSSProperties}
+                  background: `linear-gradient(135deg, ${item.accentColor}14 0%, ${item.accentColor}06 45%, transparent 100%)`,
+                  borderColor: isOpen ? item.accentColor : `${item.accentColor}30`,
+                  boxShadow: isOpen
+                    ? `0 8px 32px ${item.accentColor}25, inset 0 0 40px ${item.accentColor}12`
+                    : undefined,
+                }}
               >
-                <span
-                  className="text-[10px] font-black uppercase px-1.5 py-0.5 rounded"
-                  style={{
-                    backgroundColor: item.accentColor + "20",
-                    color: item.accentColor,
-                  }}
-                >
-                  {item.tag}
-                </span>
-                <span className="whitespace-nowrap">{item.title}</span>
-              </button>
-            </motion.div>
-          ))}
+                {/* Ambient glow (hover only) */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ boxShadow: `inset 0 0 50px ${item.accentColor}18` }}
+                />
+
+                {/* Top: big tag / number */}
+                <div className="relative z-10">
+                  <span
+                    className="block text-4xl sm:text-5xl font-black font-mono leading-none tracking-tight"
+                    style={{ color: item.accentColor }}
+                  >
+                    {item.tag}
+                  </span>
+                </div>
+
+                {/* Bottom: title + CTA */}
+                <div className="relative z-10">
+                  <p className="text-xs sm:text-sm font-bold text-text-primary leading-snug mb-2 line-clamp-3">
+                    {item.title}
+                  </p>
+                  <p
+                    className="text-[10px] uppercase tracking-wider font-semibold transition-all"
+                    style={{ color: item.accentColor, opacity: isOpen ? 1 : 0.6 }}
+                  >
+                    {isOpen ? "Chiudi ↑" : "Scopri →"}
+                  </p>
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
 
-        {/* Expanded card */}
+        {/* Expanded detail card */}
         <AnimatePresence>
           {openCard !== null && (
             <motion.div
@@ -168,22 +184,31 @@ export default function EnergiaPillole() {
               className="overflow-hidden"
             >
               <div
-                className="mt-5 rounded-2xl p-5 sm:p-6 border"
+                className="mt-5 rounded-2xl p-5 sm:p-6 border-2 relative"
                 style={{
-                  backgroundColor: "#1E2540",
-                  borderColor: news[openCard].accentColor + "30",
-                  background: `linear-gradient(135deg, ${news[openCard].accentColor}08 0%, #1E2540 40%)`,
+                  borderColor: news[openCard].accentColor + "50",
+                  background: `linear-gradient(135deg, ${news[openCard].accentColor}14 0%, #1E2540 45%)`,
+                  boxShadow: `0 12px 48px ${news[openCard].accentColor}18`,
                 }}
               >
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-base font-bold text-text-primary">
-                    {news[openCard].title}
-                  </h3>
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-start gap-4 flex-1 min-w-0">
+                    <span
+                      className="flex-shrink-0 text-3xl sm:text-4xl font-black font-mono leading-none"
+                      style={{ color: news[openCard].accentColor }}
+                    >
+                      {news[openCard].tag}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-bold text-text-primary leading-snug pt-1">
+                      {news[openCard].title}
+                    </h3>
+                  </div>
                   <button
                     onClick={() => setOpenCard(null)}
-                    className="text-text-muted hover:text-text-primary transition-colors flex-shrink-0"
+                    aria-label="Chiudi"
+                    className="text-text-muted hover:text-text-primary transition-colors flex-shrink-0 p-1 -mt-1 -mr-1"
                   >
-                    <X size={16} />
+                    <X size={18} />
                   </button>
                 </div>
                 <p className="text-text-secondary text-sm leading-relaxed mb-4">
@@ -198,7 +223,7 @@ export default function EnergiaPillole() {
                 >
                   <ExternalLink size={11} />
                   <span className="underline underline-offset-2">
-                    {news[openCard].sourceLabel}
+                    Fonte: {news[openCard].sourceLabel}
                   </span>
                 </a>
               </div>
