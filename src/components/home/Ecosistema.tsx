@@ -202,7 +202,7 @@ export default function Ecosistema() {
               {partners.map((partner, i) => {
                 const Icon = partner.icon;
                 const acc = ACCENT[partner.accent];
-                const cardBase = `group relative block bg-bg-darker border rounded-xl p-3 sm:p-4 transition-all duration-300 ${acc.border}`;
+                const cardBase = `group relative flex flex-col h-full bg-bg-darker border rounded-xl p-3 sm:p-4 transition-all duration-300 ${acc.border}`;
                 const cardInteractive = `${acc.borderHover} hover:-translate-y-0.5 ${acc.glow} cursor-pointer btn-press-soft`;
 
                 const inner = (
@@ -228,14 +228,14 @@ export default function Ecosistema() {
                         </p>
                       </div>
                     </div>
-                    <p className="text-text-disabled text-[10px] sm:text-[11px] mt-2 leading-snug">
+                    <p className="text-text-disabled text-[10px] sm:text-[11px] mt-2 leading-snug flex-grow">
                       {partner.detail}
                     </p>
-                    {partner.group && (
-                      <p className="text-text-disabled text-[9px] sm:text-[10px] mt-1.5 italic uppercase tracking-wider">
-                        ↳ {partner.group}
-                      </p>
-                    )}
+                    {/* Reserve a fixed-height row for the group tag so cards
+                        with and without the tag stay the same size. */}
+                    <p className="text-text-disabled text-[9px] sm:text-[10px] mt-1.5 italic uppercase tracking-wider min-h-[14px]">
+                      {partner.group ? `↳ ${partner.group}` : "\u00A0"}
+                    </p>
                   </>
                 );
 
@@ -246,6 +246,7 @@ export default function Ecosistema() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.25 + i * 0.06 }}
+                    className="h-full"
                   >
                     {partner.url ? (
                       <a
@@ -265,11 +266,11 @@ export default function Ecosistema() {
               })}
             </div>
 
-            {/* Footnote — captive supply chain explanation */}
+            {/* Footnote — group execution chain explanation */}
             <p className="text-text-muted text-[10px] sm:text-xs mt-4 sm:mt-5 text-center max-w-md">
-              GTI, GBI ed E-VM sono le società operative di{" "}
+              GTI, GBI ed E-VM appartengono a{" "}
               <span className="text-text-secondary font-semibold">EnerBee Group</span>
-              {" "}— la supply chain captive che esegue i lavori generati dalla piattaforma.
+              {" "}e sono le società che eseguono i lavori generati dalla piattaforma.
             </p>
           </div>
         </motion.div>
