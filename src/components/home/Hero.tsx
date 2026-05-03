@@ -9,7 +9,7 @@ export default function HomeHero() {
   return (
     <section
       aria-label="Introduzione a Karica"
-      className="relative min-h-[100svh] sm:min-h-screen flex flex-col overflow-hidden py-24 sm:py-28 noise"
+      className="relative min-h-[100svh] flex flex-col overflow-hidden py-24 sm:py-28 noise"
     >
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-accent/[0.06] blur-[100px]" />
@@ -74,7 +74,7 @@ export default function HomeHero() {
           <a
             href="/funding"
             onClick={() => haptic("medium")}
-            className="btn-press group relative inline-block bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+            className="btn-press group relative inline-block bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-colors hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
           >
             <span className="relative z-10">Investi in Karica →</span>
           </a>

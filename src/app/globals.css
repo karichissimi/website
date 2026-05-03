@@ -32,11 +32,12 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
 }
 
-section {
-  scroll-snap-align: start;
+@media (hover: none) and (pointer: coarse) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -44,6 +45,11 @@ body {
   color: #C8D0E0;
   font-family: var(--font-inter), system-ui, sans-serif;
   line-height: 1.6;
+  overscroll-behavior-y: none;
+}
+
+img, svg {
+  -webkit-user-drag: none;
 }
 
 ::selection {

@@ -26,7 +26,7 @@ export default function ContattiPage() {
     <>
       <Navbar links={navLinks} cta={{ label: "Investi ora", href: "/funding" }} />
 
-      <main id="main" className="relative min-h-screen overflow-hidden pt-24 sm:pt-28 pb-20">
+      <main id="main" className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-28 pb-20">
         {/* Soft ambient background */}
         <div className="glow-orb absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-green-primary/[0.05] blur-[120px]" />
         <div className="glow-orb-slow absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />

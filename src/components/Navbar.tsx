@@ -33,7 +33,6 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-    window.scrollTo(0, 0);
   }, []);
 
   // Track scroll: the entire navbar is hidden at the top of the page and
