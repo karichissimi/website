@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronDown } from "lucide-react";
 import ChiediAKarica from "./ChiediAKarica";
@@ -102,6 +102,7 @@ const news: NewsItem[] = [
 export default function EnergiaPillole() {
   const [openCard, setOpenCard] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   const visibleNews = showAll ? news : news.slice(0, INITIAL_VISIBLE);
   const hiddenCount = news.length - INITIAL_VISIBLE;
@@ -135,11 +136,18 @@ export default function EnergiaPillole() {
     if (!next && openCard !== null && openCard >= INITIAL_VISIBLE) {
       setOpenCard(null);
     }
+    // Keep the toggle button anchored under the user's eye after the layout
+    // change, so the page doesn't appear to "jump" out from under their finger
+    if (next) {
+      requestAnimationFrame(() => {
+        toggleRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
   }
 
   return (
     <section id="energia" aria-label="Energia in pillole — novità e incentivi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -168,7 +176,7 @@ export default function EnergiaPillole() {
         </div>
 
         {/* Bento-style grid: compact cards, numbers as visual protagonists */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
           {visibleNews.map((item, i) => {
             const isOpen = openCard === i;
             return (
@@ -177,9 +185,9 @@ export default function EnergiaPillole() {
                 onClick={() => setOpenCard(isOpen ? null : i)}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.04 }}
-                className="group relative overflow-hidden rounded-xl p-3.5 sm:p-4 text-left border transition-all duration-300 min-h-[120px] sm:min-h-[136px] flex flex-col justify-between hover:-translate-y-0.5"
+                viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+                transition={{ duration: 0.35, delay: Math.min(i, INITIAL_VISIBLE - 1) * 0.04 }}
+                className="group relative overflow-hidden rounded-xl p-4 sm:p-5 text-left border transition-colors duration-300 min-h-[124px] sm:min-h-[140px] flex flex-col justify-between"
                 style={{
                   background: `linear-gradient(135deg, ${item.accentColor}14 0%, ${item.accentColor}06 45%, transparent 100%)`,
                   borderColor: isOpen ? item.accentColor : `${item.accentColor}30`,
@@ -223,8 +231,9 @@ export default function EnergiaPillole() {
         {hiddenCount > 0 && (
           <div className="mt-5 flex justify-center">
             <button
+              ref={toggleRef}
               onClick={toggleShowAll}
-              className="group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors px-4 py-2"
+              className="btn-press-soft group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors px-4 py-2"
             >
               {showAll ? (
                 <>
