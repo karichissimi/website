@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,11 +19,15 @@ interface NavbarProps {
   logoHref?: string;
 }
 
-const SCROLL_THRESHOLD = 80;
+// Hysteresis: avoids show/hide flicker when iOS rubber-band scroll
+// oscillates around a single threshold value.
+const SHOW_THRESHOLD = 120;
+const HIDE_THRESHOLD = 40;
 
 export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -35,17 +39,41 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
     }
   }, []);
 
-  // Track scroll: the entire navbar is hidden at the top of the page and
-  // slides down once the user has scrolled past the threshold.
+  // Show/hide with hysteresis + scroll direction (Apple-style):
+  // - hide when at the very top OR scrolling down
+  // - show when scrolling up past SHOW_THRESHOLD
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
-    onScroll();
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const goingDown = y > lastY.current;
+      // Ignore tiny iOS rubber-band deltas
+      if (Math.abs(y - lastY.current) < 6) return;
+      if (y < HIDE_THRESHOLD) {
+        setScrolled(false);
+      } else if (goingDown) {
+        setScrolled(false);
+      } else if (y > SHOW_THRESHOLD) {
+        setScrolled(true);
+      }
+      lastY.current = y;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Force the navbar visible when the dropdown menu is open, otherwise it
-  // would disappear under the user's finger if they scroll back to top.
+  // Lock body scroll while overlay menu is open
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
+
+  // Force the navbar visible when the overlay menu is open
   const visible = scrolled || open;
 
   function handleLogoClick(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -84,6 +112,7 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
                 aria-hidden
                 width={28}
                 height={28}
+                priority
                 className="h-7 w-auto"
               />
               <Image
@@ -91,6 +120,7 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
                 alt="Karica"
                 width={100}
                 height={28}
+                priority
                 className="h-5 w-auto"
               />
             </Link>
@@ -110,61 +140,68 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Dropdown menu — same on all screen sizes */}
-        {open && (
-          <div className="bg-bg-darker border-t border-card-border">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
-              {links.map((link) => {
-                const className = link.highlight
-                  ? "btn-press block border border-cyan-accent text-cyan-accent font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-cyan-accent/10 transition-all"
-                  : "block text-text-secondary hover:text-green-primary transition-colors text-center text-sm font-medium py-2";
-                return link.href.startsWith("/") ? (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={className}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className={className}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-              {cta.href.startsWith("/") ? (
+      </nav>
+
+      {/* Overlay menu — opaque full-screen panel below the navbar bar.
+          Blocks the content below so nothing shows through. */}
+      {open && (
+        <div
+          className="fixed left-0 right-0 top-14 sm:top-16 bottom-0 bg-bg-darker border-t border-card-border overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-3">
+            {links.map((link) => {
+              const className = link.highlight
+                ? "btn-press block border border-cyan-accent text-cyan-accent font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-cyan-accent/10 transition-colors"
+                : "block text-text-secondary hover:text-green-primary transition-colors text-center text-sm font-medium py-2";
+              return link.href.startsWith("/") ? (
                 <Link
-                  href={cta.href}
-                  onClick={() => {
-                    haptic("medium");
-                    setOpen(false);
-                  }}
-                  className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={className}
                 >
-                  {cta.label}
+                  {link.label}
                 </Link>
               ) : (
                 <a
-                  href={cta.href}
-                  onClick={() => {
-                    haptic("medium");
-                    setOpen(false);
-                  }}
-                  className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={className}
                 >
-                  {cta.label}
+                  {link.label}
                 </a>
-              )}
-            </div>
+              );
+            })}
+            {cta.href.startsWith("/") ? (
+              <Link
+                href={cta.href}
+                onClick={() => {
+                  haptic("medium");
+                  setOpen(false);
+                }}
+                className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
+              >
+                {cta.label}
+              </Link>
+            ) : (
+              <a
+                href={cta.href}
+                onClick={() => {
+                  haptic("medium");
+                  setOpen(false);
+                }}
+                className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
+              >
+                {cta.label}
+              </a>
+            )}
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 }
