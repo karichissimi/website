@@ -17,10 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-const navLinks = [
-  { label: "Contatti", href: "/contatti", highlight: true },
-];
-
 const footerLinks = [
   { label: "Home", href: "/" },
 ];
@@ -28,7 +24,7 @@ const footerLinks = [
 export default function DetrazionePage() {
   return (
     <>
-      <Navbar links={navLinks} />
+      <Navbar inlineCta={{ label: "Sono interessato →", href: "#cta" }} />
 
       <main id="main" className="relative overflow-hidden">
         {/* HERO — la detrazione è l'amo, niente fronzoli */}

@@ -14,9 +14,12 @@ interface NavLink {
 }
 
 interface NavbarProps {
-  links: NavLink[];
+  links?: NavLink[];
   cta?: { label: string; href: string };
   logoHref?: string;
+  // When set, replaces the hamburger menu with a directly visible pill CTA.
+  // Use this on single-purpose conversion pages where a menu adds friction.
+  inlineCta?: { label: string; href: string };
 }
 
 // Hysteresis: avoids show/hide flicker when iOS rubber-band scroll
@@ -24,7 +27,7 @@ interface NavbarProps {
 const SHOW_THRESHOLD = 120;
 const HIDE_THRESHOLD = 40;
 
-export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
+export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
@@ -125,18 +128,38 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
               />
             </Link>
 
-            {/* Hamburger button (right) — visible on all screen sizes */}
-            <button
-              onClick={() => {
-                haptic("light");
-                setOpen(!open);
-              }}
-              className="btn-press-soft text-text-secondary hover:text-green-primary"
-              aria-label={open ? "Chiudi menu" : "Apri menu"}
-              aria-expanded={open}
-            >
-              {open ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Right side: inline CTA pill OR hamburger button */}
+            {inlineCta ? (
+              inlineCta.href.startsWith("/") ? (
+                <Link
+                  href={inlineCta.href}
+                  onClick={() => haptic("medium")}
+                  className="btn-press inline-flex items-center bg-green-primary text-bg-dark font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-colors"
+                >
+                  {inlineCta.label}
+                </Link>
+              ) : (
+                <a
+                  href={inlineCta.href}
+                  onClick={() => haptic("medium")}
+                  className="btn-press inline-flex items-center bg-green-primary text-bg-dark font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-colors"
+                >
+                  {inlineCta.label}
+                </a>
+              )
+            ) : (
+              <button
+                onClick={() => {
+                  haptic("light");
+                  setOpen(!open);
+                }}
+                className="btn-press-soft text-text-secondary hover:text-green-primary"
+                aria-label={open ? "Chiudi menu" : "Apri menu"}
+                aria-expanded={open}
+              >
+                {open ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            )}
           </div>
         </div>
 
@@ -144,7 +167,7 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
 
       {/* Overlay menu — opaque full-screen panel below the navbar bar.
           Blocks the content below so nothing shows through. */}
-      {open && (
+      {open && !inlineCta && (
         <div
           className="fixed left-0 right-0 top-14 sm:top-16 bottom-0 bg-bg-darker border-t border-card-border overflow-y-auto"
           role="dialog"
