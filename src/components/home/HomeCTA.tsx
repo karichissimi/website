@@ -107,11 +107,11 @@ export default function HomeCTA() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-black text-text-primary mb-4">
-            Presto <span className="text-gradient">disponibile</span>
+            Presto disponibile{" "}
+            <span className="text-gradient">nella tua regione</span>
           </h2>
           <p className="text-text-secondary text-base sm:text-lg mb-8 max-w-md mx-auto">
-            Karica è in fase di lancio. Lascia la tua mail e sarai
-            tra i primi a provarla.
+            Lascia la tua mail e sarai tra i primi a provarla.
           </p>
 
           <div className="card-glow p-6 sm:p-8 text-left">
