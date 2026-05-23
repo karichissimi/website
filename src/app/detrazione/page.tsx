@@ -61,12 +61,12 @@ export default function DetrazionePage() {
               />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-accent/10 border border-pink-accent/30 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 mb-6">
               <span className="relative flex h-2 w-2 flex-shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-accent" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-accent" />
               </span>
-              <span className="text-pink-accent text-[10px] sm:text-xs font-bold uppercase tracking-widest">
+              <span className="text-cyan-accent text-[10px] sm:text-xs font-bold uppercase tracking-widest">
                 Pagina riservata — Family &amp; Friends
               </span>
             </div>
@@ -77,12 +77,13 @@ export default function DetrazionePage() {
             </h1>
 
             <p className="text-lg sm:text-2xl text-text-secondary leading-snug max-w-2xl mx-auto mb-3">
-              Per chi investe in Karica come{" "}
-              <span className="text-text-primary font-semibold">startup innovativa</span>.
+              Per chi <span className="text-text-primary font-semibold">investe in Karica</span>.
             </p>
-            <p className="text-sm sm:text-base text-text-muted max-w-xl mx-auto">
-              Fino a €300.000 di investimento, recuperabili in detrazione IRPEF.
-              Regime de minimis (art. 29-bis D.L. 179/2012).
+            <p className="text-sm sm:text-base text-text-muted max-w-xl mx-auto leading-relaxed">
+              Per le persone fisiche che investono in startup innovative,
+              fino a <span className="text-text-secondary font-semibold">€300.000</span> di investimento,
+              recuperabili nella dichiarazione IRPEF dell&apos;anno successivo.
+              Regime de minimis (art. 29-bis D.L. 179/2012, mod. L. 193/2024).
             </p>
 
             <a
@@ -111,8 +112,8 @@ export default function DetrazionePage() {
             </p>
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed text-center">
               Una piattaforma digitale che fa diagnosi, propone gli interventi giusti
-              e li esegue con la rete EnerBee. Stiamo costruendo l&apos;app con
-              5.000 clienti reali del partner energia, dal giorno uno.
+              e li esegue con la rete dei partner in piattaforma. Stiamo costruendo l&apos;app
+              con 5.000 clienti reali del partner energia, dal giorno uno.
             </p>
           </div>
         </section>
@@ -134,12 +135,13 @@ export default function DetrazionePage() {
               <h2 className="text-3xl sm:text-5xl font-black text-text-primary leading-tight mb-4">
                 <span className="text-gradient">10% di sconto</span>
                 <br className="sm:hidden" />
-                {" "}sui lavori a casa tua.
+                {" "}sui lavori sulla tua proprietà.
               </h2>
               <p className="text-base sm:text-lg text-text-secondary leading-relaxed max-w-xl mx-auto">
                 Chi entra dal canale Family &amp; Friends riceve uno sconto del
                 10% su qualunque intervento di efficientamento energetico
-                realizzato tramite Karica nella propria abitazione.
+                realizzato tramite Karica sulla propria proprietà —
+                casa, secondo immobile o sede d&apos;impresa.
               </p>
             </div>
 
@@ -178,7 +180,7 @@ export default function DetrazionePage() {
                   </p>
                   <div className="space-y-2 text-sm sm:text-base">
                     <div className="flex justify-between items-baseline">
-                      <span className="text-text-secondary">Lavoro a casa tua</span>
+                      <span className="text-text-secondary">Lavoro sulla tua proprietà</span>
                       <span className="text-text-primary font-mono font-bold">€100.000</span>
                     </div>
                     <div className="flex justify-between items-baseline">
