@@ -11,10 +11,6 @@ export const metadata: Metadata = {
     "Parla con il team di Karica. Scrivici a info@karica.it per informazioni, partnership o per saperne di più sul progetto.",
 };
 
-const navLinks = [
-  { label: "Contatti", href: "/contatti", highlight: true },
-];
-
 const footerLinks = [
   { label: "Home", href: "/" },
 ];
@@ -22,7 +18,7 @@ const footerLinks = [
 export default function ContattiPage() {
   return (
     <>
-      <Navbar links={navLinks} />
+      <Navbar />
 
       <main id="main" className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-28 pb-20">
         {/* Soft ambient background */}

@@ -34,6 +34,11 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
   const pathname = usePathname();
   const router = useRouter();
 
+  // Hide the hamburger entirely when there's nothing meaningful to show in
+  // the overlay menu — avoids the "open menu to find a single redundant link"
+  // friction that came with /contatti before.
+  const hasMenuContent = !inlineCta && (links.length > 0 || !!cta);
+
   // Reset scroll position on page load/reload instead of restoring previous position
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -128,7 +133,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
               />
             </Link>
 
-            {/* Right side: inline CTA pill OR hamburger button */}
+            {/* Right side: inline CTA pill, hamburger button, or nothing */}
             {inlineCta ? (
               inlineCta.href.startsWith("/") ? (
                 <Link
@@ -147,7 +152,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   {inlineCta.label}
                 </a>
               )
-            ) : (
+            ) : hasMenuContent ? (
               <button
                 onClick={() => {
                   haptic("light");
@@ -159,7 +164,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
               >
                 {open ? <X size={24} /> : <Menu size={24} />}
               </button>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -167,7 +172,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
 
       {/* Overlay menu — opaque full-screen panel below the navbar bar.
           Blocks the content below so nothing shows through. */}
-      {open && !inlineCta && (
+      {open && hasMenuContent && (
         <div
           className="fixed left-0 right-0 top-14 sm:top-16 bottom-0 bg-bg-darker border-t border-card-border overflow-y-auto"
           role="dialog"

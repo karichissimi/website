@@ -7,10 +7,6 @@ import EnergiaPillole from "@/components/home/EnergiaPillole";
 import HomeCTA from "@/components/home/HomeCTA";
 import Footer from "@/components/Footer";
 
-const navLinks = [
-  { label: "Contatti", href: "/contatti", highlight: true },
-];
-
 const footerLinks = [
   { label: "Come funziona", href: "#come-funziona" },
   { label: "Per chi", href: "#per-chi" },
@@ -20,7 +16,7 @@ const footerLinks = [
 export default function Home() {
   return (
     <>
-      <Navbar links={navLinks} />
+      <Navbar inlineCta={{ label: "Contattaci →", href: "/contatti" }} />
       <main id="main">
         <HomeHero />
         <ComeFunziona />
