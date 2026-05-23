@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Mail, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,7 +8,7 @@ import PrenotaCallCard from "./PrenotaCallCard";
 export const metadata: Metadata = {
   title: "Contatti",
   description:
-    "Parla con il team di Karica. Scrivici a info@karica.it per informazioni, partnership o per saperne di più sull'opportunità di investimento.",
+    "Parla con il team di Karica. Scrivici a info@karica.it per informazioni, partnership o per saperne di più sul progetto.",
 };
 
 const navLinks = [
@@ -18,13 +17,12 @@ const navLinks = [
 
 const footerLinks = [
   { label: "Home", href: "/" },
-  { label: "Investitori", href: "/funding" },
 ];
 
 export default function ContattiPage() {
   return (
     <>
-      <Navbar links={navLinks} cta={{ label: "Investi ora", href: "/funding" }} />
+      <Navbar links={navLinks} />
 
       <main id="main" className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-28 pb-20">
         {/* Soft ambient background */}
@@ -105,19 +103,6 @@ export default function ContattiPage() {
 
           {/* Prenota una call — interactive client component */}
           <PrenotaCallCard />
-
-          {/* Subtle divider + alt link */}
-          <div className="mt-14 pt-8 border-t border-card-border/40">
-            <p className="text-text-muted text-xs mb-3">
-              Stai valutando un investimento?
-            </p>
-            <Link
-              href="/funding"
-              className="btn-press-soft inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors"
-            >
-              Scopri l&apos;opportunità &rarr;
-            </Link>
-          </div>
         </div>
       </main>
 

@@ -89,14 +89,6 @@ const news: NewsItem[] = [
     sourceLabel: "AEnergy",
     accentColor: "#FF4D6D",
   },
-  {
-    title: "Startup innovative: detrazione 65%",
-    tag: "INVEST",
-    detail: "Chi investe in una startup come Karica detrae fino al 65% dall'IRPEF. Su €25.000 investiti, il costo effettivo è €8.750. Mantenimento minimo 3 anni.",
-    source: "https://www.mimit.gov.it/it/impresa/competitivita-e-nuove-imprese/start-up-innovative/incentivi-de-minimis",
-    sourceLabel: "MIMIT",
-    accentColor: "#39FF14",
-  },
 ];
 
 export default function EnergiaPillole() {

@@ -15,7 +15,7 @@ interface NavLink {
 
 interface NavbarProps {
   links: NavLink[];
-  cta: { label: string; href: string };
+  cta?: { label: string; href: string };
   logoHref?: string;
 }
 
@@ -176,7 +176,7 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
                 </a>
               );
             })}
-            {cta.href.startsWith("/") ? (
+            {cta && (cta.href.startsWith("/") ? (
               <Link
                 href={cta.href}
                 onClick={() => {
@@ -198,7 +198,7 @@ export default function Navbar({ links, cta, logoHref = "/" }: NavbarProps) {
               >
                 {cta.label}
               </a>
-            )}
+            ))}
           </div>
         </div>
       )}

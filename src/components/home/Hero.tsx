@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import FundingBanner from "../FundingBanner";
 import { haptic } from "@/lib/haptics";
 
 export default function HomeHero() {
@@ -72,22 +71,12 @@ export default function HomeHero() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <a
-            href="/funding"
+            href="#come-funziona"
             onClick={() => haptic("medium")}
             className="btn-press group relative inline-block bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-colors hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
           >
-            <span className="relative z-10">Investi in Karica →</span>
+            <span className="relative z-10">Scopri come funziona →</span>
           </a>
-        </motion.div>
-
-        {/* Funding progress banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="w-full"
-        >
-          <FundingBanner />
         </motion.div>
       </div>
     </section>

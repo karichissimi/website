@@ -15,16 +15,12 @@ const footerLinks = [
   { label: "Come funziona", href: "#come-funziona" },
   { label: "Per chi", href: "#per-chi" },
   { label: "Energia", href: "#energia" },
-  { label: "Investitori", href: "/funding" },
 ];
 
 export default function Home() {
   return (
     <>
-      <Navbar
-        links={navLinks}
-        cta={{ label: "Investi ora", href: "/funding" }}
-      />
+      <Navbar links={navLinks} />
       <main id="main">
         <HomeHero />
         <ComeFunziona />

@@ -4,9 +4,13 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-function confirmationEmail(name: string) {
+function confirmationEmail(name: string, source: string) {
   const firstName = name ? name.split(" ")[0] : "";
   const greeting = firstName ? `Ciao ${firstName},` : "Ciao,";
+
+  const body = source === "newsletter"
+    ? `grazie per il tuo interesse in Karica. Ti scriveremo appena ci sono novità sul lancio della piattaforma.`
+    : `grazie per il tuo interesse in Karica. Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo nelle prossime ore.`;
 
   return `
 <!DOCTYPE html>
@@ -23,21 +27,12 @@ function confirmationEmail(name: string) {
       </p>
 
       <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 16px;">
-        grazie per il tuo interesse in Karica. Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo nelle prossime ore.
+        ${body}
       </p>
 
       <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 32px;">
         Se hai domande, rispondi direttamente a questa email.
       </p>
-
-      <div style="border-top: 1px solid #eee; padding-top: 24px; margin-top: 8px;">
-        <p style="color: #888; font-size: 13px; line-height: 1.6; margin: 0 0 16px;">
-          Conosci qualcuno a cui potrebbe interessare? Condividi il link:
-        </p>
-        <a href="https://karica.it/funding" style="color: #1a7a3a; font-size: 13px; font-weight: 600; text-decoration: none;">
-          karica.it/funding &rarr;
-        </a>
-      </div>
 
     </div>
 
@@ -51,16 +46,18 @@ function confirmationEmail(name: string) {
 
 export async function POST(request: Request) {
   try {
-    const { name, email } = await request.json();
+    const { name, email, source } = await request.json();
 
     if (!email) {
       return NextResponse.json({ error: "Email richiesta" }, { status: 400 });
     }
 
+    const leadSource = typeof source === "string" && source ? source : "investiora";
+
     // Save to Supabase
     const { error: dbError } = await supabaseAdmin
       .from("leads_karica")
-      .insert({ name: name || null, email, source: "funding" });
+      .insert({ name: name || null, email, source: leadSource });
 
     if (dbError) {
       console.error("Supabase error:", dbError);
@@ -75,7 +72,7 @@ export async function POST(request: Request) {
           from: "Karica <noreply@mail.karica.it>",
           replyTo: email,
           to: process.env.NOTIFICATION_EMAIL!,
-          subject: `Nuovo lead funding: ${name || "Senza nome"} (${email})`,
+          subject: `Nuovo lead ${leadSource}: ${name || "Senza nome"} (${email})`,
           html: `
             <div style="font-family: sans-serif; max-width: 500px;">
               <h2 style="color: #39FF14;">Nuovo lead dal sito Karica</h2>
@@ -90,7 +87,7 @@ export async function POST(request: Request) {
                 </tr>
               </table>
               <p style="color: #888; font-size: 12px; margin-top: 16px;">
-                Inviare il pitch deck a ${email}
+                Source: ${leadSource}
               </p>
             </div>
           `,
@@ -101,7 +98,7 @@ export async function POST(request: Request) {
           replyTo: "alessandro.zanin@karica.it",
           to: email,
           subject: "Grazie per il tuo interesse in Karica",
-          html: confirmationEmail(name || ""),
+          html: confirmationEmail(name || "", leadSource),
         }),
       ]);
     } catch (emailError) {

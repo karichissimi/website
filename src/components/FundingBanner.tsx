@@ -16,7 +16,7 @@ export default function FundingBanner({ compact = false }: FundingBannerProps) {
   if (compact) {
     return (
       <a
-        href="/funding"
+        href="/investiora"
         className="block bg-bg-darker border-b border-pink-accent/20 hover:bg-bg-darker transition-all"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex items-center justify-center gap-2 text-xs">
