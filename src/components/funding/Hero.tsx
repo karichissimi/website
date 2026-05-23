@@ -23,19 +23,20 @@ interface Kpi {
 const kpis: Kpi[] = [
   {
     prefix: "€",
-    target: 2,
+    target: 1.5,
     suffix: "M",
+    decimals: 1,
     label: "Valutazione pre-money",
     explanation:
-      "Abbiamo stabilito che Karica vale €2 milioni prima di ricevere l'investimento. Questo prezzo è stato calcolato con 3 metodi diversi e confrontato con altre startup italiane simili. È volutamente conservativo, per premiare chi entra adesso.",
+      "Abbiamo stabilito che Karica vale €1,5 milioni prima di ricevere l'investimento. Questo prezzo è stato calcolato con 3 metodi diversi e confrontato con altre startup italiane simili — abbiamo scelto un valore sotto il fair value indicato dai metodi, per premiare chi entra adesso.",
   },
   {
     prefix: "",
-    target: 20,
+    target: 25,
     suffix: "%",
     label: "Equity per l'investitore",
     explanation:
-      "Chi investe €500.000 ottiene il 20% della società (post-money €2,5M). Significa diventare socio e partecipare alla crescita di Karica. Ogni €25.000 investiti = 1% della società. Diritti patrimoniali pieni (dividendi, liquidazione, exit).",
+      "Chi investe €500.000 ottiene il 25% della società (post-money €2M). Significa diventare socio e partecipare alla crescita di Karica. Ogni €20.000 investiti = 1% della società. Diritti patrimoniali pieni (dividendi, liquidazione, exit).",
   },
   {
     prefix: "€",
@@ -48,10 +49,10 @@ const kpis: Kpi[] = [
   },
   {
     prefix: "€",
-    target: 25000,
+    target: 10000,
     suffix: "",
     label: "Ticket minimo",
-    sublabel: "da €8.750 con detrazione 65%",
+    sublabel: "da €3.500 con detrazione 65%",
   },
 ];
 
@@ -59,7 +60,7 @@ function TicketModalContent() {
   return (
     <div className="text-sm space-y-4">
       <p className="text-text-secondary leading-relaxed">
-        Puoi investire a partire da <strong className="text-text-primary">€25.000</strong>.
+        Puoi investire a partire da <strong className="text-text-primary">€10.000</strong>.
         Come Startup Innovativa, Karica dà accesso alla{" "}
         <strong className="text-green-primary">detrazione IRPEF del 65%</strong> sull&apos;importo investito.
       </p>
@@ -68,21 +69,21 @@ function TicketModalContent() {
       <div className="bg-bg-darker rounded-xl p-4 border border-green-primary/20 space-y-2">
         <div className="flex justify-between">
           <span className="text-text-muted">Investimento</span>
-          <span className="text-text-primary font-mono font-bold">€25.000</span>
+          <span className="text-text-primary font-mono font-bold">€10.000</span>
         </div>
         <div className="flex justify-between">
           <span className="text-text-muted">Detrazione IRPEF (65%)</span>
-          <span className="text-green-primary font-mono font-bold">−€16.250</span>
+          <span className="text-green-primary font-mono font-bold">−€6.500</span>
         </div>
         <div className="border-t border-card-border pt-2 flex justify-between">
           <span className="text-text-primary font-semibold">Costo effettivo</span>
-          <span className="text-green-primary font-mono font-black text-lg">€8.750</span>
+          <span className="text-green-primary font-mono font-black text-lg">€3.500</span>
         </div>
       </div>
 
       <p className="text-text-muted text-xs leading-relaxed">
         La detrazione del 65% (regime de minimis) è prevista dall&apos;art. 29-bis D.L. 179/2012,
-        modificato dalla L. 193/2024. Si applica a investimenti fino a €100.000/anno
+        modificato dalla L. 193/2024. Si applica a investimenti fino a €300.000/anno
         in Startup Innovative. Richiede il mantenimento dell&apos;investimento per almeno 3 anni
         e capienza IRPEF sufficiente. Se la detrazione supera l&apos;imposta lorda,
         l&apos;eccedenza diventa credito d&apos;imposta (Ris. AE 30/E del 28/04/2025).
@@ -282,7 +283,7 @@ export default function Hero() {
         <KpiModal
           open
           onClose={() => setModal(null)}
-          value="€25.000"
+          value="€10.000"
           label="Ticket minimo — detraibile al 65%"
         >
           <TicketModalContent />

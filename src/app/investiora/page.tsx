@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Karica — Investi nella transizione energetica",
   description:
-    "Round pre-seed €500.000. Valutazione pre-money €2M, post-money €2,5M. EBITDA positivo dal primo anno, €6,62M ricavi stimati 2030. Investi in Karica.",
+    "Round pre-seed €500.000. Valutazione pre-money €1,5M, post-money €2M. EBITDA positivo dal primo anno, €6,62M ricavi stimati 2030. Investi in Karica.",
   robots: {
     index: false,
     follow: false,

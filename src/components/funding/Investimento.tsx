@@ -37,10 +37,10 @@ export default function Investimento() {
           <div className="relative z-10 space-y-4">
             {[
               { label: "Investimento totale round", value: "€500.000", accent: true },
-              { label: "Valutazione pre-money", value: "€2.000.000", accent: true },
-              { label: "Valutazione post-money", value: "€2.500.000", accent: false },
-              { label: "Quota equity (round pieno)", value: "20%", accent: true },
-              { label: "Ticket minimo", value: "€25.000 = 1%", accent: false },
+              { label: "Valutazione pre-money", value: "€1.500.000", accent: true },
+              { label: "Valutazione post-money", value: "€2.000.000", accent: false },
+              { label: "Quota equity (round pieno)", value: "25%", accent: true },
+              { label: "Ticket minimo", value: "€10.000 = 0,5%", accent: false },
               { label: "Multipli accettati", value: "€50k, €75k, €100k", accent: false },
               { label: "Strumento", value: "Quote ordinarie", accent: false },
               { label: "Detrazione IRPEF", value: "65% (startup innovativa)", accent: true },
@@ -63,7 +63,7 @@ export default function Investimento() {
           {[
             { icon: Shield, title: "EBITDA positivo 2026", text: "Il capitale non copre perdite operative.", color: "text-green-primary", border: "border-green-primary/20 hover:border-green-primary/40", bg: "bg-green-primary/5 hover:bg-green-primary/10" },
             { icon: CheckCircle, title: "Entraco firmato", text: "5.000 clienti reali dal giorno uno. Contratto 3 anni.", color: "text-green-primary", border: "border-green-primary/20 hover:border-green-primary/40", bg: "bg-green-primary/5 hover:bg-green-primary/10" },
-            { icon: Clock, title: "Detrazione 65%", text: "Costo effettivo €8.750 su €25k (startup innovativa).", color: "text-cyan-accent", border: "border-cyan-accent/20 hover:border-cyan-accent/40", bg: "bg-cyan-accent/5 hover:bg-cyan-accent/10" },
+            { icon: Clock, title: "Detrazione 65%", text: "Costo effettivo €3.500 su €10k (startup innovativa).", color: "text-cyan-accent", border: "border-cyan-accent/20 hover:border-cyan-accent/40", bg: "bg-cyan-accent/5 hover:bg-cyan-accent/10" },
           ].map((item, i) => (
             <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }} className={`rounded-xl p-5 text-center border transition-all duration-300 ${item.border} ${item.bg}`}>
               <item.icon className={`mx-auto mb-3 ${item.color}`} size={28} />
@@ -77,7 +77,7 @@ export default function Investimento() {
           <Accordion title="Come funziona l'operazione?">
             <div className="text-text-secondary text-sm space-y-3">
               <p>Aumento di capitale riservato a investitori terzi, <strong className="text-green-primary">equity diretto a prezzo fisso</strong>. Nessuna convertible, nessun SAFE, nessuna tranche.</p>
-              <p>Investi €25.000 → ricevi il 1% post-money della società. Multipli accettati: €50k (2%), €75k (3%), €100k (4%). A raccolta piena: €500k = 20% post-money.</p>
+              <p>Investi €10.000 → ricevi lo 0,5% post-money della società. Ogni €20.000 = 1% di equity. Multipli intermedi: €50k (2,5%), €100k (5%). A raccolta piena: €500k = 25% post-money.</p>
               <p><strong className="text-text-primary">Diritti patrimoniali pieni</strong>: dividendi, liquidazione, exit. Diritti amministrativi limitati per non appesantire la governance. Per partecipazioni inferiori al 2% il conferimento avviene tramite società fiduciaria.</p>
               <p><strong className="text-text-primary">Diritti informativi</strong>: report semestrale su KPI operativi e situazione finanziaria.</p>
             </div>
@@ -106,7 +106,7 @@ export default function Investimento() {
           </Accordion>
           <Accordion title="Come è stata calcolata la valutazione?">
             <div className="text-text-secondary text-sm space-y-3">
-              <p>3 metodologie indipendenti:</p>
+              <p>3 metodologie indipendenti convergevano su un fair value tra €2,0M e €2,4M:</p>
               <div className="grid sm:grid-cols-3 gap-3">
                 {[
                   { method: "Metodo VC", center: "€2,0M", range: "€1,4M — €2,5M", color: "border-green-primary/20" },
@@ -120,6 +120,11 @@ export default function Investimento() {
                   </div>
                 ))}
               </div>
+              <p className="pt-2">
+                <strong className="text-green-primary">Stiamo offrendo a €1,5M pre-money</strong> —
+                sconto strutturale di circa il 25% rispetto al fair value medio,
+                per premiare chi entra nel primo round.
+              </p>
             </div>
           </Accordion>
           <Accordion title="Quali sono i rischi?">
