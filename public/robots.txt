@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /investiora
 Disallow: /funding
+Disallow: /detrazione

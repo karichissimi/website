@@ -8,9 +8,14 @@ function confirmationEmail(name: string, source: string) {
   const firstName = name ? name.split(" ")[0] : "";
   const greeting = firstName ? `Ciao ${firstName},` : "Ciao,";
 
-  const body = source === "newsletter"
-    ? `grazie per il tuo interesse in Karica. Ti scriveremo appena ci sono novità sul lancio della piattaforma.`
-    : `grazie per il tuo interesse in Karica. Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo nelle prossime ore.`;
+  let body: string;
+  if (source.startsWith("detrazione")) {
+    body = `grazie per averci lasciato i tuoi contatti. Ti contattiamo entro 48 ore per spiegarti i passaggi del Family & Friends Round e rispondere a ogni dubbio.`;
+  } else if (source === "newsletter") {
+    body = `grazie per il tuo interesse in Karica. Ti scriveremo appena ci sono novità sul lancio della piattaforma.`;
+  } else {
+    body = `grazie per il tuo interesse in Karica. Abbiamo ricevuto la tua richiesta e ti invieremo il pitch deck completo nelle prossime ore.`;
+  }
 
   return `
 <!DOCTYPE html>
@@ -44,17 +49,44 @@ function confirmationEmail(name: string, source: string) {
 </html>`;
 }
 
+// Encode channel into the source column so the team can group by it in
+// SQL without schema changes. Examples:
+//   detrazione                  → direct landing, no UTM
+//   detrazione:palazzini        → utm_source=palazzini
+//   detrazione:alessandro       → utm_source=alessandro
+// Query: SELECT source, COUNT(*) FROM leads_karica
+//        WHERE source LIKE 'detrazione%' GROUP BY source;
+function buildSourceTag(base: string, utmSource: string): string {
+  const clean = utmSource.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 32);
+  if (!clean || clean === "direct") return base;
+  return `${base}:${clean}`;
+}
+
 export async function POST(request: Request) {
   try {
-    const { name, email, source } = await request.json();
+    const {
+      name,
+      email,
+      phone,
+      source,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+    } = await request.json();
 
     if (!email) {
       return NextResponse.json({ error: "Email richiesta" }, { status: 400 });
     }
 
-    const leadSource = typeof source === "string" && source ? source : "investiora";
+    const baseSource = typeof source === "string" && source ? source : "investiora";
+    const utmSrc = typeof utm_source === "string" ? utm_source : "";
+    const utmMed = typeof utm_medium === "string" ? utm_medium : "";
+    const utmCmp = typeof utm_campaign === "string" ? utm_campaign : "";
+    const leadSource = baseSource === "detrazione"
+      ? buildSourceTag("detrazione", utmSrc)
+      : baseSource;
 
-    // Save to Supabase
+    // Save to Supabase (existing schema: name, email, source)
     const { error: dbError } = await supabaseAdmin
       .from("leads_karica")
       .insert({ name: name || null, email, source: leadSource });
@@ -64,10 +96,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Errore nel salvataggio" }, { status: 500 });
     }
 
-    // Send emails (both in parallel, neither blocks the response on failure)
+    // Notification email includes phone + UTM (which aren't in the DB schema).
+    const utmRows = (utmSrc || utmMed || utmCmp)
+      ? `
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">utm_source</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${utmSrc || "—"}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">utm_medium</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${utmMed || "—"}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">utm_campaign</td>
+          <td style="padding: 8px; border-bottom: 1px solid #eee;">${utmCmp || "—"}</td>
+        </tr>`
+      : "";
+
     try {
       await Promise.all([
-        // Notification to team
         resend.emails.send({
           from: "Karica <noreply@mail.karica.it>",
           replyTo: email,
@@ -85,14 +132,18 @@ export async function POST(request: Request) {
                   <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email</td>
                   <td style="padding: 8px; border-bottom: 1px solid #eee;">${email}</td>
                 </tr>
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Telefono</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #eee;">${phone || "—"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Source</td>
+                  <td style="padding: 8px; border-bottom: 1px solid #eee;">${leadSource}</td>
+                </tr>${utmRows}
               </table>
-              <p style="color: #888; font-size: 12px; margin-top: 16px;">
-                Source: ${leadSource}
-              </p>
             </div>
           `,
         }),
-        // Confirmation to lead
         resend.emails.send({
           from: "Karica <noreply@mail.karica.it>",
           replyTo: "alessandro.zanin@karica.it",
