@@ -32,12 +32,22 @@
 
 html {
   scroll-behavior: smooth;
+  /* Gentle "page-snap" feel: scroll naturally, but if you stop near a section
+     boundary the browser pins you to it. `proximity` (not `mandatory`) keeps
+     long fast-scrolls fluid. Safe with 100svh heroes (no iOS URL-bar jank). */
+  scroll-snap-type: y proximity;
 }
 
 @media (hover: none) and (pointer: coarse) {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Only top-level page sections snap. Nested <section>s inside components
+   (legal pages, modals, sub-cards) are unaffected. */
+main > section {
+  scroll-snap-align: start;
 }
 
 body {
