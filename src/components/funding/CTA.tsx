@@ -220,7 +220,7 @@ export default function CTA() {
                 </div>
 
                 <a
-                  href="https://calendly.com/alessandro-zanin-karica/30min"
+                  href="https://calendly.com/alessandro-zanin-karica/new-meeting"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => haptic("medium")}

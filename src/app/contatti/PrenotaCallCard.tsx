@@ -4,7 +4,7 @@ import { Calendar, ArrowUpRight, Check, Clock, Video, Globe } from "lucide-react
 import { motion } from "framer-motion";
 import { haptic } from "@/lib/haptics";
 
-const CALENDLY_URL = "https://calendly.com/alessandro-zanin-karica/30min";
+const CALENDLY_URL = "https://calendly.com/alessandro-zanin-karica/new-meeting";
 
 const features = [
   { icon: Clock, label: "30 minuti" },
