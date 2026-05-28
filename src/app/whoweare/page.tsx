@@ -68,6 +68,7 @@ const team: Person[] = [
     name: "Massimiliano Foss",
     role: "Senior Developer",
     bio: "Sviluppatore senior con expertise in mobile application development e infrastruttura backend. In Karica è responsabile della client-side feature extraction e dell'integrazione dei moduli di calcolo sulla piattaforma multi-canale.",
+    photo: "/team/massimiliano-foss.jpg",
     initials: "MF",
   },
 ];
