@@ -7,7 +7,7 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { haptic } from "@/lib/haptics";
 
 type Stage = {
-  src: string;
+  screen: string;
   kicker: string;
   title: string;
   body: string;
@@ -15,47 +15,57 @@ type Stage = {
 
 const stages: Stage[] = [
   {
-    src: "/app/01-bolletta.png",
+    screen: "/app/01-bolletta-screen.png",
     kicker: "1 · Bolletta",
     title: "Una foto. Karica legge i tuoi consumi reali.",
     body: "Niente moduli, niente codici contatore. Riconosce kWh, € e fornitore direttamente dalla bolletta.",
   },
   {
-    src: "/app/02-edificio.png",
+    screen: "/app/02-edificio-screen.png",
     kicker: "2 · Edificio",
     title: "Qualche domanda semplice sulla casa.",
     body: "Tipo di abitazione, dove sei, com'è fatta. Niente gergo tecnico — il cacatua ti guida.",
   },
   {
-    src: "/app/03-dimensione.png",
+    screen: "/app/03-dimensione-screen.png",
     kicker: "3 · Profilo",
     title: "Capisce la tua casa come la conosci tu.",
     body: "Dimensione, impianti, abitudini. Incrocia i tuoi dati con case simili nella tua zona.",
   },
   {
-    src: "/app/04-calcolo.png",
+    screen: "/app/04-calcolo-screen.png",
     kicker: "4 · AI",
     title: "AI e dataset nazionali al lavoro.",
     body: "Modello proprietario + banche dati su classe energetica, costi degli interventi e incentivi attivi.",
   },
   {
-    src: "/app/05-diagnosi.png",
+    screen: "/app/05-diagnosi-screen.png",
     kicker: "5 · Diagnosi",
     title: "La tua classe energetica stimata.",
     body: "E quanto puoi davvero risparmiare ogni anno — con fasce reali, non promesse.",
   },
   {
-    src: "/app/06-interventi.png",
+    screen: "/app/06-interventi-screen.png",
     kicker: "6 · Piano",
     title: "Interventi su misura, già prioritizzati.",
     body: "Dal cambio infissi al fotovoltaico — risparmio annuo, urgenza e incentivi disponibili per ognuno.",
   },
 ];
 
-const AUTOPLAY_MS = 3000;
+const AUTOPLAY_MS = 5000;
 const SWIPE_OFFSET = 50;
 const SWIPE_VELOCITY = 350;
 const SPRING_TRANSITION = { type: "spring", stiffness: 230, damping: 32 } as const;
+
+// Phone canvas & OLED window measurements — kept in sync with the Python
+// pipeline that builds bezel.png + *-screen.png assets.
+const PHONE_W = 555;
+const PHONE_H = 1115;
+const SCREEN_LEFT_PCT = (33 / PHONE_W) * 100; // 5.95%
+const SCREEN_TOP_PCT = (33 / PHONE_H) * 100; // 2.96%
+const SCREEN_WIDTH_PCT = (489 / PHONE_W) * 100; // 88.11%
+const SCREEN_HEIGHT_PCT = (1049 / PHONE_H) * 100; // 94.08%
+const SCREEN_RADIUS_PCT = (48 / PHONE_W) * 100; // 8.65%
 
 export default function AppInAzione() {
   const [current, setCurrent] = useState(0);
@@ -64,8 +74,6 @@ export default function AppInAzione() {
   const n = stages.length;
 
   // Smoothly animated progress 0..1 used to drive the phone's 3D rotation.
-  // Snapped to its target on every stage change via `animate()` — never sits
-  // mid-stage on its own, but glides smoothly between stages.
   const stageProgress = useMotionValue(0);
 
   useEffect(() => {
@@ -96,7 +104,7 @@ export default function AppInAzione() {
     [current, interacted, n]
   );
 
-  // Autoplay: advance every 3s, looping, stops on first interaction.
+  // Autoplay 5s, loops, stops at first interaction.
   useEffect(() => {
     if (interacted) return;
     const id = window.setInterval(() => {
@@ -146,9 +154,9 @@ export default function AppInAzione() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Phone */}
+          {/* Phone — bezel is static, only the screen content slides */}
           <div
-            className="order-1 md:order-2 relative flex items-center justify-center w-full select-none"
+            className="order-1 md:order-2 relative flex items-center justify-center w-full select-none min-w-0"
             style={{ perspective: "1400px" }}
           >
             {/* Glow halo */}
@@ -166,15 +174,23 @@ export default function AppInAzione() {
                 y: floatY,
                 transformStyle: "preserve-3d",
                 transformOrigin: "center center",
+                // Phone size — explicit width AND height so nothing can blow out
+                // the layout on any viewport. Derived from PHONE_AR.
+                width: "clamp(200px, 28vh, 280px)",
+                height: "clamp(400px, 56vh, 562px)",
+                maxWidth: "100%",
               }}
               className="relative will-change-transform"
             >
-              {/* Phone "display" — overflow hidden, holds the sliding stage track */}
+              {/* OLED window — the only thing that slides on swipe */}
               <motion.div
-                className="relative overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y"
+                className="absolute overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y bg-bg-darker"
                 style={{
-                  height: "clamp(360px, 50vh, 560px)",
-                  aspectRatio: "555 / 1115",
+                  left: `${SCREEN_LEFT_PCT}%`,
+                  top: `${SCREEN_TOP_PCT}%`,
+                  width: `${SCREEN_WIDTH_PCT}%`,
+                  height: `${SCREEN_HEIGHT_PCT}%`,
+                  borderRadius: `${SCREEN_RADIUS_PCT}%`,
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
@@ -190,30 +206,42 @@ export default function AppInAzione() {
                 >
                   {stages.map((s, i) => (
                     <div
-                      key={s.src}
-                      className="relative w-full h-full shrink-0 flex items-center justify-center"
+                      key={s.screen}
+                      className="relative w-full h-full shrink-0"
                     >
                       <Image
-                        src={s.src}
+                        src={s.screen}
                         alt={`Schermata Karica — ${s.kicker}`}
-                        width={555}
-                        height={1115}
+                        fill
                         priority={i === 0}
                         draggable={false}
-                        className="w-auto h-full max-h-full object-contain pointer-events-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
+                        sizes="(max-width: 768px) 60vw, 30vw"
+                        className="object-cover pointer-events-none"
                       />
                     </div>
                   ))}
                 </motion.div>
               </motion.div>
 
-              {/* "Drag" hint — only until first interaction */}
+              {/* Bezel — sits on top of the sliding screen, never moves */}
+              <Image
+                src="/app/bezel.png"
+                alt=""
+                aria-hidden
+                width={PHONE_W}
+                height={PHONE_H}
+                priority
+                draggable={false}
+                className="absolute inset-0 w-full h-full pointer-events-none select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
+              />
+
+              {/* Drag hint — only until first interaction */}
               {!interacted && (
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.4 }}
-                  className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-bg/80 border border-card-border backdrop-blur-sm pointer-events-none"
+                  className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-bg/80 border border-card-border backdrop-blur-sm pointer-events-none"
                   aria-hidden
                 >
                   <span className="text-[10px] uppercase tracking-widest font-semibold text-text-muted">
@@ -232,7 +260,7 @@ export default function AppInAzione() {
           </div>
 
           {/* Copy */}
-          <div className="order-2 md:order-1 text-center md:text-left">
+          <div className="order-2 md:order-1 text-center md:text-left min-w-0">
             <div className="overflow-hidden">
               <motion.div
                 className="flex w-full"
