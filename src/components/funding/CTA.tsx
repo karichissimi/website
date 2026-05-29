@@ -6,11 +6,65 @@ import { Send, Calendar, CheckCircle, Loader2, AlertCircle, Sparkles, ArrowUpRig
 import Image from "next/image";
 import Link from "next/link";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
+
+const COPY = {
+  it: {
+    aria: "Richiedi il pitch deck",
+    emptyEmail: "Serve una mail per spedirti il pitch deck.",
+    invalidEmail: "Formato mail non valido — controlla il punto e la @.",
+    submitError400: "La mail non ci piace — prova un altro indirizzo.",
+    submitError500: "Il nostro server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.",
+    submitErrorNet: "Connessione persa. Controlla la rete e riprova.",
+    titlePre: "Vuoi saperne ",
+    titleHighlight: "di più",
+    titlePost: "?",
+    intro: "Ricevi il pitch deck completo con tutti i dettagli dell'operazione.",
+    ffKicker: "Sei in Family & Friends?",
+    ffBody: "Detrazione IRPEF 65% + 10% sconto sui lavori",
+    successTitle: "Richiesta inviata!",
+    successBody: "Ti invieremo il pitch deck completo entro 24 ore.",
+    nameLabel: "Nome e cognome",
+    namePlaceholder: "Mario Rossi",
+    emailLabel: "Email *",
+    emailPlaceholder: "mario@email.com",
+    cta: "Richiedi il pitch deck",
+    orDivider: "oppure",
+    bookCall: "Prenota una call con il team",
+    disclaimer: "Documento riservato. Nessun impegno richiesto.",
+  },
+  en: {
+    aria: "Request the pitch deck",
+    emptyEmail: "We need an email to send you the pitch deck.",
+    invalidEmail: "That doesn't look right — check the dot and the @.",
+    submitError400: "We don't like that email — try another address.",
+    submitError500: "Our server is having a moment. Try again in a minute or write to info@karica.it.",
+    submitErrorNet: "Lost the connection. Check your network and try again.",
+    titlePre: "Want to know ",
+    titleHighlight: "more",
+    titlePost: "?",
+    intro: "Get the full pitch deck with all the deal details.",
+    ffKicker: "Are you in Family & Friends?",
+    ffBody: "65% personal income tax relief + 10% off the works",
+    successTitle: "Request sent!",
+    successBody: "We'll send you the full pitch deck within 24 hours.",
+    nameLabel: "Full name",
+    namePlaceholder: "Mario Rossi",
+    emailLabel: "Email *",
+    emailPlaceholder: "mario@email.com",
+    cta: "Request the pitch deck",
+    orDivider: "or",
+    bookCall: "Book a call with the team",
+    disclaimer: "Confidential document. No commitment required.",
+  },
+} as const;
 
 // Simple but solid email check — not exhaustive, just catches common mistakes
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function CTA() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -22,8 +76,8 @@ export default function CTA() {
 
   function validateEmail(value: string): string {
     const trimmed = value.trim();
-    if (!trimmed) return "Serve una mail per spedirti il pitch deck.";
-    if (!EMAIL_RE.test(trimmed)) return "Formato mail non valido — controlla il punto e la @.";
+    if (!trimmed) return t.emptyEmail;
+    if (!EMAIL_RE.test(trimmed)) return t.invalidEmail;
     return "";
   }
 
@@ -72,21 +126,16 @@ export default function CTA() {
     } catch (err) {
       haptic("heavy");
       const kind = err instanceof Error ? err.message : "";
-      if (kind === "validation") {
-        setSubmitError("La mail non ci piace — prova un altro indirizzo.");
-      } else if (kind === "server") {
-        setSubmitError("Il nostro server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.");
-      } else {
-        // Network failure — fetch rejected, not an HTTP response
-        setSubmitError("Connessione persa. Controlla la rete e riprova.");
-      }
+      if (kind === "validation") setSubmitError(t.submitError400);
+      else if (kind === "server") setSubmitError(t.submitError500);
+      else setSubmitError(t.submitErrorNet);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <section id="cta" aria-label="Richiedi il pitch deck" className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
+    <section id="cta" aria-label={t.aria} className="relative py-24 sm:py-32 bg-bg-dark overflow-hidden">
       <div className="glow-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
       <div className="glow-orb-slow absolute top-1/4 right-0 w-[300px] h-[300px] rounded-full bg-cyan-accent/[0.05] blur-[80px]" />
 
@@ -116,12 +165,11 @@ export default function CTA() {
             />
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-text-primary mb-3">
-            Vuoi saperne{" "}
-            <span className="text-gradient">di più</span>?
+            {t.titlePre}
+            <span className="text-gradient">{t.titleHighlight}</span>
+            {t.titlePost}
           </h2>
-          <p className="text-text-secondary">
-            Ricevi il pitch deck completo con tutti i dettagli dell&apos;operazione.
-          </p>
+          <p className="text-text-secondary">{t.intro}</p>
         </motion.div>
 
         {/* F&F cross-link — chi è in Family & Friends ha un vantaggio extra
@@ -144,10 +192,10 @@ export default function CTA() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-cyan-accent text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5">
-                  Sei in Family &amp; Friends?
+                  {t.ffKicker}
                 </p>
                 <p className="text-text-primary text-sm sm:text-base font-semibold leading-snug">
-                  Detrazione IRPEF 65% + 10% sconto sui lavori
+                  {t.ffBody}
                 </p>
               </div>
               <ArrowUpRight
@@ -173,30 +221,30 @@ export default function CTA() {
                   <CheckCircle className="relative text-green-primary" size={56} />
                 </div>
                 <h3 className="text-xl font-bold text-text-primary mb-2">
-                  Richiesta inviata!
+                  {t.successTitle}
                 </h3>
                 <p className="text-text-secondary text-sm">
-                  Ti invieremo il pitch deck completo entro 24 ore.
+                  {t.successBody}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-text-secondary mb-1.5">
-                    Nome e cognome
+                    {t.nameLabel}
                   </label>
                   <input
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Mario Rossi"
+                    placeholder={t.namePlaceholder}
                     className="w-full bg-bg-darker border border-card-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none focus:border-green-primary/60 focus:shadow-[0_0_12px_rgba(57,255,20,0.1)] transition-all"
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-text-secondary mb-1.5">
-                    Email *
+                    {t.emailLabel}
                   </label>
                   <input
                     id="email"
@@ -205,7 +253,7 @@ export default function CTA() {
                     value={email}
                     onChange={(e) => handleEmailChange(e.target.value)}
                     onBlur={handleEmailBlur}
-                    placeholder="mario@email.com"
+                    placeholder={t.emailPlaceholder}
                     aria-invalid={!!emailError}
                     aria-describedby={emailError ? "email-error" : undefined}
                     className={`w-full bg-bg-darker border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none transition-all ${
@@ -242,7 +290,7 @@ export default function CTA() {
                   ) : (
                     <Send size={16} />
                   )}
-                  Richiedi il pitch deck
+                  {t.cta}
                 </button>
 
                 <div className="relative my-2">
@@ -250,7 +298,7 @@ export default function CTA() {
                     <div className="section-divider w-full" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-card-bg px-4 text-text-muted text-xs">oppure</span>
+                    <span className="bg-card-bg px-4 text-text-muted text-xs">{t.orDivider}</span>
                   </div>
                 </div>
 
@@ -262,7 +310,7 @@ export default function CTA() {
                   className="btn-press w-full flex items-center justify-center gap-2 border border-card-border text-text-secondary font-semibold py-3.5 rounded-lg text-sm hover:border-cyan-accent/50 hover:text-cyan-accent transition-all hover:shadow-[0_0_20px_rgba(0,212,212,0.1)]"
                 >
                   <Calendar size={16} />
-                  Prenota una call con il team
+                  {t.bookCall}
                 </a>
               </form>
             )}
@@ -270,7 +318,7 @@ export default function CTA() {
         </motion.div>
 
         <p className="text-center text-text-disabled text-xs mt-6">
-          Documento riservato. Nessun impegno richiesto.
+          {t.disclaimer}
         </p>
       </div>
     </section>

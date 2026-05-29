@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useLang } from "@/lib/i18n";
 import {
   SunMedium,
   HardHat,
@@ -15,8 +16,8 @@ import { haptic } from "@/lib/haptics";
 
 type Partner = {
   name: string;
-  role: string;
-  detail: string;
+  role: { it: string; en: string };
+  detail: { it: string; en: string };
   icon: LucideIcon;
   accent: "green" | "cyan" | "pink";
   url: string | null;
@@ -26,8 +27,8 @@ type Partner = {
 const partners: Partner[] = [
   {
     name: "GTI",
-    role: "Impianti fotovoltaici",
-    detail: "Progettazione e installazione FV",
+    role: { it: "Impianti fotovoltaici", en: "Solar PV systems" },
+    detail: { it: "Progettazione e installazione FV", en: "PV design and installation" },
     icon: SunMedium,
     accent: "green",
     url: "https://www.greentechitalia.com/",
@@ -35,8 +36,8 @@ const partners: Partner[] = [
   },
   {
     name: "GBI",
-    role: "Costruzioni edili",
-    detail: "Esegue i lavori di riqualificazione",
+    role: { it: "Costruzioni edili", en: "Construction works" },
+    detail: { it: "Esegue i lavori di riqualificazione", en: "Executes retrofit works" },
     icon: HardHat,
     accent: "green",
     url: null,
@@ -44,8 +45,8 @@ const partners: Partner[] = [
   },
   {
     name: "E-VM",
-    role: "Engineering & ESCo",
-    detail: "Efficienza energetica e CER",
+    role: { it: "Engineering & ESCo", en: "Engineering & ESCo" },
+    detail: { it: "Efficienza energetica e CER", en: "Energy efficiency and energy communities" },
     icon: Wrench,
     accent: "green",
     url: "https://www.e-vm.it",
@@ -53,29 +54,60 @@ const partners: Partner[] = [
   },
   {
     name: "Entraco",
-    role: "Fornitore energia",
-    detail: "5.000 clienti reali con dati consumi",
+    role: { it: "Fornitore energia", en: "Energy supplier" },
+    detail: {
+      it: "5.000 clienti reali con dati consumi",
+      en: "5,000 real customers with consumption data",
+    },
     icon: Zap,
     accent: "cyan",
     url: "https://www.entraco.it",
   },
   {
     name: "EC Hub",
-    role: "Rete CER",
-    detail: "Comunità Energetiche su scala nazionale",
+    role: { it: "Rete CER", en: "Energy community network" },
+    detail: {
+      it: "Comunità Energetiche su scala nazionale",
+      en: "Energy Communities at national scale",
+    },
     icon: Network,
     accent: "cyan",
     url: "https://echub.it",
   },
   {
     name: "Partner Bancari",
-    role: "Finanziamenti",
-    detail: "Prestiti green integrati",
+    role: { it: "Finanziamenti", en: "Financing" },
+    detail: { it: "Prestiti green integrati", en: "Integrated green loans" },
     icon: Landmark,
     accent: "pink",
     url: null,
   },
 ];
+
+const COPY = {
+  it: {
+    aria: "Ecosistema di partner Karica",
+    titlePre: "Un ",
+    titleHighlight: "marketplace",
+    titlePost: ", non un'app",
+    body:
+      "Karica connette domanda e offerta della transizione energetica con un ecosistema di partner già operativi.",
+    karicaRole: "Piattaforma digitale",
+    karicaSub: "L'orchestratore della transizione",
+    partnersLabel: "Partner operativi",
+  },
+  en: {
+    aria: "Karica partner ecosystem",
+    titlePre: "A ",
+    titleHighlight: "marketplace",
+    titlePost: ", not an app",
+    body:
+      "Karica connects energy-transition supply and demand through an ecosystem of already-operating partners.",
+    karicaRole: "Digital platform",
+    karicaSub: "The transition orchestrator",
+    partnersLabel: "Operating partners",
+  },
+} as const;
 
 const ACCENT = {
   green: {
@@ -105,10 +137,12 @@ const ACCENT = {
 } as const;
 
 export default function Ecosistema() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   return (
     <section
       id="ecosistema"
-      aria-label="Ecosistema di partner Karica"
+      aria-label={t.aria}
       className="relative py-14 sm:py-24 bg-bg-dark overflow-hidden"
     >
       <div className="absolute inset-0 dot-grid opacity-[0.12]" />
@@ -124,11 +158,12 @@ export default function Ecosistema() {
           className="text-center mb-7 sm:mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-text-primary mb-2.5 leading-tight">
-            Un <span className="text-gradient">marketplace</span>, non un&apos;app
+            {t.titlePre}
+            <span className="text-gradient">{t.titleHighlight}</span>
+            {t.titlePost}
           </h2>
           <p className="text-sm sm:text-base text-text-secondary max-w-lg mx-auto leading-snug">
-            Karica connette domanda e offerta della transizione energetica
-            con un ecosistema di partner già operativi.
+            {t.body}
           </p>
         </motion.div>
 
@@ -224,12 +259,12 @@ export default function Ecosistema() {
                           {partner.name}
                         </p>
                         <p className="text-text-muted text-[10px] sm:text-xs leading-tight mt-0.5 truncate">
-                          {partner.role}
+                          {partner.role[lang]}
                         </p>
                       </div>
                     </div>
                     <p className="text-text-disabled text-[10px] sm:text-[11px] mt-2 leading-snug flex-grow">
-                      {partner.detail}
+                      {partner.detail[lang]}
                     </p>
                     {/* Reserve a fixed-height row for the group tag so cards
                         with and without the tag stay the same size. */}
