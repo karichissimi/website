@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { LangProvider } from "@/lib/i18n";
+import LangBalloon from "@/components/LangBalloon";
 import "./globals.css";
 
 const avantGarde = localFont({
@@ -121,6 +122,7 @@ export default function RootLayout({
             Vai al contenuto / Skip to content
           </a>
           {children}
+          <LangBalloon />
         </LangProvider>
       </body>
     </html>

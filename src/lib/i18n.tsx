@@ -15,16 +15,21 @@ export type Lang = "it" | "en";
 type LangContextValue = {
   lang: Lang;
   setLang: (l: Lang) => void;
+  hasChosen: boolean;
+  dismissChoice: () => void;
   hydrated: boolean;
 };
 
 const LangContext = createContext<LangContextValue>({
   lang: "it",
   setLang: () => {},
+  hasChosen: false,
+  dismissChoice: () => {},
   hydrated: false,
 });
 
 const STORAGE_KEY = "karica-lang";
+const CHOSEN_KEY = "karica-lang-chosen";
 
 /**
  * Wraps the app so every client component can read/write the active language.
@@ -41,18 +46,21 @@ export function LangProvider({
   defaultLang?: Lang;
 }) {
   const [lang, setLangState] = useState<Lang>(defaultLang);
+  const [hasChosen, setHasChosen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
+      const chosen = window.localStorage.getItem(CHOSEN_KEY) === "1";
       if (saved === "it" || saved === "en") {
         setLangState(saved);
       } else {
         const nav = window.navigator.language?.toLowerCase() ?? "";
         if (nav.startsWith("en")) setLangState("en");
       }
+      setHasChosen(chosen);
     } catch {
       // localStorage may be blocked (Safari private mode etc.) — silent ok
     }
@@ -61,8 +69,10 @@ export function LangProvider({
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
+    setHasChosen(true);
     try {
       window.localStorage.setItem(STORAGE_KEY, l);
+      window.localStorage.setItem(CHOSEN_KEY, "1");
     } catch {
       // ignore
     }
@@ -72,8 +82,17 @@ export function LangProvider({
     }
   }, []);
 
+  const dismissChoice = useCallback(() => {
+    setHasChosen(true);
+    try {
+      window.localStorage.setItem(CHOSEN_KEY, "1");
+    } catch {
+      // ignore
+    }
+  }, []);
+
   return (
-    <LangContext.Provider value={{ lang, setLang, hydrated }}>
+    <LangContext.Provider value={{ lang, setLang, hasChosen, dismissChoice, hydrated }}>
       {children}
     </LangContext.Provider>
   );
