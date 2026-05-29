@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Play } from "lucide-react";
 import type { PanInfo } from "framer-motion";
 import { animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { haptic } from "@/lib/haptics";
@@ -121,8 +122,9 @@ export default function AppInAzione() {
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      // Ignore touch — touch is handled by the drag gesture inside the OLED.
-      if (e.pointerType === "touch") return;
+      // Mouse hover + finger drag both tilt the phone in 3D so it feels
+      // alive when you touch it. On touch this happens *concurrently* with
+      // the carousel drag gesture, which reads as 'wrestling with the phone'.
       const rect = e.currentTarget.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
@@ -136,6 +138,18 @@ export default function AppInAzione() {
     ptrX.set(0);
     ptrY.set(0);
   }, [ptrX, ptrY]);
+
+  const onPointerUp = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      // On touch, "leave" doesn't fire automatically — release brings the
+      // tilt back to neutral.
+      if (e.pointerType === "touch") {
+        ptrX.set(0);
+        ptrY.set(0);
+      }
+    },
+    [ptrX, ptrY]
+  );
 
   const goTo = useCallback(
     (i: number, fromUser: boolean) => {
@@ -210,6 +224,8 @@ export default function AppInAzione() {
             style={{ perspective: "1400px" }}
             onPointerMove={onPointerMove}
             onPointerLeave={onPointerLeave}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerLeave}
           >
             {/* Glow halo */}
             <div
@@ -313,25 +329,28 @@ export default function AppInAzione() {
                 className="absolute inset-0 w-full h-full pointer-events-none select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
               />
 
-              {/* Drag hint — only until first interaction */}
+              {/* Play CTA — disappears the moment the user interacts.
+                  Pulses softly to invite touch/swipe. */}
               {!interacted && (
                 <motion.div
                   initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.4 }}
-                  className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-bg/80 border border-card-border backdrop-blur-sm pointer-events-none"
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: [1, 1.04, 1],
+                  }}
+                  transition={{
+                    opacity: { delay: 0.6, duration: 0.4 },
+                    y: { delay: 0.6, duration: 0.4 },
+                    scale: { delay: 1, duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="absolute -bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3.5 py-2 rounded-full bg-green-primary text-bg-dark shadow-[0_8px_24px_rgba(57,255,20,0.35)] pointer-events-none"
                   aria-hidden
                 >
-                  <span className="text-[10px] uppercase tracking-widest font-semibold text-text-muted">
-                    Scorri
+                  <Play size={12} fill="currentColor" strokeWidth={0} />
+                  <span className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap">
+                    Provalo
                   </span>
-                  <motion.span
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                    className="text-green-primary text-sm"
-                  >
-                    ↑
-                  </motion.span>
                 </motion.div>
               )}
             </motion.div>
