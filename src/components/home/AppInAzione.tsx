@@ -218,22 +218,26 @@ export default function AppInAzione() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Phone */}
+          {/* Phone column — flex-col so PROVALO sits below the phone in
+              page flow, NOT inside the rotating 3D wrapper. */}
           <div
-            className="order-1 md:order-2 relative flex items-center justify-center w-full select-none min-w-0"
-            style={{ perspective: "900px" }}
+            className="order-1 md:order-2 relative flex flex-col items-center justify-center gap-5 sm:gap-7 w-full select-none min-w-0"
             onPointerMove={onPointerMove}
             onPointerLeave={onPointerLeave}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerLeave}
           >
-            {/* Glow halo */}
             <div
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              aria-hidden
+              className="relative flex items-center justify-center"
+              style={{ perspective: "900px" }}
             >
-              <div className="w-[55%] h-[68%] rounded-full bg-cyan-accent/20 blur-[80px]" />
-            </div>
+              {/* Glow halo */}
+              <div
+                className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                aria-hidden
+              >
+                <div className="w-[55%] h-[68%] rounded-full bg-cyan-accent/20 blur-[80px]" />
+              </div>
 
             <motion.div
               style={{
@@ -248,6 +252,31 @@ export default function AppInAzione() {
               }}
               className="relative will-change-transform"
             >
+              {/* 3D depth — stacked bezel silhouettes behind the front face
+                  at incremental translateZ. Each is darker than the one in
+                  front, so when the phone rotates you see a real edge
+                  (a sliver of the side at each layer) instead of a flat card. */}
+              {[
+                { z: -28, b: 0.12 },
+                { z: -20, b: 0.18 },
+                { z: -12, b: 0.28 },
+                { z: -6,  b: 0.45 },
+              ].map((layer, i) => (
+                <Image
+                  key={`depth-${i}`}
+                  src="/app/bezel.png"
+                  alt=""
+                  aria-hidden
+                  width={PHONE_W}
+                  height={PHONE_H}
+                  draggable={false}
+                  className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                  style={{
+                    transform: `translateZ(${layer.z}px)`,
+                    filter: `brightness(${layer.b}) saturate(0.7)`,
+                  }}
+                />
+              ))}
               {/* OLED window — fixed in place. Drag and animate live inside
                   the body slot so the OLED itself never translates outside
                   the bezel. */}
@@ -364,31 +393,34 @@ export default function AppInAzione() {
                 }}
               />
 
-              {/* Play CTA — disappears the moment the user interacts.
-                  Pulses softly to invite touch/swipe. */}
-              {!interacted && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: [1, 1.04, 1],
-                  }}
-                  transition={{
-                    opacity: { delay: 0.6, duration: 0.4 },
-                    y: { delay: 0.6, duration: 0.4 },
-                    scale: { delay: 1, duration: 1.8, repeat: Infinity, ease: "easeInOut" },
-                  }}
-                  className="absolute -bottom-7 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3.5 py-2 rounded-full bg-green-primary text-bg-dark shadow-[0_8px_24px_rgba(57,255,20,0.35)] pointer-events-none"
-                  aria-hidden
-                >
-                  <Play size={12} fill="currentColor" strokeWidth={0} />
-                  <span className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap">
-                    Provalo
-                  </span>
-                </motion.div>
-              )}
             </motion.div>
+            </div>
+
+            {/* Play CTA — vive nel flow della colonna sotto al telefono.
+                Non ha perspective ne' rotazione: e' una pill sempre dritta
+                centrata, smette di essere visibile alla prima interazione. */}
+            {!interacted && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: [1, 1.04, 1],
+                }}
+                transition={{
+                  opacity: { delay: 0.6, duration: 0.4 },
+                  y: { delay: 0.6, duration: 0.4 },
+                  scale: { delay: 1, duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-primary text-bg-dark shadow-[0_8px_24px_rgba(57,255,20,0.35)] pointer-events-none"
+                aria-hidden
+              >
+                <Play size={12} fill="currentColor" strokeWidth={0} />
+                <span className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap">
+                  Provalo
+                </span>
+              </motion.div>
+            )}
           </div>
 
           {/* Copy */}
