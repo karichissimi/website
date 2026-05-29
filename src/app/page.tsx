@@ -13,6 +13,7 @@ const footerLinks = [
   { label: "Come funziona", href: "#come-funziona" },
   { label: "Per chi", href: "#per-chi" },
   { label: "Energia", href: "#energia" },
+  { label: "Storia", href: "/storia" },
 ];
 
 export default function Home() {

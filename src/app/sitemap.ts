@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${BASE}/storia`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${BASE}/contatti`,
       lastModified: now,
       changeFrequency: "monthly",
