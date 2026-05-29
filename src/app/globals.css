@@ -325,3 +325,20 @@ img, svg {
 .legal-section:last-child {
   border-bottom: none;
 }
+
+/* 3D phone tilt — desktop only.
+   Keeps the screen perfectly readable on mobile (no tilt), adds dimensionality
+   on larger screens where there's room. Light hover-amplification for delight. */
+.phone-tilt {
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  .phone-tilt {
+    transform: perspective(1400px) rotateY(-12deg) rotateX(6deg);
+  }
+  .phone-tilt:hover {
+    transform: perspective(1400px) rotateY(-8deg) rotateX(4deg) translateY(-6px);
+  }
+}

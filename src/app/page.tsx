@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HomeHero from "@/components/home/Hero";
+import AppInAzione from "@/components/home/AppInAzione";
 import ComeFunziona from "@/components/home/ComeFunziona";
 import PerChi from "@/components/home/PerChi";
 import CER from "@/components/home/CER";
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar inlineCta={{ label: "Contattaci →", href: "/contatti" }} />
       <main id="main">
         <HomeHero />
+        <AppInAzione />
         <ComeFunziona />
         <PerChi />
         <CER />
