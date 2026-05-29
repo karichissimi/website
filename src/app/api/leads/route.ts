@@ -11,6 +11,8 @@ function confirmationEmail(name: string, source: string) {
   let body: string;
   if (source.startsWith("detrazione")) {
     body = `grazie per averci lasciato i tuoi contatti. Ti contattiamo entro 48 ore per spiegarti i passaggi del Family & Friends Round e rispondere a ogni dubbio.`;
+  } else if (source === "waitlist") {
+    body = `sei in lista d'attesa per provare Karica. Ti scriviamo nel momento esatto in cui l'app è pronta per te — niente prima, niente comunicazioni inutili nel mezzo.`;
   } else if (source === "newsletter") {
     body = `grazie per il tuo interesse in Karica. Ti scriveremo appena ci sono novità sul lancio della piattaforma.`;
   } else {
