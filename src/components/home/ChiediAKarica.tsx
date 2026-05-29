@@ -4,13 +4,60 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Send, Loader2, Sparkles, RotateCcw } from "lucide-react";
+import { useLang } from "@/lib/i18n";
 
-const suggestions = [
-  "Quanto costa un impianto fotovoltaico?",
-  "Come funziona una Comunità Energetica?",
-  "Che incentivi ci sono nel 2026?",
-  "Conviene la pompa di calore?",
-];
+const COPY = {
+  it: {
+    suggestions: [
+      "Quanto costa un impianto fotovoltaico?",
+      "Come funziona una Comunità Energetica?",
+      "Che incentivi ci sono nel 2026?",
+      "Conviene la pompa di calore?",
+    ],
+    headerLabel: "Chiedi a Karica",
+    resetCta: "Nuova conversazione",
+    greetingTitle: "Ciao! Sono Karica 🦜",
+    greetingBody:
+      "Chiedimi di energia, incentivi, pannelli, CER o bollette. Puoi anche farmi domande di approfondimento — mi ricordo quello di cui abbiamo appena parlato.",
+    suggestionLabel: "Tocca una domanda 👇",
+    userLabel: "Tu",
+    errorTitle: "Ops!",
+    errorRetry: "Riprova →",
+    errorRate: "Oh! Troppe domande di fila — dammi un attimo e riprova.",
+    errorSafety: "Non riesco a rispondere a questa — prova a riformularla.",
+    errorServer: "Il mio cervello ha avuto un hiccup. Riprova tra un minuto.",
+    errorRequest: "Non ho capito la richiesta — prova a riformularla.",
+    errorNetwork: "Ho perso la connessione. Controlla la rete e riprova.",
+    placeholderEmpty: "Scrivi la tua domanda...",
+    placeholderFollow: "Fai una domanda di approfondimento...",
+    sendLabel: "Invia domanda",
+  },
+  en: {
+    suggestions: [
+      "How much does a solar PV system cost?",
+      "How does an Energy Community work?",
+      "What incentives are available in 2026?",
+      "Is a heat pump worth it?",
+    ],
+    headerLabel: "Ask Karica",
+    resetCta: "New conversation",
+    greetingTitle: "Hi! I'm Karica 🦜",
+    greetingBody:
+      "Ask me about energy, incentives, solar PV, energy communities or bills. Feel free to ask follow-ups — I remember what we just talked about.",
+    suggestionLabel: "Tap a question 👇",
+    userLabel: "You",
+    errorTitle: "Oops!",
+    errorRetry: "Try again →",
+    errorRate: "Whoa! Too many questions in a row — give me a sec and try again.",
+    errorSafety: "I can't quite answer that — try rephrasing the question.",
+    errorServer: "My brain just hiccuped. Try again in a minute.",
+    errorRequest: "I didn't catch that — try rephrasing the question.",
+    errorNetwork: "Lost the connection. Check your network and try again.",
+    placeholderEmpty: "Type your question...",
+    placeholderFollow: "Ask a follow-up question...",
+    sendLabel: "Send question",
+  },
+} as const;
 
 type Message = {
   id: string;
@@ -25,6 +72,9 @@ function uid() {
 }
 
 export default function ChiediAKarica() {
+  const { lang } = useLang();
+  const t = COPY[lang];
+  const suggestions = t.suggestions;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<Mode>("idle");
@@ -67,17 +117,11 @@ export default function ChiediAKarica() {
       setMode("idle");
     } catch (err) {
       const kind = err instanceof Error ? err.message : "";
-      if (kind === "rate") {
-        setError("Oh! Troppe domande di fila — dammi un attimo e riprova.");
-      } else if (kind === "safety") {
-        setError("Non riesco a rispondere a questa — prova a riformularla.");
-      } else if (kind === "server") {
-        setError("Il mio cervello ha avuto un hiccup. Riprova tra un minuto.");
-      } else if (kind === "request") {
-        setError("Non ho capito la richiesta — prova a riformularla.");
-      } else {
-        setError("Ho perso la connessione. Controlla la rete e riprova.");
-      }
+      if (kind === "rate") setError(t.errorRate);
+      else if (kind === "safety") setError(t.errorSafety);
+      else if (kind === "server") setError(t.errorServer);
+      else if (kind === "request") setError(t.errorRequest);
+      else setError(t.errorNetwork);
       setMode("error");
     }
   }
@@ -126,7 +170,7 @@ export default function ChiediAKarica() {
         <div className="flex items-center gap-2">
           <Sparkles size={14} className="text-green-primary" />
           <p className="text-green-primary font-semibold text-xs uppercase tracking-widest">
-            Chiedi a Karica
+            {t.headerLabel}
           </p>
         </div>
         {messages.length > 0 && (
@@ -135,7 +179,7 @@ export default function ChiediAKarica() {
             className="inline-flex items-center gap-1.5 text-[11px] text-text-muted hover:text-green-primary transition-colors font-medium"
           >
             <RotateCcw size={12} />
-            Nuova conversazione
+            {t.resetCta}
           </button>
         )}
       </div>
@@ -158,12 +202,10 @@ export default function ChiediAKarica() {
             <div className="flex-1 min-w-0 pt-2">
               <div className="bubble">
                 <p className="text-text-primary text-sm sm:text-base font-bold mb-1">
-                  Ciao! Sono Karica 🦜
+                  {t.greetingTitle}
                 </p>
                 <p className="text-text-secondary text-xs sm:text-sm leading-relaxed">
-                  Chiedimi di energia, incentivi, pannelli, CER o bollette.
-                  Puoi anche farmi domande di approfondimento — mi ricordo
-                  quello di cui abbiamo appena parlato.
+                  {t.greetingBody}
                 </p>
               </div>
             </div>
@@ -183,7 +225,7 @@ export default function ChiediAKarica() {
               >
                 <div className="max-w-[85%] bg-cyan-accent/10 border border-cyan-accent/30 rounded-2xl rounded-br-sm px-4 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
                   <p className="text-[11px] uppercase tracking-wider text-cyan-accent/80 font-semibold mb-1">
-                    Tu
+                    {t.userLabel}
                   </p>
                   <p className="text-text-primary text-sm leading-relaxed">
                     {m.content}
@@ -276,14 +318,14 @@ export default function ChiediAKarica() {
               <div className="flex-1 min-w-0">
                 <div className="bubble bubble-error">
                   <p className="text-pink-accent text-sm font-semibold mb-1">
-                    Ops!
+                    {t.errorTitle}
                   </p>
                   <p className="text-text-secondary text-xs mb-3">{error}</p>
                   <button
                     onClick={handleRetry}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-accent hover:text-cyan-accent/80 transition-colors"
                   >
-                    Riprova &rarr;
+                    {t.errorRetry}
                   </button>
                 </div>
               </div>
@@ -303,7 +345,7 @@ export default function ChiediAKarica() {
           className="mb-4 ml-[68px] sm:ml-[96px]"
         >
           <p className="text-[11px] text-text-muted mb-2 font-medium">
-            Tocca una domanda 👇
+            {t.suggestionLabel}
           </p>
           <div className="flex flex-wrap gap-2">
             {suggestions.map((s, i) => (
@@ -329,16 +371,14 @@ export default function ChiediAKarica() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={
-            messages.length === 0
-              ? "Scrivi la tua domanda..."
-              : "Fai una domanda di approfondimento..."
+            messages.length === 0 ? t.placeholderEmpty : t.placeholderFollow
           }
           className="flex-1 min-w-0 bg-card-bg border border-card-border rounded-full px-4 py-2.5 text-sm text-text-primary placeholder:text-text-disabled focus:outline-none focus:border-green-primary/60 focus:shadow-[0_0_0_3px_rgba(57,255,20,0.08)] transition-all"
         />
         <button
           type="submit"
           disabled={mode === "loading" || !input.trim()}
-          aria-label="Invia domanda"
+          aria-label={t.sendLabel}
           className="flex-shrink-0 bg-green-primary text-bg-dark font-bold w-11 h-11 flex items-center justify-center rounded-full hover:bg-green-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(57,255,20,0.3)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           {mode === "loading" ? (

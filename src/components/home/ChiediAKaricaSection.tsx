@@ -3,12 +3,34 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import ChiediAKarica from "./ChiediAKarica";
+import { useLang } from "@/lib/i18n";
+
+const COPY = {
+  it: {
+    aria: "Chiedi a Karica — assistente AI sull'energia di casa",
+    pill: "IA pronta a risponderti",
+    titlePre: "Hai dubbi sull'energia di casa? ",
+    titleHighlight: "Chiedi a Karica",
+    titlePost: ".",
+    body: "Incentivi, Comunità Energetiche, pannelli, bollette, normativa. Provala — il cacatua risponde in italiano, ricorda la conversazione e ti dice quando una domanda è fuori dalla sua competenza.",
+  },
+  en: {
+    aria: "Ask Karica — AI assistant for home energy",
+    pill: "AI ready to answer",
+    titlePre: "Questions about your home energy? ",
+    titleHighlight: "Ask Karica",
+    titlePost: ".",
+    body: "Incentives, Energy Communities, solar PV, bills, regulation. Try it — the cockatoo answers in clear language, remembers your conversation, and tells you when a question is outside its scope.",
+  },
+} as const;
 
 export default function ChiediAKaricaSection() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   return (
     <section
       id="chiedi-karica"
-      aria-label="Chiedi a Karica — assistente AI sull'energia di casa"
+      aria-label={t.aria}
       className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark"
     >
       {/* Ambient layers — ciano + verde, intenzionalmente diversi da AppInAzione */}
@@ -28,18 +50,17 @@ export default function ChiediAKaricaSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-primary/10 border border-green-primary/30 mb-5">
             <Sparkles size={12} className="text-green-primary" />
             <span className="text-green-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-              IA pronta a risponderti
+              {t.pill}
             </span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight mb-4">
-            Hai dubbi sull&apos;energia di casa?{" "}
-            <span className="text-gradient">Chiedi a Karica</span>.
+            {t.titlePre}
+            <span className="text-gradient">{t.titleHighlight}</span>
+            {t.titlePost}
           </h2>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-2xl">
-            Incentivi, Comunità Energetiche, pannelli, bollette, normativa.
-            Provala — il cacatua risponde in italiano, ricorda la conversazione
-            e ti dice quando una domanda è fuori dalla sua competenza.
+            {t.body}
           </p>
         </motion.div>
 

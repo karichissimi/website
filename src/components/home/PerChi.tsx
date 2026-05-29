@@ -2,52 +2,105 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Building2, Landmark, ChevronRight } from "lucide-react";
+import { Home, Building2, Landmark, ChevronRight, type LucideIcon } from "lucide-react";
+import { useLang } from "@/lib/i18n";
 
-const targets = [
+type Target = {
+  icon: LucideIcon;
+  title: { it: string; en: string };
+  subtitle: { it: string; en: string };
+  description: { it: string; en: string };
+  detail: { it: string; en: string };
+  accentColor: string;
+  iconBg: string;
+  tag: string;
+};
+
+const targets: Target[] = [
   {
     icon: Home,
-    title: "Famiglie e proprietari",
-    subtitle: "Bollette, interventi, finanziamenti",
-    description:
-      "Capisci quanto sprechi, scopri gli interventi giusti per casa tua e accedi a finanziamenti dedicati. Tutto in un'unica app.",
-    detail:
-      "Karica analizza le tue bollette reali, ti mostra dove sprechi e ti propone gli interventi più efficaci. Puoi simulare il risparmio, richiedere un preventivo e accedere a finanziamenti green — senza uscire dall'app. Infine monitori il risultato mese dopo mese.",
+    title: { it: "Famiglie e proprietari", en: "Households & owners" },
+    subtitle: {
+      it: "Bollette, interventi, finanziamenti",
+      en: "Bills, retrofits, financing",
+    },
+    description: {
+      it: "Capisci quanto sprechi, scopri gli interventi giusti per casa tua e accedi a finanziamenti dedicati. Tutto in un'unica app.",
+      en: "See where you're wasting, find the right retrofits for your home, tap into dedicated financing. All in one app.",
+    },
+    detail: {
+      it: "Karica analizza le tue bollette reali, ti mostra dove sprechi e ti propone gli interventi più efficaci. Puoi simulare il risparmio, richiedere un preventivo e accedere a finanziamenti green — senza uscire dall'app. Infine monitori il risultato mese dopo mese.",
+      en: "Karica reads your real bills, shows you where you're wasting and recommends the most effective retrofits. Simulate the savings, request a quote and access green financing — without leaving the app. Then you monitor the result month after month.",
+    },
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
     tag: "B2C",
   },
   {
     icon: Building2,
-    title: "Condomini e amministratori",
-    subtitle: "Diagnosi edificio, CER condominiale",
-    description:
-      "Diagnosi energetica dell'edificio, coordinamento interventi e accesso alle Comunità Energetiche per risparmiare insieme.",
-    detail:
-      "L'amministratore ottiene una diagnosi completa del condominio e può coordinare interventi collettivi: cappotto, caldaia centralizzata, fotovoltaico su tetto. Karica gestisce anche l'attivazione della CER condominiale e la distribuzione degli incentivi GSE tra i condomini.",
+    title: {
+      it: "Condomini e amministratori",
+      en: "Condominiums & property managers",
+    },
+    subtitle: {
+      it: "Diagnosi edificio, CER condominiale",
+      en: "Building diagnosis, condo Energy Community",
+    },
+    description: {
+      it: "Diagnosi energetica dell'edificio, coordinamento interventi e accesso alle Comunità Energetiche per risparmiare insieme.",
+      en: "Energy diagnosis of the whole building, retrofit coordination and access to Energy Communities to save together.",
+    },
+    detail: {
+      it: "L'amministratore ottiene una diagnosi completa del condominio e può coordinare interventi collettivi: cappotto, caldaia centralizzata, fotovoltaico su tetto. Karica gestisce anche l'attivazione della CER condominiale e la distribuzione degli incentivi GSE tra i condomini.",
+      en: "Property managers get a complete diagnosis of the building and can coordinate collective retrofits: external insulation, central heating, rooftop PV. Karica also handles activation of the condo Energy Community and distribution of GSE incentives among residents.",
+    },
     accentColor: "#00D4D4",
     iconBg: "bg-cyan-accent/10",
     tag: "B2B",
   },
   {
     icon: Landmark,
-    title: "Imprese e Comuni",
-    subtitle: "Monitoraggio consumi, riqualificazione",
-    description:
-      "Monitora i consumi, riqualifica gli immobili e partecipa alle CER. Karica orchestra fornitori, finanziamenti e pratiche.",
-    detail:
-      "Per le PMI e i Comuni, Karica diventa il cruscotto energetico. Monitoraggio consumi su più sedi, gestione delle pratiche di riqualificazione, accesso a incentivi e finanziamenti green. GTI esegue i lavori, Karica orchestra tutto il processo digitale.",
+    title: { it: "Imprese e Comuni", en: "Businesses & municipalities" },
+    subtitle: {
+      it: "Monitoraggio consumi, riqualificazione",
+      en: "Consumption monitoring, retrofitting",
+    },
+    description: {
+      it: "Monitora i consumi, riqualifica gli immobili e partecipa alle CER. Karica orchestra fornitori, finanziamenti e pratiche.",
+      en: "Monitor consumption, retrofit buildings and join Energy Communities. Karica orchestrates suppliers, financing and paperwork.",
+    },
+    detail: {
+      it: "Per le PMI e i Comuni, Karica diventa il cruscotto energetico. Monitoraggio consumi su più sedi, gestione delle pratiche di riqualificazione, accesso a incentivi e finanziamenti green. GTI esegue i lavori, Karica orchestra tutto il processo digitale.",
+      en: "For SMEs and municipalities, Karica becomes the energy cockpit. Multi-site consumption monitoring, retrofit paperwork, access to incentives and green financing. GTI executes the works, Karica orchestrates the entire digital workflow.",
+    },
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
     tag: "B2G",
   },
 ];
 
+const COPY = {
+  it: {
+    aria: "Per chi è pensato Karica",
+    kicker: "Per chi",
+    titleLine1: "Un'unica piattaforma,",
+    titleLine2: "tre mondi diversi.",
+  },
+  en: {
+    aria: "Who Karica is for",
+    kicker: "Who it's for",
+    titleLine1: "One platform,",
+    titleLine2: "three different worlds.",
+  },
+} as const;
+
 export default function PerChi() {
+  const { lang } = useLang();
+  const c = COPY[lang];
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="per-chi" aria-label="Per chi è pensato Karica" className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark">
+    <section id="per-chi" aria-label={c.aria} className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,23 +110,23 @@ export default function PerChi() {
           className="mb-14"
         >
           <p className="text-green-primary font-semibold text-sm uppercase tracking-widest mb-3">
-            Per chi
+            {c.kicker}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight">
-            Un&apos;unica piattaforma,
+            {c.titleLine1}
             <br />
-            <span className="text-gradient">tre mondi diversi.</span>
+            <span className="text-gradient">{c.titleLine2}</span>
           </h2>
         </motion.div>
 
         <div className="space-y-4">
-          {targets.map((t, i) => {
+          {targets.map((target, i) => {
             const isOpen = open === i;
-            const Icon = t.icon;
+            const Icon = target.icon;
 
             return (
               <motion.div
-                key={t.title}
+                key={target.tag}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -90,7 +143,7 @@ export default function PerChi() {
                         : "bg-card-bg/50 hover:bg-card-bg ring-0 hover:ring-1"
                     }`}
                     style={
-                      { "--tw-ring-color": t.accentColor + "30" } as React.CSSProperties
+                      { "--tw-ring-color": target.accentColor + "30" } as React.CSSProperties
                     }
                   >
                     {/* Gradient background */}
@@ -99,17 +152,17 @@ export default function PerChi() {
                         isOpen ? "opacity-100" : "group-hover:opacity-60"
                       }`}
                       style={{
-                        background: `linear-gradient(135deg, ${t.accentColor}15 0%, transparent 60%)`,
+                        background: `linear-gradient(135deg, ${target.accentColor}15 0%, transparent 60%)`,
                       }}
                     />
 
                     <div className="relative z-10 flex items-center gap-4 sm:gap-5">
                       <div
-                        className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${t.iconBg} flex items-center justify-center transition-transform duration-300 ${
+                        className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${target.iconBg} flex items-center justify-center transition-transform duration-300 ${
                           isOpen ? "scale-110" : "group-hover:scale-105"
                         }`}
                       >
-                        <Icon size={22} style={{ color: t.accentColor }} />
+                        <Icon size={22} style={{ color: target.accentColor }} />
                       </div>
 
                       <div className="flex-1 min-w-0">
@@ -117,18 +170,18 @@ export default function PerChi() {
                           <span
                             className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
                             style={{
-                              color: t.accentColor,
-                              backgroundColor: t.accentColor + "15",
+                              color: target.accentColor,
+                              backgroundColor: target.accentColor + "15",
                             }}
                           >
-                            {t.tag}
+                            {target.tag}
                           </span>
                         </div>
                         <h3 className="text-lg sm:text-xl font-bold text-text-primary">
-                          {t.title}
+                          {target.title[lang]}
                         </h3>
                         <p className="text-[11px] sm:text-sm text-text-muted mt-0.5 leading-snug">
-                          {t.subtitle}
+                          {target.subtitle[lang]}
                         </p>
                       </div>
 
@@ -137,7 +190,7 @@ export default function PerChi() {
                         className={`flex-shrink-0 text-text-muted transition-transform duration-300 ${
                           isOpen ? "rotate-90" : "group-hover:translate-x-1"
                         }`}
-                        style={isOpen ? { color: t.accentColor } : undefined}
+                        style={isOpen ? { color: target.accentColor } : undefined}
                       />
                     </div>
                   </div>
@@ -155,10 +208,10 @@ export default function PerChi() {
                       <div className="px-5 sm:px-6 pb-5 pt-3 ml-16 sm:ml-19">
                         <div
                           className="w-8 h-0.5 rounded-full mb-3"
-                          style={{ backgroundColor: t.accentColor + "40" }}
+                          style={{ backgroundColor: target.accentColor + "40" }}
                         />
                         <p className="text-text-secondary text-sm leading-relaxed mb-2">
-                          {t.detail}
+                          {target.detail[lang]}
                         </p>
                       </div>
                     </motion.div>

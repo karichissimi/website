@@ -2,52 +2,106 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Wrench, TrendingDown, ChevronRight } from "lucide-react";
+import { Search, Wrench, TrendingDown, ChevronRight, type LucideIcon } from "lucide-react";
+import { useLang } from "@/lib/i18n";
 
-const steps = [
+type Step = {
+  icon: LucideIcon;
+  step: string;
+  title: { it: string; en: string };
+  subtitle: { it: string; en: string };
+  detail: { it: string; en: string };
+  gradient: string;
+  accentColor: string;
+  iconBg: string;
+  tag: { it: string; en: string };
+};
+
+const steps: Step[] = [
   {
     icon: Search,
     step: "01",
-    title: "Scopri quanto sprechi",
-    subtitle: "Carica una bolletta, rispondi a poche domande",
-    detail:
-      "Karica è il tuo consulente energetico gratuito. Carichi una bolletta e rispondi a qualche domanda sulla tua casa — tipo di impianto, anno di costruzione, superficie. In pochi minuti hai un quadro chiaro di quanto spendi, dove sprechi e cosa puoi fare per migliorare.",
+    title: {
+      it: "Scopri quanto sprechi",
+      en: "See where you're wasting",
+    },
+    subtitle: {
+      it: "Carica una bolletta, rispondi a poche domande",
+      en: "Upload a bill, answer a few quick questions",
+    },
+    detail: {
+      it: "Karica è il tuo consulente energetico gratuito. Carichi una bolletta e rispondi a qualche domanda sulla tua casa — tipo di impianto, anno di costruzione, superficie. In pochi minuti hai un quadro chiaro di quanto spendi, dove sprechi e cosa puoi fare per migliorare.",
+      en: "Karica is your free energy advisor. You upload a bill and answer a few questions about your home — heating system, construction year, square metres. In a few minutes you have a clear picture of what you spend, where it's wasted, and what you can do about it.",
+    },
     gradient: "from-green-primary/20 via-green-primary/5 to-transparent",
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
-    tag: "Gratuita",
+    tag: { it: "Gratuita", en: "Free" },
   },
   {
     icon: Wrench,
     step: "02",
-    title: "Scegli cosa migliorare",
-    subtitle: "Consigli su misura, simulatore di risparmio",
-    detail:
-      "Sulla base del tuo profilo energetico, Karica ti suggerisce gli interventi più efficaci per la tua situazione: isolamento, pompa di calore, fotovoltaico, infissi. Per ognuno vedi il costo stimato, il risparmio annuo e in quanto tempo rientri dell'investimento.",
+    title: {
+      it: "Scegli cosa migliorare",
+      en: "Choose what to fix",
+    },
+    subtitle: {
+      it: "Consigli su misura, simulatore di risparmio",
+      en: "Tailored suggestions, savings simulator",
+    },
+    detail: {
+      it: "Sulla base del tuo profilo energetico, Karica ti suggerisce gli interventi più efficaci per la tua situazione: isolamento, pompa di calore, fotovoltaico, infissi. Per ognuno vedi il costo stimato, il risparmio annuo e in quanto tempo rientri dell'investimento.",
+      en: "Based on your energy profile, Karica suggests the most effective retrofits for your situation: insulation, heat pump, solar PV, new windows. For each one you see estimated cost, annual savings and payback time.",
+    },
     gradient: "from-cyan-accent/20 via-cyan-accent/5 to-transparent",
     accentColor: "#00D4D4",
     iconBg: "bg-cyan-accent/10",
-    tag: "Personalizzata",
+    tag: { it: "Personalizzata", en: "Personalised" },
   },
   {
     icon: TrendingDown,
     step: "03",
-    title: "Risparmia davvero",
-    subtitle: "Professionisti certificati, risultati misurabili",
-    detail:
-      "Se decidi di procedere, i lavori li eseguono professionisti certificati della rete GTI. Finanziamento incluso se serve. Dopo l'intervento, Karica continua a monitorare i tuoi consumi: vedi il risparmio reale mese dopo mese. Puoi anche unirti a una Comunità Energetica per condividere energia e ricevere incentivi.",
+    title: {
+      it: "Risparmia davvero",
+      en: "Save for real",
+    },
+    subtitle: {
+      it: "Professionisti certificati, risultati misurabili",
+      en: "Certified installers, measurable results",
+    },
+    detail: {
+      it: "Se decidi di procedere, i lavori li eseguono professionisti certificati della rete GTI. Finanziamento incluso se serve. Dopo l'intervento, Karica continua a monitorare i tuoi consumi: vedi il risparmio reale mese dopo mese. Puoi anche unirti a una Comunità Energetica per condividere energia e ricevere incentivi.",
+      en: "If you decide to go ahead, the work is done by certified installers from the GTI network. Financing included if you need it. After the retrofit, Karica keeps tracking your usage: you see the real savings month after month. You can also join an Energy Community to share power and earn incentives.",
+    },
     gradient: "from-green-primary/20 via-green-primary/5 to-transparent",
     accentColor: "#39FF14",
     iconBg: "bg-green-primary/10",
-    tag: "Misurabile",
+    tag: { it: "Misurabile", en: "Measurable" },
   },
 ];
 
+const COPY = {
+  it: {
+    aria: "Come funziona Karica",
+    kicker: "Come funziona",
+    titleLine1: "Dalla bolletta al risparmio.",
+    titleLine2: "In tre passi.",
+  },
+  en: {
+    aria: "How Karica works",
+    kicker: "How it works",
+    titleLine1: "From bill to savings.",
+    titleLine2: "In three steps.",
+  },
+} as const;
+
 export default function ComeFunziona() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="come-funziona" aria-label="Come funziona Karica" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
+    <section id="come-funziona" aria-label={t.aria} className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,12 +111,12 @@ export default function ComeFunziona() {
           className="mb-14"
         >
           <p className="text-green-primary font-semibold text-sm uppercase tracking-widest mb-3">
-            Come funziona
+            {t.kicker}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight">
-            Dalla bolletta al risparmio.
+            {t.titleLine1}
             <br />
-            <span className="text-gradient">In tre passi.</span>
+            <span className="text-gradient">{t.titleLine2}</span>
           </h2>
         </motion.div>
 
@@ -129,14 +183,14 @@ export default function ComeFunziona() {
                               backgroundColor: s.accentColor + "15",
                             }}
                           >
-                            {s.tag}
+                            {s.tag[lang]}
                           </span>
                         </div>
                         <h3 className="text-lg sm:text-xl font-bold text-text-primary">
-                          {s.title}
+                          {s.title[lang]}
                         </h3>
                         <p className="text-[11px] sm:text-sm text-text-muted mt-0.5 leading-snug">
-                          {s.subtitle}
+                          {s.subtitle[lang]}
                         </p>
                       </div>
 
@@ -168,7 +222,7 @@ export default function ComeFunziona() {
                           style={{ backgroundColor: s.accentColor + "40" }}
                         />
                         <p className="text-text-secondary text-sm leading-relaxed">
-                          {s.detail}
+                          {s.detail[lang]}
                         </p>
                       </div>
                     </motion.div>
