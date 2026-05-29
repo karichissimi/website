@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Send, Calendar, CheckCircle, Loader2, AlertCircle } from "lucide-react";
+import { Send, Calendar, CheckCircle, Loader2, AlertCircle, Sparkles, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { haptic } from "@/lib/haptics";
 
 // Simple but solid email check — not exhaustive, just catches common mistakes
@@ -121,6 +122,40 @@ export default function CTA() {
           <p className="text-text-secondary">
             Ricevi il pitch deck completo con tutti i dettagli dell&apos;operazione.
           </p>
+        </motion.div>
+
+        {/* F&F cross-link — chi è in Family & Friends ha un vantaggio extra
+            (detrazione 65% + 10% sconto lavori): qui sotto trova la pagina dedicata. */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mb-6 sm:mb-8"
+        >
+          <Link
+            href="/detrazione"
+            onClick={() => haptic("light")}
+            className="btn-press-soft group block rounded-xl border border-cyan-accent/30 bg-cyan-accent/[0.06] hover:bg-cyan-accent/[0.10] hover:border-cyan-accent/50 transition-all p-4 sm:p-5"
+          >
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-cyan-accent/15 flex items-center justify-center">
+                <Sparkles size={18} className="text-cyan-accent" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-cyan-accent text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5">
+                  Sei in Family &amp; Friends?
+                </p>
+                <p className="text-text-primary text-sm sm:text-base font-semibold leading-snug">
+                  Detrazione IRPEF 65% + 10% sconto sui lavori
+                </p>
+              </div>
+              <ArrowUpRight
+                size={18}
+                className="flex-shrink-0 text-text-muted group-hover:text-cyan-accent group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+              />
+            </div>
+          </Link>
         </motion.div>
 
         <motion.div

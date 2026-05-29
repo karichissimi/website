@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { FileText, ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DetrazioneForm from "./DetrazioneForm";
@@ -210,6 +212,32 @@ export default function DetrazionePage() {
               Lo sconto F&amp;F è cumulabile con detrazioni edilizie statali
               dove ammesso dalla normativa.
             </p>
+
+            {/* Rimando al pitch completo per chi vuole approfondire il business */}
+            <div className="max-w-xl mx-auto mt-10">
+              <Link
+                href="/investiora"
+                className="btn-press-soft group block rounded-xl border border-card-border hover:border-green-primary/40 bg-card-bg/50 hover:bg-card-bg/80 transition-all p-4 sm:p-5"
+              >
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-green-primary/10 flex items-center justify-center">
+                    <FileText size={18} className="text-green-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-text-muted text-[10px] sm:text-[11px] font-bold uppercase tracking-wider mb-0.5">
+                      Prima di decidere?
+                    </p>
+                    <p className="text-text-primary text-sm sm:text-base font-semibold leading-snug">
+                      Vedi il pitch completo: piano, numeri, team
+                    </p>
+                  </div>
+                  <ArrowUpRight
+                    size={18}
+                    className="flex-shrink-0 text-text-muted group-hover:text-green-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+                  />
+                </div>
+              </Link>
+            </div>
           </div>
         </section>
 
