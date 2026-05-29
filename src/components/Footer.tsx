@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useLang, LangToggle } from "@/lib/i18n";
+import { useLang } from "@/lib/i18n";
 
 type LocalisedLabel = string | { it: string; en: string };
 
@@ -104,11 +104,6 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
               {t.disclaimer}
             </p>
           )}
-
-          {/* Lang switcher — discreto in fondo, lontano dalla scena principale */}
-          <div className="flex justify-center pt-4">
-            <LangToggle compact />
-          </div>
         </div>
       </div>
     </footer>

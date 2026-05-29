@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { haptic } from "@/lib/haptics";
-import { useLang } from "@/lib/i18n";
+import { useLang, LangInline } from "@/lib/i18n";
 
 type LocalisedLabel = string | { it: string; en: string };
 
@@ -121,30 +121,33 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
       <nav className="bg-bg-darker/90 backdrop-blur-md border-b border-card-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            {/* Logo (left) */}
-            <Link
-              href={logoHref}
-              onClick={handleLogoClick}
-              className="flex items-center gap-2 flex-shrink-0"
-            >
-              <Image
-                src="/graphics/Karica_Logo_Felice.png"
-                alt=""
-                aria-hidden
-                width={28}
-                height={28}
-                priority
-                className="h-7 w-auto"
-              />
-              <Image
-                src="/graphics/Karica_Scritta_WHITE.png"
-                alt="Karica"
-                width={100}
-                height={28}
-                priority
-                className="h-5 w-auto"
-              />
-            </Link>
+            {/* Logo (left) + micro lang switcher */}
+            <div className="flex items-center flex-shrink-0">
+              <Link
+                href={logoHref}
+                onClick={handleLogoClick}
+                className="flex items-center gap-2"
+              >
+                <Image
+                  src="/graphics/Karica_Logo_Felice.png"
+                  alt=""
+                  aria-hidden
+                  width={28}
+                  height={28}
+                  priority
+                  className="h-7 w-auto"
+                />
+                <Image
+                  src="/graphics/Karica_Scritta_WHITE.png"
+                  alt="Karica"
+                  width={100}
+                  height={28}
+                  priority
+                  className="h-5 w-auto"
+                />
+              </Link>
+              <LangInline />
+            </div>
 
             {/* Right side: inline CTA pill, hamburger button, or nothing */}
             {inlineCta ? (

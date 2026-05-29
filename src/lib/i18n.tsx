@@ -139,6 +139,52 @@ export function FlagIT({ className = "" }: { className?: string }) {
 }
 
 /**
+ * Inline language toggle designed to sit right next to the logo wordmark
+ * at the top of the page. Minimal: just two micro flag pills, the
+ * inactive one is dimmed.
+ */
+export function LangInline() {
+  const { lang, setLang } = useLang();
+  const base =
+    "flex items-center justify-center w-5 h-5 rounded-sm transition-all";
+  const active = "ring-1 ring-green-primary/70 shadow-[0_0_8px_rgba(57,255,20,0.25)] opacity-100";
+  const inactive = "opacity-35 hover:opacity-75";
+
+  return (
+    <div
+      role="group"
+      aria-label="Language switcher"
+      className="hidden sm:inline-flex items-center gap-1 ml-2 pl-2 border-l border-card-border/60"
+    >
+      <button
+        type="button"
+        onClick={() => {
+          haptic("light");
+          setLang("it");
+        }}
+        aria-pressed={lang === "it"}
+        aria-label="Italiano"
+        className={`${base} ${lang === "it" ? active : inactive}`}
+      >
+        <FlagIT className="w-4 h-auto rounded-[1px] overflow-hidden" />
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          haptic("light");
+          setLang("en");
+        }}
+        aria-pressed={lang === "en"}
+        aria-label="English"
+        className={`${base} ${lang === "en" ? active : inactive}`}
+      >
+        <FlagUK className="w-4 h-auto rounded-[1px] overflow-hidden" />
+      </button>
+    </div>
+  );
+}
+
+/**
  * Two flag buttons that toggle EN ↔ IT.
  * Compact form factor designed to live inside the Navbar.
  */
