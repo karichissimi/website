@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,9 +15,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { haptic } from "@/lib/haptics";
-
-type Lang = "en" | "it";
+import { useLang } from "@/lib/i18n";
 
 type Person = {
   name: string;
@@ -401,73 +398,8 @@ function Avatar({ person, size }: { person: Person; size: "lg" | "md" }) {
   );
 }
 
-function FlagUK({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 60 30" className={className} aria-hidden focusable="false">
-      <clipPath id="t">
-        <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
-      </clipPath>
-      <rect width="60" height="30" fill="#012169" />
-      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
-      <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4" />
-      <path d="M30,0 V30 M0,15 H60" stroke="#fff" strokeWidth="10" />
-      <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="6" />
-    </svg>
-  );
-}
-
-function FlagIT({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 3 2" className={className} aria-hidden focusable="false">
-      <rect width="1" height="2" fill="#008C45" />
-      <rect x="1" width="1" height="2" fill="#F4F5F0" />
-      <rect x="2" width="1" height="2" fill="#CD212A" />
-    </svg>
-  );
-}
-
-function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
-  const base =
-    "btn-press-soft flex items-center justify-center w-9 h-7 rounded-md border transition-all";
-  const active = "border-green-primary/60 bg-green-primary/10 shadow-[0_0_16px_rgba(57,255,20,0.15)]";
-  const inactive = "border-card-border opacity-60 hover:opacity-100 hover:border-text-muted";
-
-  return (
-    <div
-      role="group"
-      aria-label="Language switcher"
-      className="inline-flex items-center gap-2 p-1.5 rounded-lg bg-card-bg/60 border border-card-border backdrop-blur-sm"
-    >
-      <button
-        type="button"
-        onClick={() => {
-          haptic("light");
-          setLang("en");
-        }}
-        aria-pressed={lang === "en"}
-        aria-label="English"
-        className={`${base} ${lang === "en" ? active : inactive}`}
-      >
-        <FlagUK className="w-6 h-auto rounded-[2px] overflow-hidden" />
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          haptic("light");
-          setLang("it");
-        }}
-        aria-pressed={lang === "it"}
-        aria-label="Italiano"
-        className={`${base} ${lang === "it" ? active : inactive}`}
-      >
-        <FlagIT className="w-6 h-auto rounded-[2px] overflow-hidden" />
-      </button>
-    </div>
-  );
-}
-
 export default function WhoWeAreContent() {
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang } = useLang();
   const t = copy[lang];
   const footerLinks = [{ label: t.footerHome, href: "/" }];
 
@@ -484,11 +416,6 @@ export default function WhoWeAreContent() {
 
         {/* Hero */}
         <section className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center mb-16 sm:mb-24">
-          {/* Language switcher */}
-          <div className="flex justify-center mb-6">
-            <LangToggle lang={lang} setLang={setLang} />
-          </div>
-
           <div className="relative inline-block mb-6">
             <div className="absolute inset-0 bg-green-primary/20 blur-2xl rounded-full" />
             <Image

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { haptic } from "@/lib/haptics";
+import { LangToggle } from "@/lib/i18n";
 
 interface NavLink {
   label: string;
@@ -133,8 +134,10 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
               />
             </Link>
 
-            {/* Right side: inline CTA pill, hamburger button, or nothing */}
-            {inlineCta ? (
+            {/* Right side: lang toggle + (inline CTA or hamburger) */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <LangToggle compact />
+              {inlineCta ? (
               inlineCta.href.startsWith("/") ? (
                 <Link
                   href={inlineCta.href}
@@ -165,6 +168,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                 {open ? <X size={24} /> : <Menu size={24} />}
               </button>
             ) : null}
+            </div>
           </div>
         </div>
 
