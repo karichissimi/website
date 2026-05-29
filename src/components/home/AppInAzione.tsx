@@ -129,6 +129,13 @@ const BROWSER_HEIGHT_PCT = (178 / 1049) * 100;
 // Pointer-driven tilt amplitudes
 const PTR_ROTATE_Y = 14;
 const PTR_ROTATE_X = 10;
+// Pointer-driven translation amplitudes (px) — phone "follows" the finger
+const PTR_TRANSLATE_X = 22;
+const PTR_TRANSLATE_Y = 16;
+
+// Phone thickness for the 3D box. Bigger = more visible side when rotating.
+const THICKNESS_PX = 32;
+const PHONE_RADIUS_PCT = 12.5; // matches the bezel.png corner curvature
 
 export default function AppInAzione() {
   const { lang } = useLang();
@@ -166,6 +173,10 @@ export default function AppInAzione() {
   const ptrRotateY = useTransform(ptrXSmooth, (v) => v * PTR_ROTATE_Y);
   const ptrRotateX = useTransform(ptrYSmooth, (v) => v * -PTR_ROTATE_X);
 
+  // Pointer-driven translation — phone shifts position with the finger.
+  const ptrTranslateX = useTransform(ptrXSmooth, (v) => v * PTR_TRANSLATE_X);
+  const ptrTranslateY = useTransform(ptrYSmooth, (v) => v * PTR_TRANSLATE_Y);
+
   // Combine base + pointer.
   const rotateY = useTransform<number, number>(
     [baseRotateY, ptrRotateY],
@@ -173,6 +184,11 @@ export default function AppInAzione() {
   );
   const rotateX = useTransform<number, number>(
     [baseRotateX, ptrRotateX],
+    ([a, b]) => a + b
+  );
+  // Vertical position = base float (from stage progress) + pointer drag offset
+  const totalY = useTransform<number, number>(
+    [floatY, ptrTranslateY],
     ([a, b]) => a + b
   );
 
@@ -299,7 +315,8 @@ export default function AppInAzione() {
               style={{
                 rotateY,
                 rotateX,
-                y: floatY,
+                y: totalY,
+                x: ptrTranslateX,
                 transformStyle: "preserve-3d",
                 transformOrigin: "center center",
                 width: "clamp(200px, 28vh, 280px)",
@@ -308,31 +325,107 @@ export default function AppInAzione() {
               }}
               className="relative will-change-transform"
             >
-              {/* 3D depth — stacked bezel silhouettes behind the front face
-                  at incremental translateZ. Each is darker than the one in
-                  front, so when the phone rotates you see a real edge
-                  (a sliver of the side at each layer) instead of a flat card. */}
-              {[
-                { z: -28, b: 0.12 },
-                { z: -20, b: 0.18 },
-                { z: -12, b: 0.28 },
-                { z: -6,  b: 0.45 },
-              ].map((layer, i) => (
-                <Image
-                  key={`depth-${i}`}
-                  src="/app/bezel.png"
-                  alt=""
-                  aria-hidden
-                  width={PHONE_W}
-                  height={PHONE_H}
-                  draggable={false}
-                  className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                  style={{
-                    transform: `translateZ(${layer.z}px)`,
-                    filter: `brightness(${layer.b}) saturate(0.7)`,
-                  }}
-                />
-              ))}
+              {/* Real 3D thickness — back panel + 4 side rim strips rotated
+                  90° on the appropriate axis. transformStyle: preserve-3d
+                  on the parent makes children participate in the same 3D
+                  space, so rotating the wrapper actually reveals the sides. */}
+
+              {/* Back panel — solid rounded rect at the back of the box,
+                  represents the rear face of the phone. */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  transform: `translateZ(${-THICKNESS_PX / 2}px)`,
+                  background:
+                    "linear-gradient(135deg, #1c1c24 0%, #0b0b12 50%, #161620 100%)",
+                  borderRadius: `${PHONE_RADIUS_PCT}%`,
+                  boxShadow:
+                    "inset 0 0 24px rgba(0,0,0,0.7), 0 0 1px rgba(70,72,85,0.5)",
+                }}
+              />
+
+              {/* Right side rim — visible when rotateY > 0 */}
+              <div
+                aria-hidden
+                className="absolute pointer-events-none"
+                style={{
+                  top: "4%",
+                  bottom: "4%",
+                  right: 0,
+                  width: `${THICKNESS_PX}px`,
+                  transformOrigin: "0% 50%",
+                  transform: `rotateY(90deg)`,
+                  background:
+                    "linear-gradient(180deg, #1a1a22 0%, #2a2a35 8%, #353541 50%, #2a2a35 92%, #1a1a22 100%)",
+                  boxShadow: "inset 0 0 8px rgba(0,0,0,0.5)",
+                  borderRadius: "3px",
+                }}
+              />
+
+              {/* Left side rim — visible when rotateY < 0 */}
+              <div
+                aria-hidden
+                className="absolute pointer-events-none"
+                style={{
+                  top: "4%",
+                  bottom: "4%",
+                  left: 0,
+                  width: `${THICKNESS_PX}px`,
+                  transformOrigin: "100% 50%",
+                  transform: `rotateY(-90deg)`,
+                  background:
+                    "linear-gradient(180deg, #1a1a22 0%, #2a2a35 8%, #353541 50%, #2a2a35 92%, #1a1a22 100%)",
+                  boxShadow: "inset 0 0 8px rgba(0,0,0,0.5)",
+                  borderRadius: "3px",
+                }}
+              />
+
+              {/* Top side rim — visible when rotateX < 0 (looking down at top) */}
+              <div
+                aria-hidden
+                className="absolute pointer-events-none"
+                style={{
+                  left: "5%",
+                  right: "5%",
+                  top: 0,
+                  height: `${THICKNESS_PX}px`,
+                  transformOrigin: "50% 100%",
+                  transform: `rotateX(90deg)`,
+                  background:
+                    "linear-gradient(90deg, #1a1a22 0%, #2a2a35 10%, #353541 50%, #2a2a35 90%, #1a1a22 100%)",
+                  boxShadow: "inset 0 0 8px rgba(0,0,0,0.5)",
+                  borderRadius: "3px",
+                }}
+              />
+
+              {/* Bottom side rim — visible when rotateX > 0 (looking up at bottom) */}
+              <div
+                aria-hidden
+                className="absolute pointer-events-none"
+                style={{
+                  left: "5%",
+                  right: "5%",
+                  bottom: 0,
+                  height: `${THICKNESS_PX}px`,
+                  transformOrigin: "50% 0%",
+                  transform: `rotateX(-90deg)`,
+                  background:
+                    "linear-gradient(90deg, #1a1a22 0%, #2a2a35 10%, #353541 50%, #2a2a35 90%, #1a1a22 100%)",
+                  boxShadow: "inset 0 0 8px rgba(0,0,0,0.5)",
+                  borderRadius: "3px",
+                }}
+              />
+
+              {/* Front face wrapper — pushes everything forward so OLED, bezel
+                  and chrome live on the FRONT plane of the 3D box. */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  transform: `translateZ(${THICKNESS_PX / 2}px)`,
+                  transformStyle: "preserve-3d",
+                }}
+              >
               {/* OLED window — fixed in place. Drag and animate live inside
                   the body slot so the OLED itself never translates outside
                   the bezel. */}
@@ -448,6 +541,8 @@ export default function AppInAzione() {
                   maskSize: "100% 100%",
                 }}
               />
+              </div>
+              {/* /front face wrapper */}
 
             </motion.div>
             </div>
