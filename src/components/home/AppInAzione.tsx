@@ -1,11 +1,35 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function AppInAzione() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Track scroll progress through the entire section: 0 when the section's
+  // top enters the viewport bottom, 1 when its bottom leaves the viewport top.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Smooth the raw scroll value so the rotation doesn't feel jittery.
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 22,
+    mass: 0.4,
+  });
+
+  // Phone enters tilted away from the viewer, rotates upright as the section
+  // crosses the middle of the viewport, then tilts the opposite way as it exits.
+  const rotateY = useTransform(progress, [0, 0.5, 1], [22, -8, -22]);
+  const rotateX = useTransform(progress, [0, 0.5, 1], [14, 2, -8]);
+  const translateY = useTransform(progress, [0, 0.5, 1], [40, 0, -20]);
+
   return (
     <section
+      ref={sectionRef}
       id="app-in-azione"
       aria-label="L'app Karica in azione"
       className="relative py-24 sm:py-32 overflow-hidden bg-bg-dark"
@@ -40,32 +64,39 @@ export default function AppInAzione() {
             </p>
           </motion.div>
 
-          {/* Phone */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          {/* Phone with scroll-driven 3D rotation */}
+          <div
             className="order-1 md:order-2 relative flex justify-center"
+            style={{ perspective: "1400px" }}
           >
-            {/* Phone glow */}
+            {/* Glow follows the phone */}
             <div
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
               aria-hidden
             >
-              <div className="w-[70%] h-[80%] rounded-[100px] bg-cyan-accent/25 blur-[90px]" />
+              <div className="w-[65%] h-[75%] rounded-full bg-cyan-accent/20 blur-[90px]" />
             </div>
 
-            <div className="phone-tilt relative">
+            <motion.div
+              style={{
+                rotateY,
+                rotateX,
+                y: translateY,
+                transformStyle: "preserve-3d",
+                transformOrigin: "center center",
+              }}
+              className="relative will-change-transform"
+            >
               <Image
                 src="/app/analisi-smart.png"
                 alt="Schermata dell'app Karica: analisi smart della bolletta"
                 width={668}
-                height={1259}
-                className="relative w-[260px] sm:w-[300px] md:w-[340px] h-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+                height={1219}
+                className="relative w-[260px] sm:w-[300px] md:w-[340px] h-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
+                priority={false}
               />
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
