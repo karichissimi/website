@@ -19,12 +19,12 @@ export const metadata: Metadata = {
 };
 
 const navLinks = [
-  { label: "Contatti", href: "/contatti", highlight: true },
+  { label: { it: "Contatti", en: "Contact" }, href: "/contatti", highlight: true },
 ];
 
 const footerLinks = [
-  { label: "Opportunità", href: "#opportunita" },
-  { label: "Ecosistema", href: "#ecosistema" },
+  { label: { it: "Opportunità", en: "Opportunity" }, href: "#opportunita" },
+  { label: { it: "Ecosistema", en: "Ecosystem" }, href: "#ecosistema" },
   { label: "Home", href: "/" },
 ];
 
@@ -33,7 +33,7 @@ export default function InvestioraPage() {
     <>
       <Navbar
         links={navLinks}
-        cta={{ label: "Investi ora", href: "#cta" }}
+        cta={{ label: { it: "Investi ora", en: "Invest now" }, href: "#cta" }}
       />
       <main id="main">
         <Hero />

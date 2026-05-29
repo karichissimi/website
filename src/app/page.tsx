@@ -10,16 +10,16 @@ import HomeCTA from "@/components/home/HomeCTA";
 import Footer from "@/components/Footer";
 
 const footerLinks = [
-  { label: "Come funziona", href: "#come-funziona" },
-  { label: "Per chi", href: "#per-chi" },
-  { label: "Energia", href: "#energia" },
-  { label: "Storia", href: "/storia" },
+  { label: { it: "Come funziona", en: "How it works" }, href: "#come-funziona" },
+  { label: { it: "Per chi", en: "Who it's for" }, href: "#per-chi" },
+  { label: { it: "Energia", en: "Energy" }, href: "#energia" },
+  { label: { it: "Storia", en: "Story" }, href: "/storia" },
 ];
 
 export default function Home() {
   return (
     <>
-      <Navbar inlineCta={{ label: "Contattaci →", href: "/contatti" }} />
+      <Navbar inlineCta={{ label: { it: "Contattaci →", en: "Contact us →" }, href: "/contatti" }} />
       <main id="main">
         <HomeHero />
         <AppInAzione />

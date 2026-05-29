@@ -23,7 +23,7 @@ const footerLinks = [
 export default function StoriaPage() {
   return (
     <>
-      <Navbar inlineCta={{ label: "Contattaci →", href: "/contatti" }} />
+      <Navbar inlineCta={{ label: { it: "Contattaci →", en: "Contact us →" }, href: "/contatti" }} />
 
       <main id="main" className="relative overflow-hidden">
         {/* HERO */}

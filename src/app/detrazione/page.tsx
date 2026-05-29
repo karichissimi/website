@@ -26,7 +26,7 @@ const footerLinks = [
 export default function DetrazionePage() {
   return (
     <>
-      <Navbar inlineCta={{ label: "Sono interessato →", href: "#cta" }} />
+      <Navbar inlineCta={{ label: { it: "Sono interessato →", en: "I'm interested →" }, href: "#cta" }} />
 
       <main id="main" className="relative overflow-hidden">
         {/* HERO — la detrazione è l'amo, niente fronzoli */}

@@ -162,7 +162,7 @@ function AssetCard({ asset }: { asset: Asset }) {
 export default function PressPage() {
   return (
     <>
-      <Navbar inlineCta={{ label: "Scrivici →", href: "mailto:info@karica.it" }} />
+      <Navbar inlineCta={{ label: { it: "Scrivici →", en: "Email us →" }, href: "mailto:info@karica.it" }} />
 
       <main id="main" className="relative overflow-hidden">
         {/* HERO */}

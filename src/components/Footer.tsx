@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLang, LangToggle } from "@/lib/i18n";
 
+type LocalisedLabel = string | { it: string; en: string };
+
 interface FooterLink {
-  label: string;
+  label: LocalisedLabel;
   href: string;
 }
 
@@ -68,7 +70,7 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
                 href={link.href}
                 className="hover:text-text-secondary transition-colors"
               >
-                {link.label}
+                {typeof link.label === "string" ? link.label : link.label[lang]}
               </a>
             ))}
             <Link

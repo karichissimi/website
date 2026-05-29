@@ -6,20 +6,28 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
+
+type LocalisedLabel = string | { it: string; en: string };
+
+function pickLabel(label: LocalisedLabel, lang: "it" | "en"): string {
+  if (typeof label === "string") return label;
+  return label[lang];
+}
 
 interface NavLink {
-  label: string;
+  label: LocalisedLabel;
   href: string;
   highlight?: boolean;
 }
 
 interface NavbarProps {
   links?: NavLink[];
-  cta?: { label: string; href: string };
+  cta?: { label: LocalisedLabel; href: string };
   logoHref?: string;
   // When set, replaces the hamburger menu with a directly visible pill CTA.
   // Use this on single-purpose conversion pages where a menu adds friction.
-  inlineCta?: { label: string; href: string };
+  inlineCta?: { label: LocalisedLabel; href: string };
 }
 
 // Hysteresis: avoids show/hide flicker when iOS rubber-band scroll
@@ -28,11 +36,16 @@ const SHOW_THRESHOLD = 120;
 const HIDE_THRESHOLD = 40;
 
 export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: NavbarProps) {
+  const { lang } = useLang();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);
   const pathname = usePathname();
   const router = useRouter();
+
+  const openMenuLabel = lang === "en" ? "Open menu" : "Apri menu";
+  const closeMenuLabel = lang === "en" ? "Close menu" : "Chiudi menu";
+  const menuAriaLabel = lang === "en" ? "Menu" : "Menu";
 
   // Hide the hamburger entirely when there's nothing meaningful to show in
   // the overlay menu — avoids the "open menu to find a single redundant link"
@@ -141,7 +154,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   onClick={() => haptic("medium")}
                   className="btn-press inline-flex items-center bg-green-primary text-bg-dark font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-colors"
                 >
-                  {inlineCta.label}
+                  {pickLabel(inlineCta.label, lang)}
                 </Link>
               ) : (
                 <a
@@ -149,7 +162,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   onClick={() => haptic("medium")}
                   className="btn-press inline-flex items-center bg-green-primary text-bg-dark font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg uppercase tracking-wider hover:bg-green-dark transition-colors"
                 >
-                  {inlineCta.label}
+                  {pickLabel(inlineCta.label, lang)}
                 </a>
               )
             ) : hasMenuContent ? (
@@ -159,7 +172,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   setOpen(!open);
                 }}
                 className="btn-press-soft text-text-secondary hover:text-green-primary"
-                aria-label={open ? "Chiudi menu" : "Apri menu"}
+                aria-label={open ? closeMenuLabel : openMenuLabel}
                 aria-expanded={open}
               >
                 {open ? <X size={24} /> : <Menu size={24} />}
@@ -177,7 +190,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
           className="fixed left-0 right-0 top-14 sm:top-16 bottom-0 bg-bg-darker border-t border-card-border overflow-y-auto"
           role="dialog"
           aria-modal="true"
-          aria-label="Menu"
+          aria-label={menuAriaLabel}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-3">
             {links.map((link) => {
@@ -191,7 +204,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   onClick={() => setOpen(false)}
                   className={className}
                 >
-                  {link.label}
+                  {pickLabel(link.label, lang)}
                 </Link>
               ) : (
                 <a
@@ -200,7 +213,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   onClick={() => setOpen(false)}
                   className={className}
                 >
-                  {link.label}
+                  {pickLabel(link.label, lang)}
                 </a>
               );
             })}
@@ -213,7 +226,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                 }}
                 className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
               >
-                {cta.label}
+                {pickLabel(cta.label, lang)}
               </Link>
             ) : (
               <a
@@ -224,7 +237,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                 }}
                 className="btn-press block bg-green-primary text-bg-dark font-bold text-sm px-5 py-3 rounded-lg uppercase tracking-wider text-center hover:bg-green-dark transition-colors"
               >
-                {cta.label}
+                {pickLabel(cta.label, lang)}
               </a>
             ))}
           </div>
