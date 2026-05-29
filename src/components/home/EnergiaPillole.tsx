@@ -3,6 +3,36 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronDown } from "lucide-react";
+import { useLang } from "@/lib/i18n";
+
+const COPY = {
+  it: {
+    aria: "Energia in pillole — novità e incentivi",
+    kicker: "Energia in pillole",
+    titlePre: "Quello che devi sapere. ",
+    titleHighlight: "Oggi.",
+    subLabel: "Le novità del momento",
+    readMore: "Leggi →",
+    showLess: "Mostra meno",
+    showMore: "Scopri di più",
+    sourcePrefix: "Fonte:",
+    close: "Chiudi",
+    closeAria: "Chiudi",
+  },
+  en: {
+    aria: "Energy briefings — news and incentives",
+    kicker: "Energy briefings",
+    titlePre: "What you need to know. ",
+    titleHighlight: "Today.",
+    subLabel: "Top stories right now",
+    readMore: "Read →",
+    showLess: "Show less",
+    showMore: "Show more",
+    sourcePrefix: "Source:",
+    close: "Close",
+    closeAria: "Close",
+  },
+} as const;
 
 const INITIAL_VISIBLE = 6;
 
@@ -91,6 +121,8 @@ const news: NewsItem[] = [
 ];
 
 export default function EnergiaPillole() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   const [openCard, setOpenCard] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -137,7 +169,7 @@ export default function EnergiaPillole() {
   }
 
   return (
-    <section id="energia" aria-label="Energia in pillole — novità e incentivi" className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
+    <section id="energia" aria-label={t.aria} className="relative py-24 sm:py-32 overflow-hidden bg-bg-darker">
       <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,18 +179,18 @@ export default function EnergiaPillole() {
           className="mb-8"
         >
           <p className="text-green-primary font-semibold text-sm uppercase tracking-widest mb-3">
-            Energia in pillole
+            {t.kicker}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-text-primary leading-tight">
-            Quello che devi sapere.{" "}
-            <span className="text-gradient">Oggi.</span>
+            {t.titlePre}
+            <span className="text-gradient">{t.titleHighlight}</span>
           </h2>
         </motion.div>
 
         {/* Sub-label introducing the news grid */}
         <div className="mb-5">
           <p className="text-cyan-accent text-sm uppercase tracking-widest font-semibold">
-            Le novità del momento
+            {t.subLabel}
           </p>
         </div>
 
@@ -206,7 +238,7 @@ export default function EnergiaPillole() {
                     className="text-[10px] uppercase tracking-wider font-semibold transition-all"
                     style={{ color: item.accentColor, opacity: isOpen ? 1 : 0.55 }}
                   >
-                    Leggi &rarr;
+                    {t.readMore}
                   </p>
                 </div>
               </motion.button>
@@ -224,12 +256,12 @@ export default function EnergiaPillole() {
             >
               {showAll ? (
                 <>
-                  Mostra meno
+                  {t.showLess}
                   <ChevronDown size={14} className="rotate-180 transition-transform" />
                 </>
               ) : (
                 <>
-                  Scopri di più <span className="text-text-muted font-normal">(+{hiddenCount})</span>
+                  {t.showMore} <span className="text-text-muted font-normal">(+{hiddenCount})</span>
                   <ChevronDown size={14} className="group-hover:translate-y-0.5 transition-transform" />
                 </>
               )}
@@ -273,7 +305,7 @@ export default function EnergiaPillole() {
               >
                 <button
                   onClick={() => setOpenCard(null)}
-                  aria-label="Chiudi"
+                  aria-label={t.closeAria}
                   className="absolute top-3 right-3 p-2 text-text-muted hover:text-text-primary hover:bg-card-bg/70 rounded-full transition-colors"
                 >
                   <X size={20} />
@@ -308,14 +340,14 @@ export default function EnergiaPillole() {
                   >
                     <ExternalLink size={14} />
                     <span className="underline underline-offset-2">
-                      Fonte: {news[openCard].sourceLabel}
+                      {t.sourcePrefix} {news[openCard].sourceLabel}
                     </span>
                   </a>
                   <button
                     onClick={() => setOpenCard(null)}
                     className="text-xs sm:text-sm font-semibold text-text-muted hover:text-text-primary transition-colors"
                   >
-                    Chiudi
+                    {t.close}
                   </button>
                 </div>
               </div>

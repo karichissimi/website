@@ -3,19 +3,66 @@
 import { Calendar, ArrowUpRight, Check, Clock, Video, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
 
 const CALENDLY_URL = "https://calendly.com/alessandro-zanin-karica/new-meeting";
 
-const features = [
-  { icon: Clock, label: "30 minuti" },
-  { icon: Video, label: "Video call" },
-  { icon: Globe, label: "Italiano o english" },
-];
+const COPY = {
+  it: {
+    aria: "Prenota una call con il team Karica",
+    slots: "Slot disponibili questa settimana",
+    kicker: "Faccia a faccia (digitale)",
+    titlePre: "Prenota una ",
+    titleHighlight: "call",
+    body1: "Senza slide. Senza pitch. Senza copione.",
+    bodyStrong: "Solo le tue domande e qualcuno del team",
+    body3:
+      "che ti risponde davvero — anche se è per dirti “non lo so, te lo cerco e ti scrivo”.",
+    featureMinutes: "30 minuti",
+    featureCall: "Video call",
+    featureLang: "Italiano o english",
+    trust: [
+      "Niente form da 18 campi",
+      "Niente call center, parli col team",
+      "Se non ti convince, nessuno ti richiama",
+    ],
+    cta: "Apri il calendario",
+    signOff: "Dall'altra parte trovi una persona vera, non un bot.",
+  },
+  en: {
+    aria: "Book a call with the Karica team",
+    slots: "Slots open this week",
+    kicker: "Face to face (digital)",
+    titlePre: "Book a ",
+    titleHighlight: "call",
+    body1: "No slides. No pitch. No script.",
+    bodyStrong: "Just your questions and someone from the team",
+    body3:
+      "who actually answers — even if the answer is “I don't know, I'll look into it and write back”.",
+    featureMinutes: "30 minutes",
+    featureCall: "Video call",
+    featureLang: "English or Italian",
+    trust: [
+      "No 18-field forms",
+      "No call centre, you talk to the team",
+      "If it's not for you, nobody chases you",
+    ],
+    cta: "Open the calendar",
+    signOff: "On the other end there's a real person, not a bot.",
+  },
+} as const;
 
 export default function PrenotaCallCard() {
+  const { lang } = useLang();
+  const t = COPY[lang];
+  const features = [
+    { icon: Clock, label: t.featureMinutes },
+    { icon: Video, label: t.featureCall },
+    { icon: Globe, label: t.featureLang },
+  ];
   return (
     <motion.section
-      aria-label="Prenota una call con il team Karica"
+      aria-label={t.aria}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -48,7 +95,7 @@ export default function PrenotaCallCard() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-primary" />
               </span>
               <span className="text-green-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider">
-                Slot disponibili questa settimana
+                {t.slots}
               </span>
             </div>
           </div>
@@ -63,23 +110,20 @@ export default function PrenotaCallCard() {
             </div>
             <div>
               <p className="text-text-muted text-[10px] sm:text-[11px] uppercase tracking-widest font-semibold mb-0.5">
-                Faccia a faccia (digitale)
+                {t.kicker}
               </p>
               <h2 className="text-text-primary text-xl sm:text-2xl font-black leading-tight">
-                Prenota una <span className="text-gradient">call</span>
+                {t.titlePre}<span className="text-gradient">{t.titleHighlight}</span>
               </h2>
             </div>
           </div>
 
           {/* Personal copy */}
           <p className="text-text-secondary text-sm sm:text-base leading-relaxed mb-5">
-            Senza slide. Senza pitch. Senza copione.
+            {t.body1}
             <br />
-            <span className="text-text-primary font-semibold">
-              Solo le tue domande e qualcuno del team
-            </span>{" "}
-            che ti risponde davvero — anche se è per dirti
-            &ldquo;non lo so, te lo cerco e ti scrivo&rdquo;.
+            <span className="text-text-primary font-semibold">{t.bodyStrong}</span>{" "}
+            {t.body3}
           </p>
 
           {/* Feature pills */}
@@ -97,11 +141,7 @@ export default function PrenotaCallCard() {
 
           {/* Trust micro-list */}
           <div className="space-y-2 mb-7 pl-1">
-            {[
-              "Niente form da 18 campi",
-              "Niente call center, parli col team",
-              "Se non ti convince, nessuno ti richiama",
-            ].map((item) => (
+            {t.trust.map((item) => (
               <div key={item} className="flex items-start gap-2 text-text-muted text-xs sm:text-sm">
                 <Check size={14} className="text-green-primary flex-shrink-0 mt-0.5" strokeWidth={3} />
                 <span>{item}</span>
@@ -123,7 +163,7 @@ export default function PrenotaCallCard() {
               className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent"
             />
             <Calendar size={18} className="relative z-10" />
-            <span className="relative z-10">Apri il calendario</span>
+            <span className="relative z-10">{t.cta}</span>
             <ArrowUpRight
               size={18}
               className="relative z-10 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform"
@@ -132,7 +172,7 @@ export default function PrenotaCallCard() {
 
           {/* Personal sign-off */}
           <p className="text-center text-text-muted text-[11px] mt-4 italic">
-            Dall&apos;altra parte trovi una persona vera, non un bot.
+            {t.signOff}
           </p>
         </div>
       </div>
