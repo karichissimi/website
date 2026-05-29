@@ -8,29 +8,31 @@ const COUNT_THRESHOLD = 100;
 
 const COPY = {
   it: {
-    aria: "Entra nella waitlist Karica",
-    pillWithCount: (n: string) => `${n} in waitlist`,
-    pillOpen: "Waitlist aperta",
-    headlinePre: "L'app sta ",
-    headlineHighlight: "arrivando",
+    aria: "Richiedi l'accesso a Karica",
+    pillWithCount: (n: string) => `${n} richieste di accesso`,
+    pillOpen: "Rollout in corso",
+    headlinePre: "Sta arrivando nella ",
+    headlineHighlight: "tua zona",
     headlinePost: ".",
-    introWithCount: "Lascia la mail: sei tra i prossimi a ricevere l'invito.",
+    introWithCount:
+      "Lascia la mail: ti mandiamo l'invito appena Karica arriva nella tua zona.",
     introOpen:
-      "I primi ad averla in mano. Lascia la mail e ti scriviamo appena puoi provarla.",
-    disclaimer: "Niente spam. Solo il giorno in cui l'app è pronta per te.",
+      "Karica si sta espandendo per area. Lascia la mail e ti scriviamo quando tocca a te.",
+    disclaimer: "Niente spam. Solo l'invito quando arriva il tuo turno.",
     locale: "it-IT",
   },
   en: {
-    aria: "Join the Karica waitlist",
-    pillWithCount: (n: string) => `${n} on the waitlist`,
-    pillOpen: "Waitlist open",
-    headlinePre: "The app is ",
-    headlineHighlight: "almost here",
+    aria: "Request access to Karica",
+    pillWithCount: (n: string) => `${n} access requests`,
+    pillOpen: "Rolling out",
+    headlinePre: "Coming to ",
+    headlineHighlight: "your area",
     headlinePost: ".",
-    introWithCount: "Leave your email — you're next in line for the invite.",
+    introWithCount:
+      "Leave your email — we'll send your invite as soon as Karica lands in your area.",
     introOpen:
-      "Among the first to hold it. Leave your email and we'll write when it's ready for you.",
-    disclaimer: "No spam. Only the day the app is ready for you.",
+      "Karica is rolling out area by area. Leave your email and we'll write when it's your turn.",
+    disclaimer: "No spam. Just the invite when it's your turn.",
     locale: "en-GB",
   },
 } as const;

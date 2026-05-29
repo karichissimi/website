@@ -9,28 +9,28 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const COPY = {
   it: {
-    emptyEmail: "Serve una mail per metterti in lista.",
+    emptyEmail: "Serve una mail per inviarti l'invito.",
     invalidEmail: "Formato mail non valido — controlla il punto e la @.",
     submitError400: "La mail non ci piace — prova un altro indirizzo.",
     submitError500: "Il server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.",
     submitErrorNet: "Connessione persa. Controlla la rete e riprova.",
-    successTitle: "Sei in lista.",
-    successBody: "Ti scriviamo quando l'app è pronta per te.",
+    successTitle: "Richiesta ricevuta.",
+    successBody: "Ti mandiamo l'invito appena Karica arriva nella tua zona.",
     emailLabel: "Email",
     emailPlaceholder: "la-tua-email@esempio.com",
-    cta: "Entra in waitlist",
+    cta: "Richiedi l'accesso",
   },
   en: {
-    emptyEmail: "We need an email to put you on the list.",
+    emptyEmail: "We need an email to send you the invite.",
     invalidEmail: "That doesn't look right — check the dot and the @.",
     submitError400: "We don't like that email — try another address.",
     submitError500: "Our server is having a moment. Try again in a minute or write to info@karica.it.",
     submitErrorNet: "Lost the connection. Check your network and try again.",
-    successTitle: "You're on the list.",
-    successBody: "We'll write you when the app is ready for you.",
+    successTitle: "Request received.",
+    successBody: "We'll send the invite as soon as Karica lands in your area.",
     emailLabel: "Email",
     emailPlaceholder: "your-email@example.com",
-    cta: "Join the waitlist",
+    cta: "Request access",
   },
 } as const;
 
