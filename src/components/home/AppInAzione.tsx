@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { PanInfo } from "framer-motion";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { haptic } from "@/lib/haptics";
 
 type Stage = {
@@ -53,19 +53,27 @@ const stages: Stage[] = [
 ];
 
 const AUTOPLAY_MS = 5000;
-const SWIPE_OFFSET = 50;
-const SWIPE_VELOCITY = 350;
+const SWIPE_OFFSET = 40;
+const SWIPE_VELOCITY = 300;
 const SPRING_TRANSITION = { type: "spring", stiffness: 230, damping: 32 } as const;
 
-// Phone canvas & OLED window measurements — kept in sync with the Python
-// pipeline that builds bezel.png + *-screen.png assets.
+// Phone canvas + OLED window — kept in sync with the Python pipeline that
+// builds bezel.png, chrome-status.png, chrome-browser.png, *-screen.png.
 const PHONE_W = 555;
 const PHONE_H = 1115;
-const SCREEN_LEFT_PCT = (33 / PHONE_W) * 100; // 5.95%
-const SCREEN_TOP_PCT = (33 / PHONE_H) * 100; // 2.96%
-const SCREEN_WIDTH_PCT = (489 / PHONE_W) * 100; // 88.11%
-const SCREEN_HEIGHT_PCT = (1049 / PHONE_H) * 100; // 94.08%
-const SCREEN_RADIUS_PCT = (48 / PHONE_W) * 100; // 8.65%
+const SCREEN_LEFT_PCT = (33 / PHONE_W) * 100;
+const SCREEN_TOP_PCT = (33 / PHONE_H) * 100;
+const SCREEN_WIDTH_PCT = (489 / PHONE_W) * 100;
+const SCREEN_HEIGHT_PCT = (1049 / PHONE_H) * 100;
+const SCREEN_RADIUS_PCT = (48 / PHONE_W) * 100;
+
+// Heights of the static chrome strips (as % of OLED window height)
+const STATUS_HEIGHT_PCT = (96 / 1049) * 100;
+const BROWSER_HEIGHT_PCT = (178 / 1049) * 100;
+
+// Pointer-driven tilt amplitudes
+const PTR_ROTATE_Y = 14;
+const PTR_ROTATE_X = 10;
 
 export default function AppInAzione() {
   const [current, setCurrent] = useState(0);
@@ -73,7 +81,7 @@ export default function AppInAzione() {
   const sectionRef = useRef<HTMLElement>(null);
   const n = stages.length;
 
-  // Smoothly animated progress 0..1 used to drive the phone's 3D rotation.
+  // Stage progress 0..1 driving the *base* 3D rotation.
   const stageProgress = useMotionValue(0);
 
   useEffect(() => {
@@ -87,9 +95,47 @@ export default function AppInAzione() {
     return controls.stop;
   }, [current, n, stageProgress]);
 
-  const rotateY = useTransform(stageProgress, [0, 0.5, 1], [22, -3, -22]);
-  const rotateX = useTransform(stageProgress, [0, 0.5, 1], [10, 1, -8]);
+  // Base rotation across the journey — bigger amplitudes so the device
+  // really reads as moving in 3D, not subtly nudging.
+  const baseRotateY = useTransform(stageProgress, [0, 0.5, 1], [30, -3, -30]);
+  const baseRotateX = useTransform(stageProgress, [0, 0.5, 1], [16, 2, -14]);
   const floatY = useTransform(stageProgress, [0, 0.5, 1], [-10, 0, 10]);
+
+  // Pointer-driven extra tilt — lets the user "play" with the phone on hover.
+  const ptrX = useMotionValue(0); // -1..1
+  const ptrY = useMotionValue(0); // -1..1
+  const ptrXSmooth = useSpring(ptrX, { stiffness: 180, damping: 22 });
+  const ptrYSmooth = useSpring(ptrY, { stiffness: 180, damping: 22 });
+  const ptrRotateY = useTransform(ptrXSmooth, (v) => v * PTR_ROTATE_Y);
+  const ptrRotateX = useTransform(ptrYSmooth, (v) => v * -PTR_ROTATE_X);
+
+  // Combine base + pointer.
+  const rotateY = useTransform<number, number>(
+    [baseRotateY, ptrRotateY],
+    ([a, b]) => a + b
+  );
+  const rotateX = useTransform<number, number>(
+    [baseRotateX, ptrRotateX],
+    ([a, b]) => a + b
+  );
+
+  const onPointerMove = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      // Ignore touch — touch is handled by the drag gesture inside the OLED.
+      if (e.pointerType === "touch") return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+      ptrX.set(Math.max(-1, Math.min(1, nx)));
+      ptrY.set(Math.max(-1, Math.min(1, ny)));
+    },
+    [ptrX, ptrY]
+  );
+
+  const onPointerLeave = useCallback(() => {
+    ptrX.set(0);
+    ptrY.set(0);
+  }, [ptrX, ptrY]);
 
   const goTo = useCallback(
     (i: number, fromUser: boolean) => {
@@ -113,29 +159,33 @@ export default function AppInAzione() {
     return () => window.clearInterval(id);
   }, [interacted, n]);
 
-  // Keyboard arrows when the section is in view.
+  // Keyboard: ↑ / ↓ (and ← / → as fallback) when section is in view.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const next = e.key === "ArrowDown" || e.key === "ArrowRight";
+      const prev = e.key === "ArrowUp" || e.key === "ArrowLeft";
+      if (!next && !prev) return;
       const el = sectionRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+      const inView =
+        rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
       if (!inView) return;
       e.preventDefault();
-      goTo(e.key === "ArrowRight" ? current + 1 : current - 1, true);
+      goTo(next ? current + 1 : current - 1, true);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [current, goTo]);
 
+  // Vertical drag: swipe up = next, swipe down = prev (matches real scroll).
   const onDragEnd = useCallback(
     (_: unknown, info: PanInfo) => {
       const { offset, velocity } = info;
-      const swipedLeft = offset.x < -SWIPE_OFFSET || velocity.x < -SWIPE_VELOCITY;
-      const swipedRight = offset.x > SWIPE_OFFSET || velocity.x > SWIPE_VELOCITY;
-      if (swipedLeft) goTo(current + 1, true);
-      else if (swipedRight) goTo(current - 1, true);
+      const swipedUp = offset.y < -SWIPE_OFFSET || velocity.y < -SWIPE_VELOCITY;
+      const swipedDown = offset.y > SWIPE_OFFSET || velocity.y > SWIPE_VELOCITY;
+      if (swipedUp) goTo(current + 1, true);
+      else if (swipedDown) goTo(current - 1, true);
     },
     [current, goTo]
   );
@@ -154,10 +204,12 @@ export default function AppInAzione() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Phone — bezel is static, only the screen content slides */}
+          {/* Phone */}
           <div
             className="order-1 md:order-2 relative flex items-center justify-center w-full select-none min-w-0"
             style={{ perspective: "1400px" }}
+            onPointerMove={onPointerMove}
+            onPointerLeave={onPointerLeave}
           >
             {/* Glow halo */}
             <div
@@ -174,17 +226,15 @@ export default function AppInAzione() {
                 y: floatY,
                 transformStyle: "preserve-3d",
                 transformOrigin: "center center",
-                // Phone size — explicit width AND height so nothing can blow out
-                // the layout on any viewport. Derived from PHONE_AR.
                 width: "clamp(200px, 28vh, 280px)",
                 height: "clamp(400px, 56vh, 562px)",
                 maxWidth: "100%",
               }}
               className="relative will-change-transform"
             >
-              {/* OLED window — the only thing that slides on swipe */}
+              {/* OLED window — sliding carousel + static chrome overlays */}
               <motion.div
-                className="absolute overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y bg-bg-darker"
+                className="absolute overflow-hidden cursor-grab active:cursor-grabbing touch-pan-x bg-bg-darker"
                 style={{
                   left: `${SCREEN_LEFT_PCT}%`,
                   top: `${SCREEN_TOP_PCT}%`,
@@ -192,16 +242,18 @@ export default function AppInAzione() {
                   height: `${SCREEN_HEIGHT_PCT}%`,
                   borderRadius: `${SCREEN_RADIUS_PCT}%`,
                 }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
+                drag="y"
+                dragConstraints={{ top: 0, bottom: 0 }}
                 dragElastic={0.18}
                 dragMomentum={false}
                 onDragStart={() => !interacted && setInteracted(true)}
                 onDragEnd={onDragEnd}
               >
+                {/* Vertical stack of full screens — body content moves;
+                    chrome on each screen gets covered by the static overlays */}
                 <motion.div
-                  className="flex h-full w-full"
-                  animate={{ x: `-${current * 100}%` }}
+                  className="absolute inset-0 flex flex-col"
+                  animate={{ y: `-${current * 100}%` }}
                   transition={SPRING_TRANSITION}
                 >
                   {stages.map((s, i) => (
@@ -221,9 +273,35 @@ export default function AppInAzione() {
                     </div>
                   ))}
                 </motion.div>
+
+                {/* Static iOS status bar — always visible, pinned at top */}
+                <Image
+                  src="/app/chrome-status.png"
+                  alt=""
+                  aria-hidden
+                  width={489}
+                  height={96}
+                  priority
+                  draggable={false}
+                  className="absolute top-0 left-0 w-full h-auto pointer-events-none select-none"
+                  style={{ height: `${STATUS_HEIGHT_PCT}%` }}
+                />
+
+                {/* Static Safari bottom bar — pinned at bottom */}
+                <Image
+                  src="/app/chrome-browser.png"
+                  alt=""
+                  aria-hidden
+                  width={489}
+                  height={178}
+                  priority
+                  draggable={false}
+                  className="absolute bottom-0 left-0 w-full h-auto pointer-events-none select-none"
+                  style={{ height: `${BROWSER_HEIGHT_PCT}%` }}
+                />
               </motion.div>
 
-              {/* Bezel — sits on top of the sliding screen, never moves */}
+              {/* Bezel — sits on top of everything, never moves */}
               <Image
                 src="/app/bezel.png"
                 alt=""
@@ -238,21 +316,21 @@ export default function AppInAzione() {
               {/* Drag hint — only until first interaction */}
               {!interacted && (
                 <motion.div
-                  initial={{ opacity: 0, y: 6 }}
+                  initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.4 }}
                   className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-card-bg/80 border border-card-border backdrop-blur-sm pointer-events-none"
                   aria-hidden
                 >
                   <span className="text-[10px] uppercase tracking-widest font-semibold text-text-muted">
-                    Trascina
+                    Scorri
                   </span>
                   <motion.span
-                    animate={{ x: [0, 4, 0] }}
+                    animate={{ y: [0, -4, 0] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
                     className="text-green-primary text-sm"
                   >
-                    →
+                    ↑
                   </motion.span>
                 </motion.div>
               )}
@@ -268,10 +346,7 @@ export default function AppInAzione() {
                 transition={SPRING_TRANSITION}
               >
                 {stages.map((s) => (
-                  <div
-                    key={s.kicker}
-                    className="w-full shrink-0 pr-4"
-                  >
+                  <div key={s.kicker} className="w-full shrink-0 pr-4">
                     <p className="text-green-primary font-semibold text-[11px] sm:text-xs uppercase tracking-widest mb-2 sm:mb-3">
                       {s.kicker}
                     </p>
