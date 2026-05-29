@@ -20,6 +20,7 @@ const avantGarde = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://karica.it"),
   title: {
     default: "Karica — L'energia di casa tua, finalmente chiara",
     template: "%s | Karica",
@@ -40,7 +41,61 @@ export const metadata: Metadata = {
     description:
       "La piattaforma digitale che semplifica l'accesso all'energia pulita per famiglie, condomini e imprese.",
     type: "website",
+    locale: "it_IT",
+    siteName: "Karica",
+    url: "https://karica.it",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Karica — la piattaforma della transizione energetica",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Karica — L'energia di casa tua, finalmente chiara",
+    description:
+      "La piattaforma digitale che semplifica l'accesso all'energia pulita per famiglie, condomini e imprese.",
+    images: ["/og-image.png"],
+  },
+};
+
+// JSON-LD Organization schema — strutturato per Google e altri motori
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Karica",
+  legalName: "Karica S.r.l.",
+  url: "https://karica.it",
+  logo: "https://karica.it/graphics/Karica_Logo_Felice.png",
+  image: "https://karica.it/og-image.png",
+  description:
+    "Piattaforma digitale per la transizione energetica: diagnosi, interventi di efficienza, finanziamenti green e Comunità Energetiche Rinnovabili in un unico ecosistema.",
+  foundingDate: "2025",
+  vatID: "14470800963",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Via Vallarsa 11",
+    addressLocality: "Milano",
+    postalCode: "20139",
+    addressCountry: "IT",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@karica.it",
+    contactType: "customer support",
+    availableLanguage: ["Italian", "English"],
+  },
+  areaServed: { "@type": "Country", name: "Italy" },
+  knowsAbout: [
+    "transizione energetica",
+    "Comunità Energetiche Rinnovabili",
+    "efficienza energetica",
+    "diagnosi energetica",
+    "incentivi green",
+  ],
 };
 
 export default function RootLayout({
@@ -50,6 +105,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it" className={`${avantGarde.variable} antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="min-h-screen">
         <a
           href="#main"

@@ -1,4 +1,14 @@
 User-agent: *
+Allow: /
+
+# Pagine riservate / link-only (anche se noindex via metadata,
+# le elenchiamo qui per chiarezza ai crawler).
 Disallow: /investiora
-Disallow: /funding
 Disallow: /detrazione
+Disallow: /whoweare
+Disallow: /press
+
+# API
+Disallow: /api/
+
+Sitemap: https://karica.it/sitemap.xml
