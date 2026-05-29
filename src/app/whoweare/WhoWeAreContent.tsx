@@ -675,13 +675,10 @@ export default function WhoWeAreContent() {
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-3 flex-wrap mb-3">
+                      <div className="mb-3">
                         <h3 className="text-lg sm:text-xl font-black text-text-primary">
                           {act.title[lang]}
                         </h3>
-                        <span className={`text-xs sm:text-sm font-bold ${accentText}`}>
-                          {act.funding[lang]}
-                        </span>
                       </div>
                       <ul className="space-y-2">
                         {act.bullets[lang].map((b, i) => (
