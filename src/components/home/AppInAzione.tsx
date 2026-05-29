@@ -8,7 +8,7 @@ import { animate, motion, useMotionValue, useSpring, useTransform } from "framer
 import { haptic } from "@/lib/haptics";
 
 type Stage = {
-  screen: string;
+  bodySrc: string;
   kicker: string;
   title: string;
   body: string;
@@ -16,37 +16,37 @@ type Stage = {
 
 const stages: Stage[] = [
   {
-    screen: "/app/01-bolletta-screen.png",
+    bodySrc: "/app/01-bolletta-body.png",
     kicker: "1 · Bolletta",
     title: "Una foto. Karica legge i tuoi consumi reali.",
     body: "Niente moduli, niente codici contatore. Riconosce kWh, € e fornitore direttamente dalla bolletta.",
   },
   {
-    screen: "/app/02-edificio-screen.png",
+    bodySrc: "/app/02-edificio-body.png",
     kicker: "2 · Edificio",
     title: "Qualche domanda semplice sulla casa.",
     body: "Tipo di abitazione, dove sei, com'è fatta. Niente gergo tecnico — il cacatua ti guida.",
   },
   {
-    screen: "/app/03-dimensione-screen.png",
+    bodySrc: "/app/03-dimensione-body.png",
     kicker: "3 · Profilo",
     title: "Capisce la tua casa come la conosci tu.",
     body: "Dimensione, impianti, abitudini. Incrocia i tuoi dati con case simili nella tua zona.",
   },
   {
-    screen: "/app/04-calcolo-screen.png",
+    bodySrc: "/app/04-calcolo-body.png",
     kicker: "4 · AI",
     title: "AI e dataset nazionali al lavoro.",
     body: "Modello proprietario + banche dati su classe energetica, costi degli interventi e incentivi attivi.",
   },
   {
-    screen: "/app/05-diagnosi-screen.png",
+    bodySrc: "/app/05-diagnosi-body.png",
     kicker: "5 · Diagnosi",
     title: "La tua classe energetica stimata.",
     body: "E quanto puoi davvero risparmiare ogni anno — con fasce reali, non promesse.",
   },
   {
-    screen: "/app/06-interventi-screen.png",
+    bodySrc: "/app/06-interventi-body.png",
     kicker: "6 · Piano",
     title: "Interventi su misura, già prioritizzati.",
     body: "Dal cambio infissi al fotovoltaico — risparmio annuo, urgenza e incentivi disponibili per ognuno.",
@@ -248,9 +248,11 @@ export default function AppInAzione() {
               }}
               className="relative will-change-transform"
             >
-              {/* OLED window — sliding carousel + static chrome overlays */}
-              <motion.div
-                className="absolute overflow-hidden cursor-grab active:cursor-grabbing touch-pan-x bg-bg-darker"
+              {/* OLED window — fixed in place. Drag and animate live inside
+                  the body slot so the OLED itself never translates outside
+                  the bezel. */}
+              <div
+                className="absolute overflow-hidden bg-bg-darker"
                 style={{
                   left: `${SCREEN_LEFT_PCT}%`,
                   top: `${SCREEN_TOP_PCT}%`,
@@ -258,39 +260,47 @@ export default function AppInAzione() {
                   height: `${SCREEN_HEIGHT_PCT}%`,
                   borderRadius: `${SCREEN_RADIUS_PCT}%`,
                 }}
-                drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={0.18}
-                dragMomentum={false}
-                onDragStart={() => !interacted && setInteracted(true)}
-                onDragEnd={onDragEnd}
               >
-                {/* Vertical stack of full screens — body content moves;
-                    chrome on each screen gets covered by the static overlays */}
+                {/* Body slot — between the two chrome bars. Only this area
+                    receives the drag gesture; nothing else can translate. */}
                 <motion.div
-                  className="absolute inset-0 flex flex-col"
-                  animate={{ y: `-${current * 100}%` }}
-                  transition={SPRING_TRANSITION}
+                  className="absolute left-0 right-0 overflow-hidden cursor-grab active:cursor-grabbing touch-pan-x"
+                  style={{
+                    top: `${STATUS_HEIGHT_PCT}%`,
+                    bottom: `${BROWSER_HEIGHT_PCT}%`,
+                  }}
+                  drag="y"
+                  dragConstraints={{ top: 0, bottom: 0 }}
+                  dragElastic={0.22}
+                  dragMomentum={false}
+                  onDragStart={() => !interacted && setInteracted(true)}
+                  onDragEnd={onDragEnd}
                 >
-                  {stages.map((s, i) => (
-                    <div
-                      key={s.screen}
-                      className="relative w-full h-full shrink-0"
-                    >
-                      <Image
-                        src={s.screen}
-                        alt={`Schermata Karica — ${s.kicker}`}
-                        fill
-                        priority={i === 0}
-                        draggable={false}
-                        sizes="(max-width: 768px) 60vw, 30vw"
-                        className="object-cover pointer-events-none"
-                      />
-                    </div>
-                  ))}
+                  <motion.div
+                    className="absolute inset-0 flex flex-col"
+                    animate={{ y: `-${current * 100}%` }}
+                    transition={SPRING_TRANSITION}
+                  >
+                    {stages.map((s, i) => (
+                      <div
+                        key={s.bodySrc}
+                        className="relative w-full h-full shrink-0"
+                      >
+                        <Image
+                          src={s.bodySrc}
+                          alt={`Schermata Karica — ${s.kicker}`}
+                          fill
+                          priority={i === 0}
+                          draggable={false}
+                          sizes="(max-width: 768px) 60vw, 30vw"
+                          className="object-cover pointer-events-none"
+                        />
+                      </div>
+                    ))}
+                  </motion.div>
                 </motion.div>
 
-                {/* Static iOS status bar — always visible, pinned at top */}
+                {/* Static iOS status bar — pinned at top of OLED, above body */}
                 <Image
                   src="/app/chrome-status.png"
                   alt=""
@@ -299,11 +309,11 @@ export default function AppInAzione() {
                   height={96}
                   priority
                   draggable={false}
-                  className="absolute top-0 left-0 w-full h-auto pointer-events-none select-none"
+                  className="absolute top-0 left-0 w-full pointer-events-none select-none"
                   style={{ height: `${STATUS_HEIGHT_PCT}%` }}
                 />
 
-                {/* Static Safari bottom bar — pinned at bottom */}
+                {/* Static Safari bottom bar — pinned at bottom of OLED */}
                 <Image
                   src="/app/chrome-browser.png"
                   alt=""
@@ -312,10 +322,10 @@ export default function AppInAzione() {
                   height={178}
                   priority
                   draggable={false}
-                  className="absolute bottom-0 left-0 w-full h-auto pointer-events-none select-none"
+                  className="absolute bottom-0 left-0 w-full pointer-events-none select-none"
                   style={{ height: `${BROWSER_HEIGHT_PCT}%` }}
                 />
-              </motion.div>
+              </div>
 
               {/* Bezel — sits on top of everything, never moves */}
               <Image
