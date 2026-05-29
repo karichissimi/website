@@ -3,10 +3,40 @@
 import { useState, type FormEvent } from "react";
 import { Send, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+const COPY = {
+  it: {
+    emptyEmail: "Serve una mail per metterti in lista.",
+    invalidEmail: "Formato mail non valido — controlla il punto e la @.",
+    submitError400: "La mail non ci piace — prova un altro indirizzo.",
+    submitError500: "Il server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.",
+    submitErrorNet: "Connessione persa. Controlla la rete e riprova.",
+    successTitle: "Sei in lista.",
+    successBody: "Ti scriviamo quando l'app è pronta per te.",
+    emailLabel: "Email",
+    emailPlaceholder: "la-tua-email@esempio.com",
+    cta: "Entra in waitlist",
+  },
+  en: {
+    emptyEmail: "We need an email to put you on the list.",
+    invalidEmail: "That doesn't look right — check the dot and the @.",
+    submitError400: "We don't like that email — try another address.",
+    submitError500: "Our server is having a moment. Try again in a minute or write to info@karica.it.",
+    submitErrorNet: "Lost the connection. Check your network and try again.",
+    successTitle: "You're on the list.",
+    successBody: "We'll write you when the app is ready for you.",
+    emailLabel: "Email",
+    emailPlaceholder: "your-email@example.com",
+    cta: "Join the waitlist",
+  },
+} as const;
+
 export default function WaitlistForm() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -16,8 +46,8 @@ export default function WaitlistForm() {
 
   function validateEmail(value: string): string {
     const trimmed = value.trim();
-    if (!trimmed) return "Serve una mail per metterti in lista.";
-    if (!EMAIL_RE.test(trimmed)) return "Formato mail non valido — controlla il punto e la @.";
+    if (!trimmed) return t.emptyEmail;
+    if (!EMAIL_RE.test(trimmed)) return t.invalidEmail;
     return "";
   }
 
@@ -62,13 +92,9 @@ export default function WaitlistForm() {
     } catch (err) {
       haptic("heavy");
       const kind = err instanceof Error ? err.message : "";
-      if (kind === "validation") {
-        setSubmitError("La mail non ci piace — prova un altro indirizzo.");
-      } else if (kind === "server") {
-        setSubmitError("Il server fa i capricci. Riprova tra un minuto o scrivici a info@karica.it.");
-      } else {
-        setSubmitError("Connessione persa. Controlla la rete e riprova.");
-      }
+      if (kind === "validation") setSubmitError(t.submitError400);
+      else if (kind === "server") setSubmitError(t.submitError500);
+      else setSubmitError(t.submitErrorNet);
     } finally {
       setLoading(false);
     }
@@ -82,10 +108,10 @@ export default function WaitlistForm() {
           <CheckCircle className="relative text-green-primary" size={48} />
         </div>
         <h3 className="text-lg font-bold text-text-primary mb-1">
-          Sei in lista.
+          {t.successTitle}
         </h3>
         <p className="text-text-secondary text-sm">
-          Ti scriviamo quando l&apos;app è pronta per te.
+          {t.successBody}
         </p>
       </div>
     );
@@ -94,7 +120,7 @@ export default function WaitlistForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <label htmlFor="waitlist-email" className="sr-only">
-        Email
+        {t.emailLabel}
       </label>
       <input
         id="waitlist-email"
@@ -103,7 +129,7 @@ export default function WaitlistForm() {
         value={email}
         onChange={(e) => handleEmailChange(e.target.value)}
         onBlur={handleEmailBlur}
-        placeholder="la-tua-email@esempio.com"
+        placeholder={t.emailPlaceholder}
         aria-invalid={!!emailError}
         aria-describedby={emailError ? "waitlist-email-error" : undefined}
         className={`w-full bg-bg-darker border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-disabled focus:outline-none transition-all ${
@@ -139,7 +165,7 @@ export default function WaitlistForm() {
         ) : (
           <Send size={14} />
         )}
-        Entra in waitlist
+        {t.cta}
       </button>
     </form>
   );
