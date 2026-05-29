@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 import { haptic } from "@/lib/haptics";
 
 export default function HomeHero() {
@@ -64,20 +65,27 @@ export default function HomeHero() {
           e ti guida passo passo — dalla diagnosi al risultato.
         </motion.p>
 
-        {/* CTA */}
-        <motion.div
+        {/* Scroll cue */}
+        <motion.a
+          href="#app-in-azione"
+          onClick={() => haptic("light")}
+          aria-label="Scorri per vedere l'app in azione"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
+          className="group inline-flex flex-col items-center gap-2 text-text-muted hover:text-green-primary transition-colors"
         >
-          <a
-            href="#come-funziona"
-            onClick={() => haptic("medium")}
-            className="btn-press group relative inline-block bg-green-primary text-bg-dark font-bold px-7 py-3.5 sm:px-8 sm:py-4 rounded-lg uppercase tracking-wider text-sm sm:text-base hover:bg-green-dark transition-colors hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(57,255,20,0.3)]"
+          <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold">
+            Vedi l&apos;app in azione
+          </span>
+          <motion.span
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="inline-flex"
           >
-            <span className="relative z-10">Scopri come funziona →</span>
-          </a>
-        </motion.div>
+            <ChevronDown size={22} strokeWidth={2.5} />
+          </motion.span>
+        </motion.a>
       </div>
     </section>
   );
