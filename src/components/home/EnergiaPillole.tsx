@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronDown } from "lucide-react";
-import ChiediAKarica from "./ChiediAKarica";
 
 const INITIAL_VISIBLE = 6;
 
@@ -156,12 +155,8 @@ export default function EnergiaPillole() {
           </h2>
         </motion.div>
 
-        {/* Cacatua chatbot — first thing in the section so people can ask
-            before scrolling the news */}
-        <ChiediAKarica />
-
-        {/* Divider + sub-label introducing the news grid */}
-        <div className="mt-14 pt-10 border-t border-card-border/30 mb-5">
+        {/* Sub-label introducing the news grid */}
+        <div className="mb-5">
           <p className="text-cyan-accent text-sm uppercase tracking-widest font-semibold">
             Le novità del momento
           </p>
