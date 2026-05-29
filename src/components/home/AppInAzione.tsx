@@ -6,52 +6,106 @@ import { Play } from "lucide-react";
 import type { PanInfo } from "framer-motion";
 import { animate, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
 
-type Stage = {
+type LocalisedStage = {
   bodySrc: string;
-  kicker: string;
-  title: string;
-  body: string;
+  kicker: { it: string; en: string };
+  title: { it: string; en: string };
+  body: { it: string; en: string };
 };
 
-const stages: Stage[] = [
+const stages: LocalisedStage[] = [
   {
     bodySrc: "/app/01-bolletta-body.png",
-    kicker: "1 · Bolletta",
-    title: "Una foto. Karica legge i tuoi consumi reali.",
-    body: "Niente moduli, niente codici contatore. Riconosce kWh, € e fornitore direttamente dalla bolletta.",
+    kicker: { it: "1 · Bolletta", en: "1 · Bill" },
+    title: {
+      it: "Una foto. Karica legge i tuoi consumi reali.",
+      en: "Just a photo. Karica reads your real consumption.",
+    },
+    body: {
+      it: "Niente moduli, niente codici contatore. Riconosce kWh, € e fornitore direttamente dalla bolletta.",
+      en: "No forms, no meter codes. It picks up kWh, € and supplier straight from your bill.",
+    },
   },
   {
     bodySrc: "/app/02-edificio-body.png",
-    kicker: "2 · Edificio",
-    title: "Qualche domanda semplice sulla casa.",
-    body: "Tipo di abitazione, dove sei, com'è fatta. Niente gergo tecnico — il cacatua ti guida.",
+    kicker: { it: "2 · Edificio", en: "2 · Building" },
+    title: {
+      it: "Qualche domanda semplice sulla casa.",
+      en: "A few simple questions about your home.",
+    },
+    body: {
+      it: "Tipo di abitazione, dove sei, com'è fatta. Niente gergo tecnico — il cacatua ti guida.",
+      en: "Building type, location, structure. No technical jargon — the cockatoo walks you through it.",
+    },
   },
   {
     bodySrc: "/app/03-dimensione-body.png",
-    kicker: "3 · Profilo",
-    title: "Capisce la tua casa come la conosci tu.",
-    body: "Dimensione, impianti, abitudini. Incrocia i tuoi dati con case simili nella tua zona.",
+    kicker: { it: "3 · Profilo", en: "3 · Profile" },
+    title: {
+      it: "Capisce la tua casa come la conosci tu.",
+      en: "It learns your home the way you know it.",
+    },
+    body: {
+      it: "Dimensione, impianti, abitudini. Incrocia i tuoi dati con case simili nella tua zona.",
+      en: "Size, systems, habits. It cross-references your data with similar homes in your area.",
+    },
   },
   {
     bodySrc: "/app/04-calcolo-body.png",
-    kicker: "4 · AI",
-    title: "AI e dataset nazionali al lavoro.",
-    body: "Modello proprietario + banche dati su classe energetica, costi degli interventi e incentivi attivi.",
+    kicker: { it: "4 · AI", en: "4 · AI" },
+    title: {
+      it: "AI e dataset nazionali al lavoro.",
+      en: "AI and national datasets, at work.",
+    },
+    body: {
+      it: "Modello proprietario + banche dati su classe energetica, costi degli interventi e incentivi attivi.",
+      en: "Proprietary model plus national datasets on energy class, retrofit costs and active incentives.",
+    },
   },
   {
     bodySrc: "/app/05-diagnosi-body.png",
-    kicker: "5 · Diagnosi",
-    title: "La tua classe energetica stimata.",
-    body: "E quanto puoi davvero risparmiare ogni anno — con fasce reali, non promesse.",
+    kicker: { it: "5 · Diagnosi", en: "5 · Diagnosis" },
+    title: {
+      it: "La tua classe energetica stimata.",
+      en: "Your estimated energy class.",
+    },
+    body: {
+      it: "E quanto puoi davvero risparmiare ogni anno — con fasce reali, non promesse.",
+      en: "And how much you can actually save each year — real ranges, not promises.",
+    },
   },
   {
     bodySrc: "/app/06-interventi-body.png",
-    kicker: "6 · Piano",
-    title: "Interventi su misura, già prioritizzati.",
-    body: "Dal cambio infissi al fotovoltaico — risparmio annuo, urgenza e incentivi disponibili per ognuno.",
+    kicker: { it: "6 · Piano", en: "6 · Plan" },
+    title: {
+      it: "Interventi su misura, già prioritizzati.",
+      en: "Tailored retrofits, already prioritised.",
+    },
+    body: {
+      it: "Dal cambio infissi al fotovoltaico — risparmio annuo, urgenza e incentivi disponibili per ognuno.",
+      en: "From new windows to solar PV — annual savings, urgency and available incentives for each one.",
+    },
   },
 ];
+
+const COPY = {
+  it: {
+    sectionAria: "L'app Karica in azione",
+    altScreenPrefix: "Schermata Karica —",
+    dragHint: "Provalo",
+    stepLabel: (i: number, k: string) => `Vai allo step ${i}: ${k}`,
+    stepTitle: "Step della demo",
+  },
+  en: {
+    sectionAria: "The Karica app in action",
+    altScreenPrefix: "Karica screen —",
+    dragHint: "Try it",
+    stepLabel: (i: number, k: string) => `Jump to step ${i}: ${k}`,
+    stepTitle: "Demo steps",
+  },
+} as const;
 
 const AUTOPLAY_MS = 5000;
 const SWIPE_OFFSET = 40;
@@ -77,6 +131,8 @@ const PTR_ROTATE_Y = 14;
 const PTR_ROTATE_X = 10;
 
 export default function AppInAzione() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   const [current, setCurrent] = useState(0);
   const [interacted, setInteracted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -208,7 +264,7 @@ export default function AppInAzione() {
     <section
       ref={sectionRef}
       id="app-in-azione"
-      aria-label="L'app Karica in azione"
+      aria-label={t.sectionAria}
       className="relative bg-bg-dark overflow-hidden py-20 sm:py-24 md:py-28"
     >
       {/* Ambient layers */}
@@ -317,7 +373,7 @@ export default function AppInAzione() {
                       >
                         <Image
                           src={s.bodySrc}
-                          alt={`Schermata Karica — ${s.kicker}`}
+                          alt={`${t.altScreenPrefix} ${s.kicker[lang]}`}
                           fill
                           priority={i === 0}
                           draggable={false}
@@ -417,7 +473,7 @@ export default function AppInAzione() {
               >
                 <Play size={12} fill="currentColor" strokeWidth={0} />
                 <span className="text-[11px] uppercase tracking-wider font-bold whitespace-nowrap">
-                  Provalo
+                  {t.dragHint}
                 </span>
               </motion.div>
             )}
@@ -432,15 +488,15 @@ export default function AppInAzione() {
                 transition={SPRING_TRANSITION}
               >
                 {stages.map((s) => (
-                  <div key={s.kicker} className="w-full shrink-0 pr-4">
+                  <div key={s.bodySrc} className="w-full shrink-0 pr-4">
                     <p className="text-green-primary font-semibold text-[11px] sm:text-xs uppercase tracking-widest mb-2 sm:mb-3">
-                      {s.kicker}
+                      {s.kicker[lang]}
                     </p>
                     <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-text-primary leading-[1.15] mb-3 sm:mb-4">
-                      {s.title}
+                      {s.title[lang]}
                     </h2>
                     <p className="text-text-secondary text-sm sm:text-base md:text-lg leading-relaxed max-w-md mx-auto md:mx-0">
-                      {s.body}
+                      {s.body[lang]}
                     </p>
                   </div>
                 ))}
@@ -451,17 +507,17 @@ export default function AppInAzione() {
             <div
               className="flex justify-center md:justify-start gap-2 mt-6"
               role="tablist"
-              aria-label="Step della demo"
+              aria-label={t.stepTitle}
             >
               {stages.map((s, i) => {
                 const isActive = i === current;
                 return (
                   <button
-                    key={s.kicker}
+                    key={s.bodySrc}
                     type="button"
                     role="tab"
                     aria-selected={isActive}
-                    aria-label={`Vai allo step ${i + 1}: ${s.kicker}`}
+                    aria-label={t.stepLabel(i + 1, s.kicker[lang])}
                     onClick={() => goTo(i, true)}
                     className="group p-1.5 -m-1.5"
                   >

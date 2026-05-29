@@ -4,11 +4,41 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { haptic } from "@/lib/haptics";
+import { useLang } from "@/lib/i18n";
+
+const COPY = {
+  it: {
+    aria: "Introduzione a Karica",
+    headlinePre: "L'",
+    headlineWord1: "energia",
+    headlineMid: " di casa tua,",
+    headlineEnd: "finalmente ",
+    headlineWord2: "chiara",
+    intro:
+      "Karica ti mostra quanto sprechi, cosa fare per risparmiare e ti guida passo passo — dalla diagnosi al risultato.",
+    scrollCueLabel: "Scorri per vedere l'app in azione",
+    scrollCueText: "Vedi l'app in azione",
+  },
+  en: {
+    aria: "Introducing Karica",
+    headlinePre: "Your home ",
+    headlineWord1: "energy",
+    headlineMid: ",",
+    headlineEnd: "finally ",
+    headlineWord2: "clear",
+    intro:
+      "Karica shows you exactly what you're wasting, what to do to save, and walks you through it — from diagnosis to result.",
+    scrollCueLabel: "Scroll to see the app in action",
+    scrollCueText: "See the app in action",
+  },
+} as const;
 
 export default function HomeHero() {
+  const { lang } = useLang();
+  const t = COPY[lang];
   return (
     <section
-      aria-label="Introduzione a Karica"
+      aria-label={t.aria}
       className="relative min-h-[100svh] flex flex-col overflow-hidden py-24 sm:py-28 noise"
     >
       <div className="glow-orb absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-green-primary/[0.06] blur-[120px]" />
@@ -48,10 +78,12 @@ export default function HomeHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          L&apos;<span className="text-gradient">energia</span> di casa tua,
+          {t.headlinePre}
+          <span className="text-gradient">{t.headlineWord1}</span>
+          {t.headlineMid}
           <br />
-          finalmente{" "}
-          <span className="text-gradient">chiara</span>
+          {t.headlineEnd}
+          <span className="text-gradient">{t.headlineWord2}</span>
         </motion.h1>
 
         {/* Paragraph */}
@@ -61,22 +93,21 @@ export default function HomeHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Karica ti mostra quanto sprechi, cosa fare per risparmiare
-          e ti guida passo passo — dalla diagnosi al risultato.
+          {t.intro}
         </motion.p>
 
         {/* Scroll cue */}
         <motion.a
           href="#app-in-azione"
           onClick={() => haptic("light")}
-          aria-label="Scorri per vedere l'app in azione"
+          aria-label={t.scrollCueLabel}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="group inline-flex flex-col items-center gap-2 text-text-muted hover:text-green-primary transition-colors"
         >
           <span className="text-xs sm:text-sm uppercase tracking-widest font-semibold">
-            Vedi l&apos;app in azione
+            {t.scrollCueText}
           </span>
           <motion.span
             animate={{ y: [0, 6, 0] }}
