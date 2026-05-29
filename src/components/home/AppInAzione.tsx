@@ -221,7 +221,7 @@ export default function AppInAzione() {
           {/* Phone */}
           <div
             className="order-1 md:order-2 relative flex items-center justify-center w-full select-none min-w-0"
-            style={{ perspective: "1400px" }}
+            style={{ perspective: "900px" }}
             onPointerMove={onPointerMove}
             onPointerLeave={onPointerLeave}
             onPointerUp={onPointerUp}
@@ -327,7 +327,11 @@ export default function AppInAzione() {
                 />
               </div>
 
-              {/* Bezel — sits on top of everything, never moves */}
+              {/* Bezel — sits on top of everything, never moves.
+                  Layered filter stack:
+                  - directional black shadow (depth) — bigger, more saturated
+                  - cyan rim light on the lit side (matches brand glow)
+                  - green back-rim accent (subtle, behind) */}
               <Image
                 src="/app/bezel.png"
                 alt=""
@@ -336,7 +340,28 @@ export default function AppInAzione() {
                 height={PHONE_H}
                 priority
                 draggable={false}
-                className="absolute inset-0 w-full h-full pointer-events-none select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]"
+                className="absolute inset-0 w-full h-full pointer-events-none select-none"
+                style={{
+                  filter:
+                    "drop-shadow(36px 50px 70px rgba(0,0,0,0.75)) drop-shadow(-8px -4px 28px rgba(0,212,212,0.18)) drop-shadow(0 0 40px rgba(57,255,20,0.08))",
+                }}
+              />
+
+              {/* Specular highlight strip — fakes the catch of light along
+                  the left edge of the phone. Sits above bezel, follows
+                  the 3D rotation of the wrapper. */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none mix-blend-screen"
+                style={{
+                  background:
+                    "linear-gradient(115deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 18%, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 100%)",
+                  borderRadius: "12%",
+                  WebkitMaskImage: "url(/app/bezel.png)",
+                  maskImage: "url(/app/bezel.png)",
+                  WebkitMaskSize: "100% 100%",
+                  maskSize: "100% 100%",
+                }}
               />
 
               {/* Play CTA — disappears the moment the user interacts.
