@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import LegalLangNotice from "@/components/LegalLangNotice";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -43,6 +44,8 @@ export default function PrivacyPolicyPage() {
             Informativa sul trattamento dei dati personali ai sensi dell&apos;art. 13
             del Regolamento UE 2016/679 (GDPR)
           </p>
+
+          <LegalLangNotice />
 
           <section className="legal-section">
             <h2>1. Titolare del Trattamento</h2>

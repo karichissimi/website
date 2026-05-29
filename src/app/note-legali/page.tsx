@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import LegalLangNotice from "@/components/LegalLangNotice";
 
 export const metadata: Metadata = {
   title: "Note Legali",
@@ -42,6 +43,8 @@ export default function NoteLegaliPage() {
           <p className="text-text-muted text-sm mb-10">
             Termini e condizioni d&apos;uso del sito web — Avvisi legali e disclaimer
           </p>
+
+          <LegalLangNotice />
 
           <section className="legal-section">
             <h2>1. Informazioni sulla Società</h2>

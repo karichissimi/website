@@ -37,9 +37,9 @@ const COPY = {
 const INITIAL_VISIBLE = 6;
 
 interface NewsItem {
-  title: string;
+  title: { it: string; en: string };
   tag: string;
-  detail: string;
+  detail: { it: string; en: string };
   source: string;
   sourceLabel: string;
   accentColor: string;
@@ -47,73 +47,118 @@ interface NewsItem {
 
 const news: NewsItem[] = [
   {
-    title: "Bonus Casa 2026: confermato il 50%",
+    title: {
+      it: "Bonus Casa 2026: confermato il 50%",
+      en: "Home Bonus 2026: 50% confirmed",
+    },
     tag: "50%",
-    detail: "La detrazione per ristrutturazione ed efficientamento resta al 50% per la prima casa (36% per le seconde). Tetto massimo €96.000 per unità immobiliare, in 10 rate annuali. Confermati Ecobonus, Sismabonus e Bonus Mobili.",
+    detail: {
+      it: "La detrazione per ristrutturazione ed efficientamento resta al 50% per la prima casa (36% per le seconde). Tetto massimo €96.000 per unità immobiliare, in 10 rate annuali. Confermati Ecobonus, Sismabonus e Bonus Mobili.",
+      en: "The refurbishment and efficiency tax relief stays at 50% for the primary home (36% for second homes). Cap at €96,000 per unit, spread over 10 yearly instalments. Ecobonus, Sismabonus and Furniture Bonus all confirmed.",
+    },
     source: "https://www.fiscoetasse.com/new-rassegna-stampa/2812-bonus-casa-2026-cosa-ci-aspetta.html",
     sourceLabel: "FISCOeTASSE",
     accentColor: "#39FF14",
   },
   {
-    title: "Case Green: recepimento entro maggio",
+    title: {
+      it: "Case Green: recepimento entro maggio",
+      en: "Green Homes: transposition by May",
+    },
     tag: "EPBD",
-    detail: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Obiettivo: -16% emissioni residenziali entro il 2030. Cambiano le classi energetiche. Il 54% degli edifici italiani è in classe F o G — il gap più ampio d'Europa.",
+    detail: {
+      it: "Entro il 29 maggio 2026 l'Italia deve recepire la direttiva (UE) 2024/1275. Obiettivo: -16% emissioni residenziali entro il 2030. Cambiano le classi energetiche. Il 54% degli edifici italiani è in classe F o G — il gap più ampio d'Europa.",
+      en: "By 29 May 2026 Italy must transpose EU directive 2024/1275. Target: −16% residential emissions by 2030. Energy classes change. 54% of Italian buildings sit in class F or G — the widest gap in Europe.",
+    },
     source: "https://www.altroconsumo.it/casa-energia/casa-condominio/news/nuovo-regolamento-ue-classi-energetiche-edifici",
     sourceLabel: "Altroconsumo",
     accentColor: "#FF4D6D",
   },
   {
-    title: "CER: 795 milioni dal PNRR",
+    title: { it: "CER: 795 milioni dal PNRR", en: "Energy Communities: €795M from PNRR" },
     tag: "CER",
-    detail: "Il CdM ha approvato 795,5 milioni per le Comunità Energetiche Rinnovabili. Tariffa GSE di circa 110 €/MWh per 20 anni. Contributi a fondo perduto per comuni sotto 50.000 abitanti. Lavori da completare entro giugno 2026.",
+    detail: {
+      it: "Il CdM ha approvato 795,5 milioni per le Comunità Energetiche Rinnovabili. Tariffa GSE di circa 110 €/MWh per 20 anni. Contributi a fondo perduto per comuni sotto 50.000 abitanti. Lavori da completare entro giugno 2026.",
+      en: "The Council of Ministers approved €795.5M for Renewable Energy Communities. GSE tariff around €110/MWh for 20 years. Grants for municipalities under 50,000 residents. Works to be completed by June 2026.",
+    },
     source: "https://www.mrkilowatt.it/news/aggiornamento-incentivi/incentivi-fotovoltaico-2026-torna-il-fondo-perduto-per-cer-e-autoconsumo/",
     sourceLabel: "Mr. Kilowatt",
     accentColor: "#00D4D4",
   },
   {
-    title: "Bollette: -9% nel 2026",
+    title: { it: "Bollette: -9% nel 2026", en: "Energy bills: −9% in 2026" },
     tag: "-9%",
-    detail: "Risparmio stimato di €212/famiglia. Gas -12%, elettricità -2%. Attenzione: nel secondo trimestre 2026 aumento dell'8,1% per tensioni geopolitiche. Un'offerta a prezzo fisso può proteggere dalle oscillazioni.",
+    detail: {
+      it: "Risparmio stimato di €212/famiglia. Gas -12%, elettricità -2%. Attenzione: nel secondo trimestre 2026 aumento dell'8,1% per tensioni geopolitiche. Un'offerta a prezzo fisso può proteggere dalle oscillazioni.",
+      en: "Estimated saving of €212 per household. Gas −12%, electricity −2%. Caveat: a +8.1% bump in Q2 2026 driven by geopolitical tensions. A fixed-price contract can hedge against the swings.",
+    },
     source: "https://tg24.sky.it/economia/2025/12/22/bollette-luce-gas-prezzi-2026-dati",
     sourceLabel: "Sky TG24",
     accentColor: "#39FF14",
   },
   {
-    title: "Fotovoltaico: da €7.000 chiavi in mano",
+    title: {
+      it: "Fotovoltaico: da €7.000 chiavi in mano",
+      en: "Solar PV: from €7,000 turn-key",
+    },
     tag: "FV",
-    detail: "Un impianto da 6 kW costa da €6.599 senza accumulo a €12.599 con batteria. Detrazione al 50% fino a 20 kW anche senza ristrutturazione. IVA ridotta al 10%.",
+    detail: {
+      it: "Un impianto da 6 kW costa da €6.599 senza accumulo a €12.599 con batteria. Detrazione al 50% fino a 20 kW anche senza ristrutturazione. IVA ridotta al 10%.",
+      en: "A 6 kW system costs from €6,599 without storage to €12,599 with a battery. 50% tax relief up to 20 kW even without a wider refurbishment. Reduced 10% VAT.",
+    },
     source: "https://www.enpal.com/it/fotovoltaico/guida-ai-costi-di-impianto-fotovoltaico",
     sourceLabel: "Enpal",
     accentColor: "#00D4D4",
   },
   {
-    title: "Conto Termico 3.0: fino al 65%",
+    title: {
+      it: "Conto Termico 3.0: fino al 65%",
+      en: "Conto Termico 3.0: up to 65%",
+    },
     tag: "65%",
-    detail: "Incentivi fino al 65% per efficienza energetica e produzione termica da rinnovabili. Portale GSE sospeso temporaneamente per affluenza record. Privati: solo se abbinato a pompa di calore.",
+    detail: {
+      it: "Incentivi fino al 65% per efficienza energetica e produzione termica da rinnovabili. Portale GSE sospeso temporaneamente per affluenza record. Privati: solo se abbinato a pompa di calore.",
+      en: "Incentives up to 65% for energy efficiency and renewable thermal generation. GSE portal temporarily suspended due to record demand. For individuals: only when combined with a heat pump.",
+    },
     source: "https://www.abcontact.it/conto-termico-3-0-2026/",
     sourceLabel: "AB Contact",
     accentColor: "#FF4D6D",
   },
   {
-    title: "Pompe di calore: -40% in bolletta",
+    title: {
+      it: "Pompe di calore: -40% in bolletta",
+      en: "Heat pumps: −40% on the bill",
+    },
     tag: "PDC",
-    detail: "Riscaldamento, raffrescamento e acqua calda con un unico apparecchio. Risparmio fino al 40% vs caldaia a gas. Incentivabile con Ecobonus al 50% o Conto Termico 3.0 al 65%.",
+    detail: {
+      it: "Riscaldamento, raffrescamento e acqua calda con un unico apparecchio. Risparmio fino al 40% vs caldaia a gas. Incentivabile con Ecobonus al 50% o Conto Termico 3.0 al 65%.",
+      en: "Heating, cooling and hot water from a single appliance. Up to 40% saving vs a gas boiler. Eligible for the 50% Ecobonus or the 65% Conto Termico 3.0.",
+    },
     source: "https://www.sienergyconsulting.it/bonus-caldaia-fotovoltaico-2026-novita/",
     sourceLabel: "Sienergy",
     accentColor: "#39FF14",
   },
   {
-    title: "Classe energetica: +30% sul valore casa",
+    title: {
+      it: "Classe energetica: +30% sul valore casa",
+      en: "Energy class: +30% on home value",
+    },
     tag: "+30%",
-    detail: "Un immobile in classe A vale fino al 30% in più di uno in classe G. Con la direttiva EPBD, gli edifici in classe F e G dovranno essere riqualificati. Chi interviene ora protegge il valore.",
+    detail: {
+      it: "Un immobile in classe A vale fino al 30% in più di uno in classe G. Con la direttiva EPBD, gli edifici in classe F e G dovranno essere riqualificati. Chi interviene ora protegge il valore.",
+      en: "A class A property is worth up to 30% more than a class G one. Under the EPBD directive, F and G buildings will have to be retrofitted. Acting now protects the value.",
+    },
     source: "https://www.giornaletecnologico.net/direttiva-case-green-italia-2026/",
     sourceLabel: "Giornale Tecnologico",
     accentColor: "#00D4D4",
   },
   {
-    title: "Superbonus 110%: chiuso",
+    title: { it: "Superbonus 110%: chiuso", en: "Superbonus 110%: closed" },
     tag: "STOP",
-    detail: "Non più disponibile per l'efficientamento energetico. Resta solo per ricostruzione post-sisma. Alternative: Ecobonus al 50% (prima casa) o Conto Termico 3.0 (fino al 65%).",
+    detail: {
+      it: "Non più disponibile per l'efficientamento energetico. Resta solo per ricostruzione post-sisma. Alternative: Ecobonus al 50% (prima casa) o Conto Termico 3.0 (fino al 65%).",
+      en: "No longer available for energy efficiency. Only stays for post-earthquake reconstruction. Alternatives: 50% Ecobonus (primary home) or Conto Termico 3.0 (up to 65%).",
+    },
     source: "https://aenergy.it/bonus-edilizi-2026/",
     sourceLabel: "AEnergy",
     accentColor: "#FF4D6D",
@@ -200,7 +245,7 @@ export default function EnergiaPillole() {
             const isOpen = openCard === i;
             return (
               <motion.button
-                key={item.title}
+                key={item.tag + item.title.it}
                 onClick={() => setOpenCard(isOpen ? null : i)}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -232,7 +277,7 @@ export default function EnergiaPillole() {
                 {/* Title + micro CTA */}
                 <div className="relative z-10">
                   <p className="text-xs sm:text-sm font-bold text-text-primary leading-snug mb-1 line-clamp-2">
-                    {item.title}
+                    {item.title[lang]}
                   </p>
                   <p
                     className="text-[10px] uppercase tracking-wider font-semibold transition-all"
@@ -293,7 +338,7 @@ export default function EnergiaPillole() {
               className="fixed z-[101] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-lg max-h-[85vh] overflow-y-auto"
               role="dialog"
               aria-modal="true"
-              aria-label={news[openCard].title}
+              aria-label={news[openCard].title[lang]}
             >
               <div
                 className="relative rounded-2xl p-6 sm:p-8 border-2"
@@ -321,12 +366,12 @@ export default function EnergiaPillole() {
 
                 {/* Title */}
                 <h3 className="text-xl sm:text-2xl font-bold text-text-primary leading-tight mb-4">
-                  {news[openCard].title}
+                  {news[openCard].title[lang]}
                 </h3>
 
                 {/* Detail */}
                 <p className="text-text-secondary text-sm sm:text-base leading-relaxed mb-6">
-                  {news[openCard].detail}
+                  {news[openCard].detail[lang]}
                 </p>
 
                 {/* Source + close action */}
