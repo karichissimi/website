@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { haptic } from "@/lib/haptics";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 const COPY = {
   it: {
@@ -66,17 +67,11 @@ export default function HomeHero() {
             src="/graphics/Karica_Logo_Felice.png"
             alt=""
             aria-hidden
-            width={72}
-            height={72}
-            className="h-14 sm:h-18 w-auto animate-float"
+            width={128}
+            height={128}
+            className="h-20 sm:h-32 w-auto animate-float"
           />
-          <Image
-            src="/graphics/Karica_Scritta_WHITE.png"
-            alt="Karica"
-            width={200}
-            height={56}
-            className="h-11 sm:h-14 w-auto"
-          />
+          <KaricaWordmark className="text-[64px] sm:text-[96px]" />
         </motion.div>
 
         {/* Headline */}
@@ -87,11 +82,11 @@ export default function HomeHero() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           {t.headlinePre}
-          <span className="text-gradient">{t.headlineWord1}</span>
+          <span className="text-green-primary">{t.headlineWord1}</span>
           {t.headlineMid}
           <br />
           {t.headlineEnd}
-          <span className="text-gradient">{t.headlineWord2}</span>
+          <span className="text-green-primary">{t.headlineWord2}</span>
         </motion.h1>
 
         {/* Paragraph */}

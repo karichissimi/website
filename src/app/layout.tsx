@@ -7,7 +7,8 @@ import "./globals.css";
 // (font-synthesis in globals.css), like PowerPoint's faux bold/italic.
 const questrial = Questrial({
   weight: "400",
-  subsets: ["latin"],
+  // latin-ext: the wordmark uses dotless "ı" (U+0131) for its leaf tittle
+  subsets: ["latin", "latin-ext"],
   variable: "--font-karica",
   display: "swap",
 });

@@ -69,6 +69,47 @@ img, svg {
   color: #FFFFFF;
 }
 
+/* ── Wordmark "i" — dotless stem + leaf tittle, breathing neon glow ── */
+.wordmark-i {
+  position: relative;
+  display: inline-block;
+  /* The wrapper carries the green→cyan gradient (.text-gradient); the "i"
+     opts out and stays solid brand green, so it keeps popping */
+  -webkit-text-fill-color: #39FF14;
+  animation: wordmark-neon-breathe 3.2s ease-in-out infinite;
+}
+
+/* The tittle: a square with two opposite rounded corners — the most
+   minimal leaf there is. Reads as a dot first, as a leaf on the 3rd look. */
+.wordmark-leaf {
+  position: absolute;
+  top: 0.09em;
+  left: 50%;
+  width: 0.13em;
+  height: 0.13em;
+  background: #39FF14;
+  border-radius: 0 50% 0 50%;
+  /* near-diagonal lean: upright reads as a flame, tilted reads as a leaf */
+  transform: translateX(-50%) rotate(10deg);
+}
+
+/* drop-shadow (not text-shadow) so the glow hugs stem + leaf alike */
+@keyframes wordmark-neon-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(57, 255, 20, 0.55)) drop-shadow(0 0 18px rgba(57, 255, 20, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.85)) drop-shadow(0 0 30px rgba(57, 255, 20, 0.5));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-i {
+    animation: none;
+    filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.6));
+  }
+}
+
 /* ── Gradient text ── */
 .text-gradient {
   background: var(--gradient-green);
