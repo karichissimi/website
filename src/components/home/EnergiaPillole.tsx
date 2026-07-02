@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronDown } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -316,8 +317,10 @@ export default function EnergiaPillole() {
 
       </div>
 
-      {/* News detail modal — opens over the viewport, not inline. User reads
-          without scrolling, closes via X / backdrop / ESC */}
+      {/* News detail modal — portaled to <body> so no ancestor (transforms,
+          overflow) can clip it. User reads without scrolling, closes via
+          X / backdrop / ESC */}
+      {typeof document !== "undefined" && createPortal(
       <AnimatePresence>
         {openCard !== null && (
           <>
@@ -327,7 +330,10 @@ export default function EnergiaPillole() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpenCard(null)}
-              className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm"
+              className="fixed left-0 right-0 z-[100] bg-black/75 backdrop-blur-sm"
+              // Over-extend past the viewport: iOS Safari's collapsing URL bar
+              // can expose a strip above/below a plain inset-0 fixed layer
+              style={{ top: "-25vh", bottom: "-25vh" }}
             />
 
             <motion.div
@@ -399,7 +405,9 @@ export default function EnergiaPillole() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </section>
   );
 }

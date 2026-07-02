@@ -108,8 +108,8 @@ const COPY = {
 } as const;
 
 const AUTOPLAY_MS = 5000;
-const SWIPE_OFFSET = 40;
-const SWIPE_VELOCITY = 300;
+const SWIPE_OFFSET = 30;
+const SWIPE_VELOCITY = 200;
 const SPRING_TRANSITION = { type: "spring", stiffness: 230, damping: 32 } as const;
 
 // Phone canvas + OLED window — kept in sync with the Python pipeline that
@@ -264,14 +264,15 @@ export default function AppInAzione() {
     return () => window.removeEventListener("keydown", onKey);
   }, [current, goTo]);
 
-  // Vertical drag: swipe up = next, swipe down = prev (matches real scroll).
+  // Horizontal drag: swipe left = next, swipe right = prev. Horizontal so it
+  // never fights the page's vertical scroll on touch (and matches the dots).
   const onDragEnd = useCallback(
     (_: unknown, info: PanInfo) => {
       const { offset, velocity } = info;
-      const swipedUp = offset.y < -SWIPE_OFFSET || velocity.y < -SWIPE_VELOCITY;
-      const swipedDown = offset.y > SWIPE_OFFSET || velocity.y > SWIPE_VELOCITY;
-      if (swipedUp) goTo(current + 1, true);
-      else if (swipedDown) goTo(current - 1, true);
+      const swipedLeft = offset.x < -SWIPE_OFFSET || velocity.x < -SWIPE_VELOCITY;
+      const swipedRight = offset.x > SWIPE_OFFSET || velocity.x > SWIPE_VELOCITY;
+      if (swipedLeft) goTo(current + 1, true);
+      else if (swipedRight) goTo(current - 1, true);
     },
     [current, goTo]
   );
@@ -442,21 +443,21 @@ export default function AppInAzione() {
                 {/* Body slot — between the two chrome bars. Only this area
                     receives the drag gesture; nothing else can translate. */}
                 <motion.div
-                  className="absolute left-0 right-0 overflow-hidden cursor-grab active:cursor-grabbing touch-pan-x"
+                  className="absolute left-0 right-0 overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y"
                   style={{
                     top: `${STATUS_HEIGHT_PCT}%`,
                     bottom: `${BROWSER_HEIGHT_PCT}%`,
                   }}
-                  drag="y"
-                  dragConstraints={{ top: 0, bottom: 0 }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.22}
                   dragMomentum={false}
                   onDragStart={() => !interacted && setInteracted(true)}
                   onDragEnd={onDragEnd}
                 >
                   <motion.div
-                    className="absolute inset-0 flex flex-col"
-                    animate={{ y: `-${current * 100}%` }}
+                    className="absolute inset-0 flex flex-row"
+                    animate={{ x: `-${current * 100}%` }}
                     transition={SPRING_TRANSITION}
                   >
                     {stages.map((s, i) => (
