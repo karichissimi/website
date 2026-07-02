@@ -1,21 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Questrial } from "next/font/google";
 import { LangProvider } from "@/lib/i18n";
 import "./globals.css";
 
-const avantGarde = localFont({
-  src: [
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-XLt.otf", weight: "200", style: "normal" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-Bk.otf", weight: "400", style: "normal" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-Md.otf", weight: "500", style: "normal" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-Demi.otf", weight: "600", style: "normal" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-Bold.otf", weight: "700", style: "normal" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-XLtObl.otf", weight: "200", style: "italic" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-BkObl.otf", weight: "400", style: "italic" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-MdObl.otf", weight: "500", style: "italic" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-DemiObl.otf", weight: "600", style: "italic" },
-    { path: "../../public/graphics/KaricaFont/ITCAvantGardePro-BoldObl.otf", weight: "700", style: "italic" },
-  ],
+// Questrial ships only 400/normal — bold and italic are browser-synthesized
+// (font-synthesis in globals.css), like PowerPoint's faux bold/italic.
+const questrial = Questrial({
+  weight: "400",
+  subsets: ["latin"],
   variable: "--font-karica",
   display: "swap",
 });
@@ -105,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className={`${avantGarde.variable} antialiased`}>
+    <html lang="it" className={`${questrial.variable} antialiased`}>
       <head>
         <script
           type="application/ld+json"

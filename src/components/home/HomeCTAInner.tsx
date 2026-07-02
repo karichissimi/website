@@ -14,10 +14,18 @@ const COPY = {
     headlinePre: "Sta arrivando nella ",
     headlineHighlight: "tua zona",
     headlinePost: ".",
-    introWithCount:
-      "Lascia la mail: ti mandiamo l'invito appena Karica arriva nella tua zona.",
-    introOpen:
-      "Karica si sta espandendo per area. Lascia la mail e ti scriviamo quando tocca a te.",
+    introWithCount: (
+      <>
+        Lascia la mail: ti mandiamo <strong className="text-text-primary">l&apos;invito</strong>{" "}
+        appena Karica arriva nella tua zona.
+      </>
+    ),
+    introOpen: (
+      <>
+        Karica si sta espandendo per area. Lascia la mail e ti scriviamo{" "}
+        <em>quando tocca a te</em>.
+      </>
+    ),
     disclaimer: "Niente spam. Solo l'invito quando arriva il tuo turno.",
     locale: "it-IT",
   },
@@ -28,10 +36,18 @@ const COPY = {
     headlinePre: "Coming to ",
     headlineHighlight: "your area",
     headlinePost: ".",
-    introWithCount:
-      "Leave your email — we'll send your invite as soon as Karica lands in your area.",
-    introOpen:
-      "Karica is rolling out area by area. Leave your email and we'll write when it's your turn.",
+    introWithCount: (
+      <>
+        Leave your email — we&apos;ll send <strong className="text-text-primary">your invite</strong>{" "}
+        as soon as Karica lands in your area.
+      </>
+    ),
+    introOpen: (
+      <>
+        Karica is rolling out area by area. Leave your email and we&apos;ll write{" "}
+        <em>when it&apos;s your turn</em>.
+      </>
+    ),
     disclaimer: "No spam. Just the invite when it's your turn.",
     locale: "en-GB",
   },

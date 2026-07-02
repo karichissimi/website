@@ -14,8 +14,12 @@ const COPY = {
     headlineMid: " di casa tua,",
     headlineEnd: "finalmente ",
     headlineWord2: "chiara",
-    intro:
-      "Karica ti mostra quanto sprechi, cosa fare per risparmiare e ti guida passo passo — dalla diagnosi al risultato.",
+    intro: (
+      <>
+        Karica ti mostra <strong className="text-text-primary">quanto sprechi</strong>, cosa fare
+        per risparmiare e ti guida passo passo — <em>dalla diagnosi al risultato</em>.
+      </>
+    ),
     scrollCueLabel: "Scorri per vedere l'app in azione",
     scrollCueText: "Vedi l'app in azione",
   },
@@ -26,8 +30,12 @@ const COPY = {
     headlineMid: ",",
     headlineEnd: "finally ",
     headlineWord2: "clear",
-    intro:
-      "Karica shows you exactly what you're wasting, what to do to save, and walks you through it — from diagnosis to result.",
+    intro: (
+      <>
+        Karica shows you exactly <strong className="text-text-primary">what you&apos;re wasting</strong>,
+        what to do to save, and walks you through it — <em>from diagnosis to result</em>.
+      </>
+    ),
     scrollCueLabel: "Scroll to see the app in action",
     scrollCueText: "See the app in action",
   },
