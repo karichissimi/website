@@ -194,9 +194,9 @@ export default function AppInAzione() {
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      // Mouse hover + finger drag both tilt the phone in 3D so it feels
-      // alive when you touch it. On touch this happens *concurrently* with
-      // the carousel drag gesture, which reads as 'wrestling with the phone'.
+      // Mouse-only: on touch, pointermove fires *while the page scrolls*,
+      // so the phone would tilt/shift during every scroll gesture (jitter).
+      if (e.pointerType !== "mouse") return;
       const rect = e.currentTarget.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;

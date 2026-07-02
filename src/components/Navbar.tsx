@@ -35,6 +35,9 @@ interface NavbarProps {
 // oscillates around a single threshold value.
 const SHOW_THRESHOLD = 120;
 const HIDE_THRESHOLD = 40;
+// The bar only appears after this much *cumulative* upward scroll: filters
+// out phantom up-deltas from momentum bounce / URL-bar resizes on iOS.
+const SHOW_DISTANCE = 64;
 
 export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: NavbarProps) {
   const { lang } = useLang();
@@ -66,19 +69,24 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
   // - show when scrolling up past SHOW_THRESHOLD
   useEffect(() => {
     lastY.current = window.scrollY;
+    let upDistance = 0; // cumulative upward scroll since last direction change
     const onScroll = () => {
       const y = window.scrollY;
-      const goingDown = y > lastY.current;
-      // Ignore tiny iOS rubber-band deltas
-      if (Math.abs(y - lastY.current) < 6) return;
-      if (y < HIDE_THRESHOLD) {
-        setScrolled(false);
-      } else if (goingDown) {
-        setScrolled(false);
-      } else if (y > SHOW_THRESHOLD) {
-        setScrolled(true);
-      }
+      const dy = y - lastY.current;
       lastY.current = y;
+      if (Math.abs(dy) < 2) return;
+      if (y < HIDE_THRESHOLD) {
+        upDistance = 0;
+        setScrolled(false);
+      } else if (dy > 0) {
+        upDistance = 0;
+        setScrolled(false);
+      } else {
+        upDistance += -dy;
+        if (upDistance > SHOW_DISTANCE && y > SHOW_THRESHOLD) {
+          setScrolled(true);
+        }
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

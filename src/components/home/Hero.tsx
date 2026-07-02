@@ -18,7 +18,8 @@ const COPY = {
     intro: (
       <>
         Karica ti mostra <strong className="text-text-primary">quanto sprechi</strong>, cosa fare
-        per risparmiare e ti guida passo passo — <em>dalla diagnosi al risultato</em>.
+        per risparmiare e ti guida passo passo —{" "}
+        <em className="whitespace-nowrap">dalla diagnosi al risultato</em>.
       </>
     ),
     scrollCueLabel: "Scorri per vedere l'app in azione",
@@ -34,7 +35,8 @@ const COPY = {
     intro: (
       <>
         Karica shows you exactly <strong className="text-text-primary">what you&apos;re wasting</strong>,
-        what to do to save, and walks you through it — <em>from diagnosis to result</em>.
+        what to do to save, and walks you through it —{" "}
+        <em className="whitespace-nowrap">from diagnosis to result</em>.
       </>
     ),
     scrollCueLabel: "Scroll to see the app in action",

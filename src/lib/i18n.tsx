@@ -146,7 +146,7 @@ export function FlagIT({ className = "" }: { className?: string }) {
 export function LangInline() {
   const { lang, setLang } = useLang();
   const base =
-    "flex items-center justify-center w-5 h-5 rounded-sm transition-all";
+    "flex items-center justify-center w-6 h-6 rounded-sm transition-all";
   const active = "ring-1 ring-green-primary/70 shadow-[0_0_8px_rgba(57,255,20,0.25)] opacity-100";
   const inactive = "opacity-35 hover:opacity-75";
 
@@ -154,7 +154,7 @@ export function LangInline() {
     <div
       role="group"
       aria-label="Language switcher"
-      className="hidden sm:inline-flex items-center gap-1 ml-2 pl-2 border-l border-card-border/60"
+      className="inline-flex items-center gap-1 ml-2 pl-2 border-l border-card-border/60"
     >
       <button
         type="button"
