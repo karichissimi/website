@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FileText, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 const COPY = {
   it: {
@@ -125,14 +126,7 @@ export default function DetrazioneContent() {
               priority
               className="h-12 sm:h-14 w-auto animate-float"
             />
-            <Image
-              src="/graphics/Karica_Scritta_WHITE.png"
-              alt="Karica"
-              width={160}
-              height={44}
-              priority
-              className="h-9 sm:h-11 w-auto"
-            />
+            <KaricaWordmark className="text-[50px] sm:text-[60px]" />
           </div>
 
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 mb-6">

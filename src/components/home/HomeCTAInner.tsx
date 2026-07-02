@@ -3,6 +3,7 @@
 import Image from "next/image";
 import WaitlistForm from "./WaitlistForm";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 const COUNT_THRESHOLD = 100;
 
@@ -73,13 +74,7 @@ export default function HomeCTAInner({ count }: { count: number | null }) {
             height={48}
             className="h-12 w-auto animate-float-slow"
           />
-          <Image
-            src="/graphics/Karica_Scritta_WHITE.png"
-            alt="Karica"
-            width={140}
-            height={40}
-            className="h-9 w-auto"
-          />
+          <KaricaWordmark className="text-[50px]" />
         </div>
 
         {/* Social-proof / status pill */}

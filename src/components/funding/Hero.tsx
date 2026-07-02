@@ -9,6 +9,7 @@ import KpiModal from "../KpiModal";
 import FundingBanner from "../FundingBanner";
 import { haptic } from "@/lib/haptics";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 interface Kpi {
   prefix: string;
@@ -218,13 +219,7 @@ export default function Hero() {
               height={64}
               className="h-16 w-auto animate-float"
             />
-            <Image
-              src="/graphics/Karica_Scritta_WHITE.png"
-              alt="Karica"
-              width={180}
-              height={50}
-              className="h-11 sm:h-12 w-auto"
-            />
+            <KaricaWordmark className="text-[60px] sm:text-[66px]" />
           </motion.div>
 
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-text-primary leading-[1.15] mb-5">

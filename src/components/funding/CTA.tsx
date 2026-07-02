@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { haptic } from "@/lib/haptics";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 const COPY = {
   it: {
@@ -156,13 +157,7 @@ export default function CTA() {
               height={44}
               className="h-11 w-auto animate-float-slow"
             />
-            <Image
-              src="/graphics/Karica_Scritta_WHITE.png"
-              alt="Karica"
-              width={120}
-              height={34}
-              className="h-8 w-auto"
-            />
+            <KaricaWordmark className="text-[44px]" />
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-text-primary mb-3">
             {t.titlePre}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import LegalLangNotice from "@/components/LegalLangNotice";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -24,13 +25,7 @@ export default function PrivacyPolicyPage() {
               height={28}
               className="h-7 w-auto"
             />
-            <Image
-              src="/graphics/Karica_Scritta_WHITE.png"
-              alt="Karica"
-              width={100}
-              height={28}
-              className="h-5 w-auto"
-            />
+            <KaricaWordmark className="text-[28px]" />
           </Link>
         </div>
       </nav>

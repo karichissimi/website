@@ -22,11 +22,11 @@ const logos: LocalisedAsset[] = [
     description: { it: "Trasparente, ottimo su sfondi scuri", en: "Transparent, ideal on dark backgrounds" },
   },
   {
-    href: "/graphics/Karica_Scritta_WHITE.png",
-    preview: "/graphics/Karica_Scritta_WHITE.png",
-    filename: "karica-wordmark-white.png",
-    label: { it: "Wordmark bianco", en: "White wordmark" },
-    description: { it: "Per sfondi scuri", en: "For dark backgrounds" },
+    href: "/graphics/Karica_Wordmark.png",
+    preview: "/graphics/Karica_Wordmark.png",
+    filename: "karica-wordmark.png",
+    label: { it: "Wordmark gradiente", en: "Gradient wordmark" },
+    description: { it: "Trasparente, con foglia sulla i — il logo ufficiale", en: "Transparent, leaf-dotted i — the official wordmark" },
   },
   {
     href: "/graphics/Karica_Scritta_BLU.png",

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 type LocalisedLabel = string | { it: string; en: string };
 
@@ -55,13 +56,7 @@ export default function Footer({ links, showDisclaimer = false }: FooterProps) {
               height={24}
               className="h-6 w-auto"
             />
-            <Image
-              src="/graphics/Karica_Scritta_WHITE.png"
-              alt="Karica"
-              width={80}
-              height={22}
-              className="h-4 w-auto"
-            />
+            <KaricaWordmark className="text-[22px]" />
           </Link>
           <div className="flex items-center gap-6 text-xs text-text-muted">
             {links.map((link) => (

@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { haptic } from "@/lib/haptics";
 import { useLang, LangInline } from "@/lib/i18n";
+import KaricaWordmark from "@/components/KaricaWordmark";
 
 type LocalisedLabel = string | { it: string; en: string };
 
@@ -137,14 +138,7 @@ export default function Navbar({ links = [], cta, logoHref = "/", inlineCta }: N
                   priority
                   className="h-7 w-auto"
                 />
-                <Image
-                  src="/graphics/Karica_Scritta_WHITE.png"
-                  alt="Karica"
-                  width={100}
-                  height={28}
-                  priority
-                  className="h-5 w-auto"
-                />
+                <KaricaWordmark className="text-[28px]" />
               </Link>
               <LangInline />
             </div>
