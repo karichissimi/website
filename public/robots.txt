@@ -4,6 +4,7 @@ Allow: /
 # Pagine riservate / link-only (anche se noindex via metadata,
 # le elenchiamo qui per chiarezza ai crawler).
 Disallow: /investiora
+Disallow: /investordeck
 Disallow: /detrazione
 Disallow: /whoweare
 Disallow: /press

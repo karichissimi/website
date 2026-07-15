@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const BASE = "https://karica.it";
 
 // Lista esplicita delle sole pagine pubbliche.
-// Le rotte noindex (/investiora, /detrazione, /whoweare, /press) NON vanno in sitemap.
+// Le rotte noindex (/investiora, /investordeck, /detrazione, /whoweare, /press) NON vanno in sitemap.
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
