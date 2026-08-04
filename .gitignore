@@ -34,7 +34,8 @@ yarn-error.log*
 .env*
 
 # claude code
-.claude/
+.claude/*
+!.claude/settings.json
 
 # local AI tooling configs (skills, agents, etc.) — keep out of repo
 .adal/
@@ -78,3 +79,7 @@ skills-lock.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# La configurazione del metodo di lavoro va versionata: serve anche alle sessioni cloud,
+# che partono da una macchina pulita e non trovano nulla di locale.
+!.claude/settings.json
