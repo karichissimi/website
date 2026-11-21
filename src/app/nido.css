@@ -1,0 +1,405 @@
+/* "Il nido" — Karica Brand Guidelines v0.1 for the public pages.
+   Cream paper, night-blue ink, rare green; solid outlines and offset shadows
+   with no blur; Poppins + Space Mono. Scoped under .nido: the reserved pages
+   (/investiora, /detrazione, /whoweare, /press) keep the previous dark theme. */
+
+body:has(.nido) {
+  background-color: #fbf3e5;
+}
+
+.nido {
+  --nd-green: #45ff4a;
+  --nd-ink: #0e1b2a;
+  --nd-navy: #0a2f41;
+  --nd-cyan: #5de3e1;
+  --nd-cream: #fbf3e5;
+  --nd-cream-dark: #f4e7d0;
+  --nd-paper: #fffdf7;
+  --nd-teal: #1ba6a6;
+  --nd-teal-text: #117373;
+  --nd-slate: #4a5b68;
+  --nd-sun: #ffd84d;
+  --nd-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--nd-cream);
+  color: var(--nd-ink);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-synthesis: none;
+}
+
+.nido > main {
+  flex: 1;
+}
+
+.nido ::selection {
+  background: var(--nd-green);
+  color: var(--nd-ink);
+}
+
+.nido :focus-visible {
+  outline: 3px solid var(--nd-teal-text);
+  outline-offset: 3px;
+}
+
+.nido h1,
+.nido h2 {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+
+/* ── Header ── */
+.nd-header {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nd-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--nd-ink);
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.nd-logo img {
+  height: 2.5rem;
+  width: auto;
+}
+
+.nd-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.nd-navlink {
+  font-family: var(--nd-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nd-ink);
+}
+
+.nd-navlink:hover {
+  color: var(--nd-teal-text);
+}
+
+.nd-lang {
+  display: inline-flex;
+  border: 2px solid var(--nd-ink);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--nd-paper);
+}
+
+.nd-lang button {
+  font-family: var(--nd-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.65rem;
+  color: var(--nd-ink);
+  background: transparent;
+  cursor: pointer;
+}
+
+.nd-lang button[aria-pressed="true"] {
+  background: var(--nd-ink);
+  color: var(--nd-cream);
+}
+
+/* ── Buttons: pill, 2px ink outline, solid offset shadow ── */
+.nd-btn,
+.nido a.bg-green-primary,
+.nido button.bg-green-primary,
+.nido a.border.border-card-border {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--nd-ink);
+  background: var(--nd-green);
+  border: 2px solid var(--nd-ink);
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 5px 0 var(--nd-ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nd-btn:hover,
+.nido a.bg-green-primary:hover,
+.nido button.bg-green-primary:hover,
+.nido a.border.border-card-border:hover {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 var(--nd-ink);
+  color: var(--nd-ink);
+}
+
+.nd-btn:active,
+.nido a.bg-green-primary:active,
+.nido button.bg-green-primary:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--nd-ink);
+}
+
+.nd-btn:disabled {
+  background: var(--nd-cream-dark);
+  color: var(--nd-slate);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 5px 0 var(--nd-ink);
+}
+
+.nd-btn--small {
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  box-shadow: 0 4px 0 var(--nd-ink);
+}
+
+.nido a.border.border-card-border {
+  background: var(--nd-paper);
+}
+
+/* ── Footer: the dark section ── */
+.nd-footer {
+  background: var(--nd-ink);
+  color: var(--nd-cream);
+  border-top: 4px solid var(--nd-green);
+}
+
+.nd-footer-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.nd-footer-brand {
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--nd-cream);
+}
+
+.nd-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  font-family: var(--nd-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nd-footer-links a {
+  color: var(--nd-cyan);
+}
+
+.nd-footer-links a:hover {
+  color: var(--nd-green);
+}
+
+.nd-footer-legal {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--nd-cream);
+  opacity: 0.75;
+}
+
+/* ══ Remap layer ══
+   Storia, Contatti and the legal pages keep their markup: these rules
+   translate the old dark-theme utilities into the new palette. */
+.nido .text-text-primary,
+.nido .text-text-secondary {
+  color: var(--nd-ink);
+}
+
+.nido .text-text-muted,
+.nido .text-text-disabled {
+  color: var(--nd-slate);
+}
+
+.nido .text-green-primary,
+.nido .text-cyan-accent,
+.nido .text-pink-accent {
+  color: var(--nd-teal-text);
+}
+
+/* Kickers and small labels → Space Mono, uppercase, spaced */
+.nido p.uppercase,
+.nido span.uppercase {
+  font-family: var(--nd-mono);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.nido .bg-bg-darker {
+  background-color: var(--nd-cream);
+}
+
+.nido .bg-bg-dark {
+  background-color: var(--nd-cream-dark);
+}
+
+.nido .bg-card-bg {
+  background-color: var(--nd-paper);
+}
+
+.nido .border-card-border {
+  border-color: var(--nd-ink);
+}
+
+/* No glows, no gradients, no blurred shadows */
+.nido .glow-orb,
+.nido .glow-orb-slow,
+.nido .dot-grid,
+.nido [class*="blur-"] {
+  display: none;
+}
+
+.nido [class*="shadow-["] {
+  box-shadow: none;
+}
+
+/* Gradient text → ink with one marker stroke behind it */
+.nido .text-gradient {
+  background: linear-gradient(
+    transparent 62%,
+    var(--nd-green) 62%,
+    var(--nd-green) 94%,
+    transparent 94%
+  );
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  border-radius: 0.2em;
+  padding: 0 0.08em;
+}
+
+/* Cards: rounded 22px, solid outline, offset shadow */
+.nido .card-glow {
+  background: var(--nd-paper);
+  border: 2px solid var(--nd-ink);
+  border-radius: 22px;
+  box-shadow: 6px 6px 0 var(--nd-ink);
+}
+
+.nido .card-glow::before {
+  display: none;
+}
+
+.nido a.card-glow:hover {
+  box-shadow: 6px 6px 0 var(--nd-teal);
+}
+
+.nido [class*="bg-green-primary/"],
+.nido [class*="bg-cyan-accent/"] {
+  background-color: var(--nd-cream-dark);
+}
+
+.nido [class*="border-green-primary/"],
+.nido [class*="border-cyan-accent/"] {
+  border-color: var(--nd-ink);
+}
+
+.nido [class*="from-green-primary"] {
+  background: var(--nd-green);
+  border: 2px solid var(--nd-ink);
+}
+
+.nido .bg-green-primary {
+  background-color: var(--nd-green);
+}
+
+.nido [class*="hover:text-green-primary"]:hover {
+  color: var(--nd-teal-text);
+}
+
+.nido .section-divider {
+  height: 2px;
+  background: var(--nd-ink);
+  opacity: 0.15;
+}
+
+.nido .font-mono {
+  font-family: var(--nd-mono);
+}
+
+.nido a.bg-green-primary > span[aria-hidden] {
+  display: none;
+}
+
+/* Legal prose */
+.nido .prose-legal h1 {
+  font-weight: 800;
+}
+
+.nido .prose-legal h2,
+.nido .prose-legal h3,
+.nido .prose-legal strong {
+  color: var(--nd-ink);
+}
+
+.nido .prose-legal p,
+.nido .prose-legal li,
+.nido .prose-legal td,
+.nido .prose-legal th,
+.nido .prose-legal address {
+  color: var(--nd-ink);
+}
+
+.nido .prose-legal a {
+  color: var(--nd-teal-text);
+  text-decoration: underline;
+}
+
+.nido .prose-legal .legal-section,
+.nido .prose-legal table,
+.nido .prose-legal th,
+.nido .prose-legal td {
+  border-color: var(--nd-cream-dark);
+}
+
+@media (max-width: 560px) {
+  .nd-header-cta,
+  .nd-navlink {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nd-btn {
+    transition: none;
+  }
+}

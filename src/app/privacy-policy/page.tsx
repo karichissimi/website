@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import NidoShell from "@/components/nido/NidoShell";
 import LegalLangNotice from "@/components/LegalLangNotice";
-import KaricaWordmark from "@/components/KaricaWordmark";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -12,25 +11,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      {/* Minimal top bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-darker/80 backdrop-blur-md border-b border-card-border">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/graphics/Karica_Logo_Felice.png"
-              alt=""
-              aria-hidden
-              width={28}
-              height={28}
-              className="h-7 w-auto"
-            />
-            <KaricaWordmark className="text-[28px]" />
-          </Link>
-        </div>
-      </nav>
+    <NidoShell>
 
-      <main id="main" className="pt-28 pb-20 px-4 sm:px-6">
+      <main id="main" className="pt-14 pb-20 px-4 sm:px-6">
         <article className="max-w-3xl mx-auto prose-legal">
           <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-2">
             Privacy Policy
@@ -245,19 +228,6 @@ export default function PrivacyPolicyPage() {
           </section>
         </article>
       </main>
-
-      {/* Minimal footer */}
-      <footer className="bg-bg-darker border-t border-card-border py-8">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-3">
-          <div className="flex items-center justify-center gap-6 text-xs text-text-muted">
-            <Link href="/cookie-policy" className="hover:text-text-secondary transition-colors">Cookie Policy</Link>
-            <Link href="/note-legali" className="hover:text-text-secondary transition-colors">Note Legali</Link>
-          </div>
-          <p className="text-text-disabled text-xs">
-            &copy; {new Date().getFullYear()} Karica S.r.l. — Via Vallarsa 11, Milano — P.IVA 14470800963
-          </p>
-        </div>
-      </footer>
-    </>
+    </NidoShell>
   );
 }

@@ -8,8 +8,8 @@ import { useLang } from "@/lib/i18n";
 const COPY = {
   it: {
     kicker: "Manifesto",
-    titleLine1: "L'energia di casa tua,",
-    titleHighlight: "finalmente chiara.",
+    titleLine1: "Perché esiste",
+    titleHighlight: "Karica.",
     intro:
       "Karica nasce dall'idea che la transizione energetica italiana non abbia un problema di soluzioni — ne ha uno di mediazione. Ecco perché esistiamo.",
     problemKicker: "Il problema",
@@ -67,8 +67,8 @@ const COPY = {
   },
   en: {
     kicker: "Manifesto",
-    titleLine1: "Your home energy,",
-    titleHighlight: "finally clear.",
+    titleLine1: "Why Karica",
+    titleHighlight: "exists.",
     intro:
       "Karica is built on a single idea: Italy's energy transition doesn't have a solutions problem — it has a mediation problem. That's why we exist.",
     problemKicker: "The problem",

@@ -1,0 +1,311 @@
+/* Countdown home — "momento forte": night blue + green, one screen. */
+.cd-hero {
+  min-height: 100svh;
+  background: var(--nd-ink);
+  color: var(--nd-cream);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.25rem clamp(1.25rem, 5vw, 4.5rem) 1.5rem;
+}
+
+.cd-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cd-brand {
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.cd-top-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cd-date,
+.cd-eyebrow,
+.cd-unit-label {
+  font-family: var(--nd-mono);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cd-date {
+  font-size: 0.75rem;
+  color: var(--nd-cyan);
+}
+
+.cd-hero .nd-lang {
+  border-color: var(--nd-cream);
+  background: transparent;
+}
+
+.cd-hero .nd-lang button {
+  color: var(--nd-cream);
+}
+
+.cd-hero .nd-lang button[aria-pressed="true"] {
+  background: var(--nd-cream);
+  color: var(--nd-ink);
+}
+
+.cd-stage {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vh, 3rem);
+}
+
+.cd-clock {
+  display: flex;
+  gap: clamp(0.6rem, 2.4vw, 2.5rem);
+  color: var(--nd-green);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 16.5vw, 15rem);
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.6rem, 1.6vw, 1.4rem);
+}
+
+.cd-unit-label {
+  font-size: clamp(0.6rem, 1.1vw, 0.9rem);
+  line-height: 1;
+  color: var(--nd-cream);
+  padding-left: 0.3em;
+}
+
+/* The four messages are stacked in one grid cell: the tallest sets the
+   height, so nothing jumps when they rotate. */
+.nido h1.cd-spots {
+  display: grid;
+  max-width: 21ch;
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4.4vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.cd-spot {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.35em);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.cd-spot--on {
+  opacity: 1;
+  transform: none;
+}
+
+.cd-spot em {
+  font-style: normal;
+  color: var(--nd-cyan);
+}
+
+.cd-bird {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: clamp(5rem, 13vw, 12rem);
+  height: auto;
+}
+
+.cd-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.9rem 1.5rem;
+}
+
+.cd-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  padding-bottom: 5px;
+}
+
+.cd-input {
+  flex: 1 1 14rem;
+  max-width: 24rem;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--nd-cream);
+  background: transparent;
+  border: 2px solid var(--nd-cream);
+  border-radius: 999px;
+  padding: 0.75rem 1.3rem;
+}
+
+.cd-input::placeholder {
+  color: var(--nd-cream);
+  opacity: 0.6;
+}
+
+.cd-input:focus {
+  outline: none;
+  border-color: var(--nd-green);
+}
+
+.cd-hero .nd-btn {
+  box-shadow: 0 5px 0 var(--nd-teal);
+}
+
+.cd-hero .nd-btn:hover {
+  box-shadow: 0 3px 0 var(--nd-teal);
+}
+
+.cd-ok {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--nd-green);
+}
+
+.cd-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cd-dot {
+  width: 2rem;
+  height: 5px;
+  border-radius: 9px;
+  background: var(--nd-cream);
+  opacity: 0.3;
+}
+
+.cd-dot--on {
+  background: var(--nd-green);
+  opacity: 1;
+}
+
+.cd-small {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--nd-cream);
+  opacity: 0.75;
+}
+
+.cd-small[role="alert"] {
+  opacity: 1;
+  color: var(--nd-sun);
+  font-weight: 600;
+}
+
+.cd-small a {
+  text-decoration: underline;
+}
+
+/* ── Below the fold: four short answers on cream ── */
+.cd-faq {
+  background: var(--nd-cream);
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4.5rem);
+}
+
+.cd-faq-inner {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.cd-eyebrow {
+  font-size: 0.75rem;
+  color: var(--nd-teal-text);
+}
+
+.cd-faq h2 {
+  margin: 0.8rem 0 2.5rem;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.cd-mark {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+
+.cd-mark::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.1em;
+  right: -0.12em;
+  bottom: 0.03em;
+  height: 0.36em;
+  background: var(--nd-green);
+  border-radius: 0.5em 0.2em 0.45em 0.25em / 0.2em 0.5em 0.25em 0.45em;
+  transform: rotate(-1.2deg);
+}
+
+.cd-faq-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 2rem 3rem;
+  margin: 0 0 3rem;
+}
+
+.cd-faq-item {
+  border-top: 3px solid var(--nd-ink);
+  padding-top: 1rem;
+}
+
+.cd-faq-item dt {
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.cd-faq-item dd {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  max-width: 60ch;
+}
+
+@media (max-width: 640px) {
+  .cd-date {
+    display: none;
+  }
+  .cd-bird {
+    position: static;
+    align-self: flex-end;
+    margin-top: -1rem;
+  }
+  .cd-bottom {
+    grid-template-columns: 1fr;
+  }
+  .cd-form .nd-btn {
+    flex: 1 1 100%;
+  }
+  .cd-input {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cd-spot {
+    transition: none;
+    transform: none;
+  }
+}

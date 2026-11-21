@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 import ContattiInner from "./ContattiInner";
 
 export const metadata: Metadata = {
@@ -18,14 +17,10 @@ export const metadata: Metadata = {
   },
 };
 
-const footerLinks = [{ label: "Home", href: "/" }];
-
 export default function ContattiPage() {
   return (
-    <>
-      <Navbar />
+    <NidoShell>
       <ContattiInner />
-      <Footer links={footerLinks} />
-    </>
+    </NidoShell>
   );
 }

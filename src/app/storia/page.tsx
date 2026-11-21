@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 import StoriaContent from "./StoriaContent";
 
 export const metadata: Metadata = {
@@ -19,14 +18,10 @@ export const metadata: Metadata = {
   },
 };
 
-const footerLinks = [{ label: "Home", href: "/" }];
-
 export default function StoriaPage() {
   return (
-    <>
-      <Navbar inlineCta={{ label: { it: "Contattaci →", en: "Contact us →" }, href: "/contatti" }} />
+    <NidoShell>
       <StoriaContent />
-      <Footer links={footerLinks} />
-    </>
+    </NidoShell>
   );
 }
