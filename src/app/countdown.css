@@ -72,7 +72,7 @@
   color: var(--nd-green);
   font-weight: 800;
   font-size: clamp(2.4rem, 15.5vw, 15rem);
-  line-height: 0.82;
+  line-height: 0.8;
   letter-spacing: 0;
 }
 
@@ -86,18 +86,28 @@
   text-align: center;
 }
 
+/* Label above the number, a solid rule on top (brand guidelines: "etichetta
+   sopra in Space Mono, una riga piena a dividere"). */
 .cd-unit {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(0.6rem, 1.6vw, 1.4rem);
+  gap: clamp(0.7rem, 1.8vw, 1.6rem);
+  border-top: clamp(3px, 0.45vw, 6px) solid var(--nd-cream);
+  padding-top: clamp(0.5rem, 1vw, 0.9rem);
 }
 
 .cd-unit-label {
-  font-size: clamp(0.6rem, 1.1vw, 0.9rem);
+  font-size: clamp(0.66rem, 3.1vw, 1.6rem);
   line-height: 1;
   color: var(--nd-cream);
-  padding-left: 0.3em;
+  white-space: nowrap;
+}
+
+/* Seconds are the only unit that visibly ticks: cyan sets them apart from
+   the three that carry the message. */
+.cd-unit:last-child .cd-num {
+  color: var(--nd-cyan);
 }
 
 /* The four messages are stacked in one grid cell: the tallest sets the

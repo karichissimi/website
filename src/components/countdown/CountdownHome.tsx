@@ -14,7 +14,7 @@ const ROTATE_MS = 4000;
 const COPY = {
   it: {
     date: "15.12.2026 · ore 11:00",
-    units: ["Giorni", "Ore", "Min", "Sec"],
+    units: ["Giorni", "Ore", "Minuti", "Secondi"],
     countdownLabel: (d: number, h: number, m: number) =>
       `Mancano ${d} giorni, ${h} ore e ${m} minuti al 15 dicembre 2026 alle 11:00`,
     spots: [
@@ -39,7 +39,7 @@ const COPY = {
   },
   en: {
     date: "15.12.2026 · 11:00 CET",
-    units: ["Days", "Hours", "Min", "Sec"],
+    units: ["Days", "Hours", "Minutes", "Seconds"],
     countdownLabel: (d: number, h: number, m: number) =>
       `${d} days, ${h} hours and ${m} minutes to 15 December 2026, 11:00 CET`,
     spots: [
@@ -143,6 +143,7 @@ export default function CountdownHome() {
           >
             {t.units.map((unit, i) => (
               <div key={unit} className="cd-unit" aria-hidden>
+                <span className="cd-unit-label">{unit}</span>
                 <span className="cd-num">
                   {/* One fixed-width slot per digit: Poppins digits have
                       different widths ("1" is half a "0"), so without slots
@@ -153,7 +154,6 @@ export default function CountdownHome() {
                     </span>
                   ))}
                 </span>
-                <span className="cd-unit-label">{unit}</span>
               </div>
             ))}
           </div>
