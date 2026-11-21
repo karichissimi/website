@@ -143,7 +143,16 @@ export default function CountdownHome() {
           >
             {t.units.map((unit, i) => (
               <div key={unit} className="cd-unit" aria-hidden>
-                <span className="cd-num">{left ? pad(left.parts[i]) : "––"}</span>
+                <span className="cd-num">
+                  {/* One fixed-width slot per digit: Poppins digits have
+                      different widths ("1" is half a "0"), so without slots
+                      the whole clock would shift every second. */}
+                  {(left ? pad(left.parts[i]) : "––").split("").map((ch, k) => (
+                    <span key={k} className="cd-digit">
+                      {ch}
+                    </span>
+                  ))}
+                </span>
                 <span className="cd-unit-label">{unit}</span>
               </div>
             ))}
