@@ -1,0 +1,450 @@
+/* Investor deck page — Karica Brand Guidelines v0.1 ("Il nido").
+   Cream paper, night-blue ink, rare green. Solid outlines, offset shadows
+   with no blur, marker highlight, Poppins + Space Mono.
+   Everything is scoped under .kd-root so the rest of the site is untouched. */
+
+body:has(.kd-root) {
+  background-color: #fbf3e5;
+}
+
+.kd-root {
+  --kd-green: #45ff4a;
+  --kd-ink: #0e1b2a;
+  --kd-navy: #0a2f41;
+  --kd-cyan: #5de3e1;
+  --kd-cream: #fbf3e5;
+  --kd-cream-dark: #f4e7d0;
+  --kd-paper: #fffdf7;
+  --kd-teal: #1ba6a6;
+  --kd-teal-text: #117373;
+  --kd-slate: #4a5b68;
+  --kd-sun: #ffd84d;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--kd-cream);
+  color: var(--kd-ink);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-synthesis: none;
+  line-height: 1.5;
+}
+
+.kd-root ::selection {
+  background: var(--kd-green);
+  color: var(--kd-ink);
+}
+
+.kd-root :focus-visible {
+  outline: 3px solid var(--kd-teal-text);
+  outline-offset: 3px;
+}
+
+/* ── Header ── */
+.kd-header {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kd-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--kd-ink);
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.kd-logo img {
+  height: 2.5rem;
+  width: auto;
+}
+
+.kd-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.kd-lang {
+  display: inline-flex;
+  border: 2px solid var(--kd-ink);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--kd-paper);
+}
+
+.kd-lang button {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.65rem;
+  color: var(--kd-ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.kd-lang button[aria-pressed="true"] {
+  background: var(--kd-ink);
+  color: var(--kd-cream);
+}
+
+/* ── Labels (Space Mono, uppercase, spaced) ── */
+.kd-eyebrow {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kd-teal-text);
+}
+
+/* ── Buttons: pill, 2px ink outline, solid offset shadow ── */
+.kd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: var(--kd-ink);
+  background: var(--kd-green);
+  border: 2px solid var(--kd-ink);
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  box-shadow: 0 5px 0 var(--kd-ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kd-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 var(--kd-ink);
+}
+
+.kd-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--kd-ink);
+}
+
+.kd-btn:disabled {
+  background: var(--kd-cream-dark);
+  color: var(--kd-slate);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 5px 0 var(--kd-ink);
+}
+
+.kd-btn--paper {
+  background: var(--kd-paper);
+}
+
+.kd-btn--small {
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  box-shadow: 0 4px 0 var(--kd-ink);
+}
+
+.kd-btn--block {
+  width: 100%;
+}
+
+/* ── Main ── */
+.kd-main {
+  flex: 1;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.kd-spinner {
+  color: var(--kd-teal-text);
+  padding: 6rem 0;
+}
+
+/* ── Titles + marker highlight ── */
+.kd-title {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--kd-ink);
+  margin: 0;
+}
+
+.kd-mark {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+
+.kd-mark::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.12em;
+  right: -0.14em;
+  bottom: 0.02em;
+  height: 0.36em;
+  background: var(--kd-green);
+  border-radius: 0.5em 0.2em 0.45em 0.25em / 0.2em 0.5em 0.25em 0.45em;
+  transform: rotate(-1.2deg);
+}
+
+/* ── Card: rounded 22px, solid outline, offset shadow without blur ── */
+.kd-card {
+  background: var(--kd-paper);
+  border: 2px solid var(--kd-ink);
+  border-radius: 22px;
+  box-shadow: 7px 7px 0 var(--kd-ink);
+}
+
+/* ── Gate ── */
+.kd-gate {
+  width: 100%;
+  max-width: 30rem;
+}
+
+.kd-gate .kd-card {
+  padding: 2.25rem 1.75rem 2rem;
+}
+
+.kd-gate .kd-title {
+  font-size: clamp(2.6rem, 9vw, 3.5rem);
+  margin-top: 0.9rem;
+}
+
+.kd-intro {
+  margin: 1.1rem 0 1.75rem;
+  font-size: 1.05rem;
+  color: var(--kd-ink);
+}
+
+.kd-field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.kd-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1.05rem;
+  color: var(--kd-ink);
+  background: var(--kd-cream);
+  border: 2px solid var(--kd-ink);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+}
+
+.kd-input::placeholder {
+  color: var(--kd-slate);
+}
+
+.kd-input:focus {
+  outline: none;
+  background: var(--kd-paper);
+  box-shadow: 4px 4px 0 var(--kd-teal);
+}
+
+.kd-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.9rem 0 0;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--kd-ink);
+  background: var(--kd-sun);
+  border: 2px solid var(--kd-ink);
+  border-radius: 12px;
+}
+
+.kd-gate form .kd-btn {
+  margin-top: 1.5rem;
+}
+
+.kd-note {
+  margin: 1.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--kd-slate);
+}
+
+.kd-gate .kd-note {
+  text-align: center;
+  margin-top: 1.75rem;
+}
+
+/* ── Unlocked deck ── */
+.kd-deck {
+  width: 100%;
+  max-width: 64rem;
+}
+
+.kd-deck-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kd-deck-head .kd-title {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  margin-top: 0.7rem;
+}
+
+.kd-deck-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  padding-bottom: 5px;
+}
+
+.kd-viewer {
+  background: var(--kd-ink);
+  border: 2px solid var(--kd-ink);
+  border-radius: 22px;
+  box-shadow: 7px 7px 0 var(--kd-teal);
+  overflow: hidden;
+}
+
+.kd-viewer-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 6rem 1.5rem;
+  text-align: center;
+  color: var(--kd-cream);
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.kd-viewer-status svg {
+  color: var(--kd-green);
+}
+
+.kd-viewer-status--error {
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.kd-viewer-status--error svg {
+  color: var(--kd-sun);
+}
+
+.kd-pages {
+  max-height: 82vh;
+  overflow-y: auto;
+}
+
+.kd-pages > canvas + canvas {
+  margin-top: 6px;
+}
+
+.kd-pages--hidden {
+  height: 0;
+  overflow: hidden;
+}
+
+/* ── Footer: the dark section, night blue ── */
+.kd-footer {
+  background: var(--kd-ink);
+  color: var(--kd-cream);
+  border-top: 4px solid var(--kd-green);
+}
+
+.kd-footer-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.kd-footer-brand {
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--kd-cream);
+  text-decoration: none;
+}
+
+.kd-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.kd-footer-links a {
+  color: var(--kd-cyan);
+  text-decoration: none;
+}
+
+.kd-footer-links a:hover {
+  color: var(--kd-green);
+}
+
+.kd-footer-legal {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--kd-cream);
+  opacity: 0.75;
+}
+
+@media (max-width: 480px) {
+  .kd-header-cta {
+    display: none;
+  }
+  .kd-card {
+    box-shadow: 5px 5px 0 var(--kd-ink);
+  }
+  .kd-viewer {
+    border-radius: 16px;
+    box-shadow: 5px 5px 0 var(--kd-teal);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kd-btn {
+    transition: none;
+  }
+}

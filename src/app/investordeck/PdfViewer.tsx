@@ -91,25 +91,22 @@ export default function PdfViewer({ url, lang }: { url: string; lang: "it" | "en
   }, [url, lang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="rounded-xl border border-card-border bg-bg-darker overflow-hidden">
+    <div className="kd-viewer">
       {state === "loading" && (
-        <div className="flex flex-col items-center justify-center gap-3 py-24 text-text-muted">
+        <div className="kd-viewer-status">
           <Loader2 className="animate-spin" size={28} />
-          <span className="text-sm tabular-nums">
+          <span className="tabular-nums">
             {t.loading} {progress > 0 ? `${progress}%` : ""}
           </span>
         </div>
       )}
       {state === "error" && (
-        <div className="flex items-center justify-center gap-2 py-24 px-6 text-sm text-pink-accent text-center">
-          <AlertCircle size={18} className="shrink-0" />
+        <div className="kd-viewer-status kd-viewer-status--error">
+          <AlertCircle size={22} />
           {t.error}
         </div>
       )}
-      <div
-        ref={containerRef}
-        className={state === "ready" ? "max-h-[80vh] overflow-y-auto [&>canvas+canvas]:mt-2" : "h-0 overflow-hidden"}
-      />
+      <div ref={containerRef} className={state === "ready" ? "kd-pages" : "kd-pages--hidden"} />
     </div>
   );
 }

@@ -1,7 +1,24 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { Poppins, Space_Mono } from "next/font/google";
 import DeckGate from "./DeckGate";
+import { DeckHeader, DeckFooter } from "./DeckChrome";
+import "./deck.css";
+
+// Brand Guidelines v0.1: Poppins for everything, Space Mono only for short
+// uppercase labels. Loaded here so only this page pays for them.
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  weight: ["700"],
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Investor Deck",
@@ -14,16 +31,14 @@ export const metadata: Metadata = {
   },
 };
 
-const footerLinks = [{ label: "Home", href: "/" }];
-
 export default function InvestorDeckPage() {
   return (
-    <>
-      <Navbar inlineCta={{ label: { it: "Scrivici →", en: "Email us →" }, href: "mailto:info@karica.it" }} />
-      <main id="main">
+    <div className={`kd-root ${poppins.variable} ${spaceMono.variable}`}>
+      <DeckHeader />
+      <main id="main" className="kd-main">
         <DeckGate />
       </main>
-      <Footer links={footerLinks} />
-    </>
+      <DeckFooter />
+    </div>
   );
 }
