@@ -68,10 +68,11 @@
 
 .cd-clock {
   display: flex;
-  gap: clamp(0.6rem, 2.4vw, 2.5rem);
+  align-items: stretch;
+  gap: clamp(0.5rem, 2.2vw, 2.5rem);
   color: var(--nd-green);
   font-weight: 800;
-  font-size: clamp(2.4rem, 15.5vw, 15rem);
+  font-size: clamp(2.9rem, 19vw, 17rem);
   line-height: 0.8;
   letter-spacing: 0;
 }
@@ -92,6 +93,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* Rule and label line up along the top, numbers sit on a shared baseline:
+     the smaller units leave air above them. */
+  justify-content: space-between;
   gap: clamp(0.7rem, 1.8vw, 1.6rem);
   border-top: clamp(3px, 0.45vw, 6px) solid var(--nd-cream);
   padding-top: clamp(0.5rem, 1vw, 0.9rem);
@@ -108,6 +112,15 @@
    the three that carry the message. */
 .cd-unit:last-child .cd-num {
   color: var(--nd-cyan);
+}
+
+/* Size hierarchy: days and hours lead, minutes follow, seconds are a detail. */
+.cd-unit:nth-child(3) .cd-num {
+  font-size: 0.62em;
+}
+
+.cd-unit:nth-child(4) .cd-num {
+  font-size: 0.4em;
 }
 
 /* The four messages are stacked in one grid cell: the tallest sets the
