@@ -13,8 +13,7 @@ import {
   Settings2,
   Banknote,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 import { useLang } from "@/lib/i18n";
 
 type Person = {
@@ -401,13 +400,11 @@ function Avatar({ person, size }: { person: Person; size: "lg" | "md" }) {
 export default function WhoWeAreContent() {
   const { lang } = useLang();
   const t = copy[lang];
-  const footerLinks = [{ label: t.footerHome, href: "/" }];
 
   return (
-    <>
-      <Navbar inlineCta={{ label: t.navCta, href: "/contatti" }} />
+    <NidoShell>
 
-      <main id="main" className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-28 pb-20">
+      <main id="main" className="relative min-h-[100svh] overflow-hidden pt-12 sm:pt-16 pb-20">
         {/* Ambient background */}
         <div className="glow-orb absolute top-[10%] left-[10%] w-[500px] h-[500px] rounded-full bg-green-primary/[0.05] blur-[120px]" />
         <div className="glow-orb-slow absolute top-[40%] right-[5%] w-[400px] h-[400px] rounded-full bg-cyan-accent/[0.04] blur-[100px]" />
@@ -802,7 +799,6 @@ export default function WhoWeAreContent() {
         </section>
       </main>
 
-      <Footer links={footerLinks} />
-    </>
+    </NidoShell>
   );
 }

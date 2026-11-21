@@ -324,12 +324,29 @@ body:has(.nido) {
 }
 
 .nido [class*="bg-green-primary/"],
-.nido [class*="bg-cyan-accent/"] {
+.nido [class*="bg-cyan-accent/"],
+.nido [class*="bg-pink-accent/"],
+.nido [class*="bg-bg-darker/"],
+.nido [class*="from-card-bg"] {
+  background-image: none;
   background-color: var(--nd-cream-dark);
 }
 
+.nido [class*="bg-card-bg/"] {
+  background-color: var(--nd-paper);
+}
+
+.nido .bg-card-border {
+  background-color: var(--nd-ink);
+}
+
+.nido [class*="border-card-border/"] {
+  border-color: var(--nd-cream-dark);
+}
+
 .nido [class*="border-green-primary/"],
-.nido [class*="border-cyan-accent/"] {
+.nido [class*="border-cyan-accent/"],
+.nido [class*="border-pink-accent/"] {
   border-color: var(--nd-ink);
 }
 
@@ -402,4 +419,12 @@ body:has(.nido) {
   .nd-btn {
     transition: none;
   }
+}
+
+.nido .bg-cyan-accent {
+  background-color: var(--nd-teal);
+}
+
+.nido .bg-pink-accent {
+  background-color: var(--nd-ink);
 }
