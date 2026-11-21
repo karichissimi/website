@@ -14,7 +14,10 @@ const questrial = Questrial({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://karica.it"),
+  metadataBase: new URL("https://www.karica.it"),
+  // Each page declares its own address as the official one (resolved
+  // against metadataBase and the route path).
+  alternates: { canonical: "./" },
   title: {
     default: "Karica — L'energia di casa tua, finalmente chiara",
     template: "%s | Karica",
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     siteName: "Karica",
-    url: "https://karica.it",
+    url: "./",
     images: [
       {
         url: "/og-image.png",
@@ -62,9 +65,9 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Karica",
   legalName: "Karica S.r.l.",
-  url: "https://karica.it",
-  logo: "https://karica.it/graphics/Karica_Logo_Felice.png",
-  image: "https://karica.it/og-image.png",
+  url: "https://www.karica.it",
+  logo: "https://www.karica.it/graphics/Karica_Logo_Felice.png",
+  image: "https://www.karica.it/og-image.png",
   description:
     "Piattaforma digitale per la transizione energetica: diagnosi, interventi di efficienza, finanziamenti green e Comunità Energetiche Rinnovabili in un unico ecosistema.",
   foundingDate: "2025",
@@ -92,6 +95,15 @@ const organizationSchema = {
   ],
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Karica",
+  url: "https://www.karica.it",
+  inLanguage: "it-IT",
+  publisher: { "@type": "Organization", name: "Karica" },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -103,6 +115,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className="min-h-screen">

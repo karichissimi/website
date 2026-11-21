@@ -1,15 +1,12 @@
 User-agent: *
 Allow: /
 
-# Pagine riservate / link-only (anche se noindex via metadata,
-# le elenchiamo qui per chiarezza ai crawler).
-Disallow: /investiora
-Disallow: /investordeck
-Disallow: /detrazione
-Disallow: /whoweare
-Disallow: /press
+# Le pagine riservate (/investiora, /investordeck, /detrazione, /whoweare,
+# /press) NON sono elencate qui di proposito: portano il meta "noindex", e i
+# motori lo leggono solo se possono aprire la pagina. Un Disallow lo
+# nasconderebbe e l'indirizzo potrebbe comparire comunque nei risultati.
 
 # API
 Disallow: /api/
 
-Sitemap: https://karica.it/sitemap.xml
+Sitemap: https://www.karica.it/sitemap.xml

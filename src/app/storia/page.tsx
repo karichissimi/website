@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     title: "Karica — Perché esistiamo",
     description:
       "Il rapporto tra cittadini e mondo dell'energia è strutturalmente disfunzionale. Karica colma il vuoto.",
+    url: "/storia",
+    type: "website",
+    locale: "it_IT",
+    siteName: "Karica",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Karica" }],
   },
 };
 

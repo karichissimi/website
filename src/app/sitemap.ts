@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://karica.it";
+const BASE = "https://www.karica.it";
 
 // Lista esplicita delle sole pagine pubbliche.
 // Le rotte noindex (/investiora, /investordeck, /detrazione, /whoweare, /press) NON vanno in sitemap.
