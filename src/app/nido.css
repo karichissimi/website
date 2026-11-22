@@ -1,7 +1,7 @@
 /* "Il nido" — Karica Brand Guidelines v0.1 for the public pages.
    Cream paper, night-blue ink, rare green; solid outlines and offset shadows
-   with no blur; Poppins + Space Mono. Scoped under .nido: the reserved pages
-   (/investiora, /detrazione, /whoweare, /press) keep the previous dark theme. */
+   with no blur; Poppins + Space Mono. Scoped under .nido:
+   pages opt in by wrapping themselves in NidoShell. */
 
 body:has(.nido) {
   background-color: #fbf3e5;
@@ -427,4 +427,46 @@ body:has(.nido) {
 
 .nido .bg-pink-accent {
   background-color: var(--nd-ink);
+}
+
+.nd-footer-disclaimer {
+  font-size: 0.68rem;
+  max-width: 60rem;
+}
+
+/* Leftovers of the neon theme inside shared components */
+.nido [class*="bg-gradient-to-"] {
+  background-image: none;
+}
+
+.nido .wordmark-i {
+  animation: none;
+  filter: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.nido .wordmark-leaf {
+  background: currentColor;
+}
+
+.nido .text-shimmer {
+  background: none;
+  animation: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--nd-teal-text);
+}
+
+/* The text wordmark: plain ink, no marker stroke, no neon "i" */
+.nido [role="img"][aria-label="Karica"] {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.nido [role="img"][aria-label="Karica"] > .text-gradient {
+  background: none;
+  padding: 0;
+}
+
+.nido [role="img"][aria-label="Karica"] .wordmark-i {
+  color: inherit;
 }

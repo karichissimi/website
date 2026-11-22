@@ -266,17 +266,11 @@ export default function StoriaContent() {
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-4">
             {t.teamP1}
           </p>
-          <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-8">
+          <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
             {t.teamP2}
           </p>
-
-          <Link
-            href="/whoweare"
-            className="btn-press inline-flex items-center gap-2 border border-card-border text-text-primary font-semibold px-5 py-3 rounded-lg text-sm hover:border-green-primary/50 hover:text-green-primary transition-all"
-          >
-            {t.teamCta}
-            <ArrowUpRight size={16} />
-          </Link>
+          {/* No link to /whoweare: the team page is reserved (link-only) and
+              must not be reachable from the public pages. */}
         </div>
       </section>
 

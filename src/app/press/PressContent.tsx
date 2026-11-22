@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { Download, Mail, ArrowUpRight } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
 type LocalisedAsset = {
@@ -363,15 +362,6 @@ export default function PressContent() {
             ))}
           </div>
 
-          <div className="mt-8 text-center sm:text-left">
-            <Link
-              href="/whoweare"
-              className="btn-press-soft inline-flex items-center gap-2 text-cyan-accent text-sm font-semibold hover:text-cyan-accent/80 transition-colors"
-            >
-              {t.teamCta}
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
         </div>
       </section>
 

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 import PressContent from "./PressContent";
 
 export const metadata: Metadata = {
@@ -15,14 +14,10 @@ export const metadata: Metadata = {
   },
 };
 
-const footerLinks = [{ label: "Home", href: "/" }];
-
 export default function PressPage() {
   return (
-    <>
-      <Navbar inlineCta={{ label: { it: "Scrivici →", en: "Email us →" }, href: "mailto:info@karica.it" }} />
+    <NidoShell showStory={false} cta={{ label: { it: "Scrivici", en: "Email us" }, href: "mailto:info@karica.it" }}>
       <PressContent />
-      <Footer links={footerLinks} />
-    </>
+    </NidoShell>
   );
 }

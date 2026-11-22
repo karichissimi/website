@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/funding/Hero";
 import Teaser from "@/components/funding/Teaser";
 import Ecosistema from "@/components/home/Ecosistema";
 import CTA from "@/components/funding/CTA";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 
 export const metadata: Metadata = {
   title: "Karica — Investi nella transizione energetica",
@@ -18,30 +17,19 @@ export const metadata: Metadata = {
   },
 };
 
-const navLinks = [
-  { label: { it: "Contatti", en: "Contact" }, href: "/contatti", highlight: true },
-];
-
-const footerLinks = [
-  { label: { it: "Opportunità", en: "Opportunity" }, href: "#opportunita" },
-  { label: { it: "Ecosistema", en: "Ecosystem" }, href: "#ecosistema" },
-  { label: "Home", href: "/" },
-];
-
 export default function InvestioraPage() {
   return (
-    <>
-      <Navbar
-        links={navLinks}
-        cta={{ label: { it: "Investi ora", en: "Invest now" }, href: "#cta" }}
-      />
+    <NidoShell
+      showStory={false}
+      disclaimer
+      cta={{ label: { it: "Investi ora", en: "Invest now" }, href: "#cta" }}
+    >
       <main id="main">
         <Hero />
         <Teaser />
         <Ecosistema />
         <CTA />
       </main>
-      <Footer links={footerLinks} showDisclaimer />
-    </>
+    </NidoShell>
   );
 }

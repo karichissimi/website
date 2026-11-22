@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import NidoShell from "@/components/nido/NidoShell";
 import DetrazioneContent from "./DetrazioneContent";
 import DetrazioneForm from "./DetrazioneForm";
 
@@ -17,17 +16,13 @@ export const metadata: Metadata = {
   },
 };
 
-const footerLinks = [{ label: "Home", href: "/" }];
-
 export default function DetrazionePage() {
   return (
-    <>
-      <Navbar
-        inlineCta={{
-          label: { it: "Sono interessato →", en: "I'm interested →" },
-          href: "#cta",
-        }}
-      />
+    <NidoShell
+      showStory={false}
+      disclaimer
+      cta={{ label: { it: "Sono interessato", en: "I'm interested" }, href: "#cta" }}
+    >
 
       <main id="main" className="relative overflow-hidden">
         <DetrazioneContent />
@@ -37,8 +32,6 @@ export default function DetrazionePage() {
           <DetrazioneForm />
         </Suspense>
       </main>
-
-      <Footer links={footerLinks} showDisclaimer />
-    </>
+    </NidoShell>
   );
 }

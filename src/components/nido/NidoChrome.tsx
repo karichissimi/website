@@ -13,6 +13,8 @@ const COPY = {
     legal: "Note legali",
     company: (year: number) =>
       `© ${year} Karica S.r.l. — Via Vallarsa 11, Milano — P.IVA 14470800963 — Startup Innovativa`,
+    disclaimer:
+      "Le proiezioni finanziarie rappresentano stime basate su assunzioni ragionevoli ma non garantite. I rendimenti passati o previsti non costituiscono garanzia di risultati futuri. Si invitano gli investitori a consultare i propri consulenti finanziari e legali.",
   },
   en: {
     story: "Story",
@@ -21,6 +23,8 @@ const COPY = {
     legal: "Legal notes",
     company: (year: number) =>
       `© ${year} Karica S.r.l. — Via Vallarsa 11, Milan — VAT 14470800963 — Innovative Startup`,
+    disclaimer:
+      "Financial projections are estimates based on reasonable but unguaranteed assumptions. Past or expected returns are not a guarantee of future results. Investors are advised to consult their own financial and legal advisors.",
   },
 } as const;
 
@@ -46,9 +50,12 @@ export function NidoLang() {
   );
 }
 
-export function NidoHeader() {
+export type NidoCta = { label: { it: string; en: string }; href: string };
+
+export function NidoHeader({ cta, showStory = true }: { cta?: NidoCta; showStory?: boolean }) {
   const { lang } = useLang();
   const t = COPY[lang];
+  const ctaClass = "nd-btn nd-btn--small nd-header-cta";
   return (
     <header className="nd-header">
       <Link href="/" className="nd-logo">
@@ -63,19 +70,31 @@ export function NidoHeader() {
         karica
       </Link>
       <div className="nd-header-actions">
-        <Link href="/storia" className="nd-navlink">
-          {t.story}
-        </Link>
+        {showStory && (
+          <Link href="/storia" className="nd-navlink">
+            {t.story}
+          </Link>
+        )}
         <NidoLang />
-        <Link href="/contatti" className="nd-btn nd-btn--small nd-header-cta">
-          {t.contact}
-        </Link>
+        {!cta ? (
+          <Link href="/contatti" className={ctaClass}>
+            {t.contact}
+          </Link>
+        ) : cta.href.startsWith("/") ? (
+          <Link href={cta.href} className={ctaClass}>
+            {cta.label[lang]}
+          </Link>
+        ) : (
+          <a href={cta.href} className={ctaClass}>
+            {cta.label[lang]}
+          </a>
+        )}
       </div>
     </header>
   );
 }
 
-export function NidoFooter() {
+export function NidoFooter({ disclaimer = false }: { disclaimer?: boolean }) {
   const { lang } = useLang();
   const t = COPY[lang];
   return (
@@ -93,6 +112,7 @@ export function NidoFooter() {
           <Link href="/note-legali">{t.legal}</Link>
         </nav>
         <p className="nd-footer-legal">{t.company(new Date().getFullYear())}</p>
+        {disclaimer && <p className="nd-footer-legal nd-footer-disclaimer">{t.disclaimer}</p>}
       </div>
     </footer>
   );
