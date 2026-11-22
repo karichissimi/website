@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   // against metadataBase and the route path).
   alternates: { canonical: "./" },
   title: {
-    default: "Karica — L'energia di casa tua, finalmente chiara",
+    default: "Karica — Il tuo consulente energetico digitale",
     template: "%s | Karica",
   },
   description:
@@ -34,28 +34,28 @@ export const metadata: Metadata = {
   },
   manifest: "/graphics/favicon/site.webmanifest",
   openGraph: {
-    title: "Karica — L'energia di casa tua, finalmente chiara",
+    title: "Karica — Il tuo consulente energetico digitale",
     description:
-      "La piattaforma digitale che semplifica l'accesso all'energia pulita per famiglie, condomini e imprese.",
+      "Incentivi, finanziamento ed esecuzione dei lavori in un unico percorso digitale, anche senza anticipo.",
     type: "website",
     locale: "it_IT",
     siteName: "Karica",
     url: "./",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-karica.png",
         width: 1200,
         height: 630,
-        alt: "Karica — la piattaforma della transizione energetica",
+        alt: "Karica — il tuo consulente energetico digitale",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Karica — L'energia di casa tua, finalmente chiara",
+    title: "Karica — Il tuo consulente energetico digitale",
     description:
-      "La piattaforma digitale che semplifica l'accesso all'energia pulita per famiglie, condomini e imprese.",
-    images: ["/og-image.png"],
+      "Incentivi, finanziamento ed esecuzione dei lavori in un unico percorso digitale, anche senza anticipo.",
+    images: ["/og-karica.png"],
   },
 };
 
@@ -67,7 +67,7 @@ const organizationSchema = {
   legalName: "Karica S.r.l.",
   url: "https://www.karica.it",
   logo: "https://www.karica.it/graphics/Karica_Logo_Felice.png",
-  image: "https://www.karica.it/og-image.png",
+  image: "https://www.karica.it/og-karica.png",
   description:
     "Piattaforma digitale per la transizione energetica: diagnosi, interventi di efficienza, finanziamenti green e Comunità Energetiche Rinnovabili in un unico ecosistema.",
   foundingDate: "2025",

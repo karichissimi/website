@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     siteName: "Karica",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Karica" }],
+    images: [{ url: "/og-karica.png", width: 1200, height: 630, alt: "Karica" }],
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-image.png"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-karica.png"] },
 };
 
 const faqSchema = {

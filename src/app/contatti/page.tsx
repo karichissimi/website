@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "it_IT",
     siteName: "Karica",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Karica" }],
+    images: [{ url: "/og-karica.png", width: 1200, height: 630, alt: "Karica" }],
   },
 };
 

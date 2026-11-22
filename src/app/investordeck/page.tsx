@@ -23,6 +23,23 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Investor Deck",
   description: "Area riservata — investor deck Karica.",
+  // Link preview (WhatsApp, LinkedIn, mail): the deck's own card, not the
+  // generic site one.
+  openGraph: {
+    title: "Karica — Investor Deck",
+    description: "Area riservata agli investitori. Per aprire il deck serve la password.",
+    url: "/investordeck",
+    type: "website",
+    locale: "it_IT",
+    siteName: "Karica",
+    images: [{ url: "/og-investor-deck.png", width: 1200, height: 630, alt: "Karica — Investor Deck" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Karica — Investor Deck",
+    description: "Area riservata agli investitori. Per aprire il deck serve la password.",
+    images: ["/og-investor-deck.png"],
+  },
   robots: {
     index: false,
     follow: false,
